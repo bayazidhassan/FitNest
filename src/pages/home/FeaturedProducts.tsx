@@ -45,7 +45,7 @@ const FeaturedProducts = () => {
 
             {/* Product Info */}
             <div className="p-4 flex flex-col flex-1">
-              <h2 className="text-gray-800 font-semibold text-lg mb-2 line-clamp-2">
+              <h2 className="text-center text-gray-600 font-medium mb-2 line-clamp-2">
                 {product.name}
               </h2>
 
