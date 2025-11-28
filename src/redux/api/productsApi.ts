@@ -1,16 +1,8 @@
-import type { TProduct } from "../../types/TProduct";
+import type {
+  GetProductResponse,
+  GetProductsResponse,
+} from "../../types/TProduct";
 import { baseApi } from "./BaseApi";
-
-interface GetProductsResponse {
-  success: boolean;
-  message: string;
-  data: TProduct[];
-}
-interface GetProductResponse {
-  success: boolean;
-  message: string;
-  data: TProduct;
-}
 
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

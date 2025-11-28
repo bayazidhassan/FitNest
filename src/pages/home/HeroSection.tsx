@@ -1,5 +1,5 @@
-import "swiper/css";
-import "swiper/css/pagination";
+import "swiper/css"; //check global.d.ts file
+import "swiper/css/pagination"; //check global.d.ts file
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -29,7 +29,8 @@ const HeroSection = () => {
             >
               <div className="w-full h-full bg-black/40 flex flex-col justify-center items-center">
                 <h1 className="text-white text-center text-4xl md:text-6xl font-bold drop-shadow-lg">
-                 <span className="text-[#0D9488]">FitNest</span> — Your Fitness Partner
+                  <span className="text-[#0D9488]">FitNest</span> — Your Fitness
+                  Partner
                 </h1>
                 <p className="text-white text-center text-lg md:text-2xl mt-4">
                   Best Gym Equipment & Accessories in Bangladesh

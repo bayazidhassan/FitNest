@@ -8,3 +8,15 @@ export type TProduct = {
   images: string[];
   isDeleted: boolean;
 };
+
+export interface GetProductsResponse {
+  success: boolean;
+  message: string;
+  data: TProduct[];
+}
+
+export interface GetProductResponse {
+  success: boolean;
+  message: string;
+  data: TProduct;
+}
