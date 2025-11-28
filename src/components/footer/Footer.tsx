@@ -40,7 +40,7 @@ const Footer = () => {
         {/* Contact / Social */}
         <div className="flex flex-col space-y-2">
           <h3 className="text-[#F97316] font-semibold mb-2">Contact Us</h3>
-          <p className="text-gray-300">Email: info@fitnest.com</p>
+          <p className="text-gray-300">Email: support@fitnest.com</p>
           <p className="text-gray-300">Phone: +123 456 7890</p>
           <div className="flex space-x-4 mt-2">
             <a href="#" className="hover:text-[#0D9488]">
