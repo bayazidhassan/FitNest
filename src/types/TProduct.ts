@@ -9,14 +9,19 @@ export type TProduct = {
   isDeleted: boolean;
 };
 
-export interface GetProductsResponse {
+export type TProductCategories = {
+  _id: string;
+  category: string;
+};
+
+export type GetProductsResponse = {
   success: boolean;
   message: string;
   data: TProduct[];
-}
+};
 
-export interface GetProductResponse {
+export type GetProductResponse = {
   success: boolean;
   message: string;
   data: TProduct;
-}
+};
