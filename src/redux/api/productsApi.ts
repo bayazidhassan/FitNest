@@ -1,4 +1,5 @@
 import type {
+  GetCategoriesResponse,
   GetProductResponse,
   GetProductsResponse,
 } from "../../types/TProduct";
@@ -18,7 +19,17 @@ const productsApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getAllCategories: builder.query<GetCategoriesResponse, void>({
+      query: () => ({
+        url: "/products/categories",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllProductsQuery, useGetAProductQuery } = productsApi;
+export const {
+  useGetAllProductsQuery,
+  useGetAProductQuery,
+  useGetAllCategoriesQuery,
+} = productsApi;

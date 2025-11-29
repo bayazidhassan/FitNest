@@ -9,11 +9,6 @@ export type TProduct = {
   isDeleted: boolean;
 };
 
-export type TProductCategories = {
-  _id: string;
-  category: string;
-};
-
 export type GetProductsResponse = {
   success: boolean;
   message: string;
@@ -24,4 +19,10 @@ export type GetProductResponse = {
   success: boolean;
   message: string;
   data: TProduct;
+};
+
+export type GetCategoriesResponse = {
+  success: boolean;
+  message: string;
+  data: string[];
 };
