@@ -23,7 +23,7 @@ const CategoriesSection = () => {
               alt={category.category}
               className="w-20 h-20 object-contain mb-2"
             />
-            <span className="text-center text-gray-700  font-semibold">
+            <span className="text-center text-gray-700 font-semibold">
               {category.category}
             </span>
           </Link>

@@ -8,10 +8,6 @@ import {
 } from "../../redux/api/productsApi";
 import type { TProduct } from "../../types/TProduct";
 
-function valuetext(value: number) {
-  return `৳${value}`;
-}
-
 const Products = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -55,7 +51,7 @@ const Products = () => {
     }
   }, [products]);
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
+  const handleChange = (_event: Event, newValue: number | number[]) => {
     if (Array.isArray(newValue)) setValue(newValue);
   };
 
@@ -111,7 +107,7 @@ const Products = () => {
     );
 
   return (
-    <div className="pt-16 px-6 pb-10 max-w-7xl mx-auto">
+    <div className="py-10 px-6 max-w-7xl mx-auto">
       {/* Row 1: Title + Search */}
       <div className="md:flex justify-between items-center mb-10">
         <h1 className="text-3xl font-bold text-[#0D9488]">Our Products</h1>
@@ -131,7 +127,7 @@ const Products = () => {
           {/* Price Slider */}
           <div className="bg-white p-4 rounded shadow mb-6">
             <span className="font-semibold text-gray-700">Price Range:</span>
-            <Box sx={{ width: "93%", ml: 1.3 }}>
+            <Box sx={{ width: "91%", ml: 1.3 }}>
               <Slider
                 getAriaLabel={() => "Price range"}
                 value={value}
@@ -139,7 +135,7 @@ const Products = () => {
                 max={maxPrice}
                 onChange={handleChange}
                 valueLabelDisplay="auto"
-                getAriaValueText={valuetext}
+                getAriaValueText={(val: number) => `৳${val}`}
               />
               <div className="text-sm mt-1">
                 Min: ৳{value[0]} | Max: ৳{value[1]}
@@ -181,7 +177,7 @@ const Products = () => {
         {/* Right Products Grid */}
         <div className="w-full md:w-4/5">
           {/* Controls: Items per page + Sorting */}
-          <div className="flex justify-between mb-4">
+          <div className="flex flex-col md:flex-row md:justify-between mb-4 mt-4 md:mt-0 gap-2 md:gap-0">
             <div className="flex items-center gap-2">
               <label className="text-sm font-semibold">Show:</label>
               <select
