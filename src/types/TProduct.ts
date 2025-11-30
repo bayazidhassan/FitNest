@@ -24,5 +24,8 @@ export type GetProductResponse = {
 export type GetCategoriesResponse = {
   success: boolean;
   message: string;
-  data: string[];
+  data: {
+    category: string;
+    image?: string;
+  }[];
 };

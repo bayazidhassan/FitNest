@@ -42,7 +42,7 @@ const HeroSection = () => {
             <div className="relative w-full h-full">
               {/* Background Image */}
               <div
-                className="absolute inset-0 bg-cover bg-center opacity-80"
+                className="absolute inset-0 bg-cover bg-center opacity-90"
                 style={{ backgroundImage: `url(${img})` }}
               ></div>
 
