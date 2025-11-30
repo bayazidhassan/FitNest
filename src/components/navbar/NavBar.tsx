@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "/src/assets/images/FitNest_Logo.png";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [role, setRole] = useState<"admin" | "user">("admin");
+  //const [role, setRole] = useState<"admin" | "user">("admin");
+
+  const role = "admin";
 
   return (
     <nav className="bg-[#0F172A] px-6 py-4 fixed top-0 left-0 w-full z-50">
@@ -13,7 +14,7 @@ const NavBar = () => {
         {/* Logo + Website Name linking to Home */}
         <div className="flex items-center space-x-2">
           <Link to="/" className="flex items-center space-x-2">
-            <img src={logo} alt="Logo" className="w-14 h-14 rounded-full" />
+            <img src={"https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"} alt="Logo" className="w-14 h-14 rounded-full" />
             <span className="text-[#0D9488] font-bold text-2xl">FitNest</span>
           </Link>
         </div>
