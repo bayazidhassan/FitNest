@@ -8,6 +8,7 @@ import ProductDetails from "../pages/products/ProductDetails";
 import ProductManagement from "../pages/products/ProductManagement";
 import Products from "../pages/products/Products";
 import ProtectedRouteForProductManagement from "../pages/products/ProtectedRouteForProductManagement";
+import Register from "../pages/Register";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     Component: Login,
+  },
+  {
+    path: "/register",
+    Component: Register,
   },
 ]);
 
