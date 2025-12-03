@@ -31,7 +31,7 @@ const Register = () => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Password doesn't match!");
       return;
     }
 
@@ -66,9 +66,18 @@ const Register = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <Toaster position="top-right" />
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-4xl">
-        <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">
-          Register
-        </h2>
+        <div className="flex justify-between">
+          <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">
+            Register
+          </h2>
+          <Link to="/">
+            <img
+              src={"https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"}
+              alt="Logo"
+              className="w-10 h-10 rounded-full"
+            />
+          </Link>
+        </div>
 
         <form
           onSubmit={handleRegister}
@@ -206,7 +215,7 @@ const Register = () => {
           </div>
 
           {/* SUBMIT BUTTON */}
-          <div className="col-span-2 mt-6">
+          <div className="col-span-2">
             <button
               type="submit"
               disabled={isLoading}
@@ -224,14 +233,6 @@ const Register = () => {
             className="text-[#0D9488] cursor-pointer hover:underline"
           >
             Login
-          </Link>
-          <Link to="/" className="mt-2 flex justify-center space-x-2">
-            <img
-              src={"https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"}
-              alt="Logo"
-              className="w-5 h-5 rounded-full"
-            />
-            <span className="text-[#0D9488] font-bold">FitNest</span>
           </Link>
         </p>
       </div>

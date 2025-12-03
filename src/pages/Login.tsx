@@ -1,22 +1,53 @@
 import { useState, type FormEvent } from "react";
-import { Link } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginUserMutation } from "../redux/api/auth/authApi";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e: FormEvent) => {
+  const [login] = useLoginUserMutation();
+  const navigate = useNavigate();
+
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    const loginInfo = {
+      email,
+      password,
+    };
+
+    try {
+      await login(loginInfo).unwrap();
+      toast.success("Login successful!");
+
+      setTimeout(() => {
+        navigate("/products");
+      }, 2000);
+    } catch (err: any) {
+      console.log(err);
+      toast.error(err?.data?.message || "Login failed!");
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <Toaster position="top-center" />
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-sm">
-        <h2 className="text-2xl font-bold text-center text-[#0D9488] mb-4">
-          Login
-        </h2>
+        <div className="flex justify-between">
+          <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">
+            Login
+          </h2>
+          <Link to="/">
+            <img
+              src={"https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"}
+              alt="Logo"
+              className="w-10 h-10 rounded-full"
+            />
+          </Link>
+        </div>
+
         <form onSubmit={handleLogin} className="space-y-4">
           {/* Email */}
           <div>
@@ -65,14 +96,6 @@ const Login = () => {
             className="text-[#0D9488] cursor-pointer hover:underline"
           >
             Register
-          </Link>
-          <Link to="/" className="mt-2 flex justify-center space-x-2">
-            <img
-              src={"https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"}
-              alt="Logo"
-              className="w-5 h-5 rounded-full"
-            />
-            <span className="text-[#0D9488] font-bold">FitNest</span>
           </Link>
         </p>
       </div>
