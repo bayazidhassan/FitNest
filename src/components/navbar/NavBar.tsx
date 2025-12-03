@@ -1,11 +1,19 @@
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../redux/hook";
 
 const NavBar = () => {
+  const user = useAppSelector((state) => state.auth);
+
   const [isOpen, setIsOpen] = useState(false);
 
   //const [role, setRole] = useState<"admin" | "user">("admin");
-
   const role = "admin";
 
   return (
@@ -14,7 +22,11 @@ const NavBar = () => {
         {/* Logo + Website Name linking to Home */}
         <div className="flex items-center space-x-2">
           <Link to="/" className="flex items-center space-x-2">
-            <img src={"https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"} alt="Logo" className="w-14 h-14 rounded-full" />
+            <img
+              src={"https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"}
+              alt="Logo"
+              className="w-14 h-14 rounded-full"
+            />
             <span className="text-[#0D9488] font-bold text-2xl">FitNest</span>
           </Link>
         </div>
@@ -41,6 +53,21 @@ const NavBar = () => {
           <Link to="/login" className="text-white hover:text-[#F97316]">
             Login
           </Link>
+          {user.name && (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <img
+                  src={user.image as string}
+                  className="w-8 h-8 rounded-full"
+                />
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent className="w-40">
+                <DropdownMenuItem>{user.name}</DropdownMenuItem>
+                <DropdownMenuItem>Logout</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
 
         {/* Mobile Hamburger */}

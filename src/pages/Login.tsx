@@ -2,13 +2,16 @@ import { useState, type FormEvent } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../redux/api/auth/authApi";
+import { setUser } from "../redux/features/auth/authSlice";
+import { useAppDispatch } from "../redux/hook";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const [login] = useLoginUserMutation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
@@ -19,7 +22,14 @@ const Login = () => {
     };
 
     try {
-      await login(loginInfo).unwrap();
+      const user = await login(loginInfo).unwrap();
+      const userInfo = {
+        name: `${user.data.name.firstName} ${user.data.name.lastName}`,
+        email: user.data.email,
+        image: user.data.image,
+      };
+      console.log(userInfo);
+      dispatch(setUser(userInfo));
       toast.success("Login successful!");
 
       setTimeout(() => {
