@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useGetAProductQuery } from "../../redux/api/productsApi";
+import { useGetAProductQuery } from "../../redux/api/products/productsApi";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();

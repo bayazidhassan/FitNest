@@ -225,6 +225,14 @@ const Register = () => {
           >
             Login
           </Link>
+          <Link to="/" className="mt-2 flex justify-center space-x-2">
+            <img
+              src={"https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"}
+              alt="Logo"
+              className="w-5 h-5 rounded-full"
+            />
+            <span className="text-[#0D9488] font-bold">FitNest</span>
+          </Link>
         </p>
       </div>
     </div>

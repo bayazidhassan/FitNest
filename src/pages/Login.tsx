@@ -17,7 +17,6 @@ const Login = () => {
         <h2 className="text-2xl font-bold text-center text-[#0D9488] mb-4">
           Login
         </h2>
-
         <form onSubmit={handleLogin} className="space-y-4">
           {/* Email */}
           <div>
@@ -66,6 +65,14 @@ const Login = () => {
             className="text-[#0D9488] cursor-pointer hover:underline"
           >
             Register
+          </Link>
+          <Link to="/" className="mt-2 flex justify-center space-x-2">
+            <img
+              src={"https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"}
+              alt="Logo"
+              className="w-5 h-5 rounded-full"
+            />
+            <span className="text-[#0D9488] font-bold">FitNest</span>
           </Link>
         </p>
       </div>

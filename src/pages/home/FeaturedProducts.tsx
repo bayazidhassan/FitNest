@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { useGetFeaturedProductsQuery } from "../../redux/api/featuredProductsApi";
 import type { TProduct } from "../../types/TProduct";
+import { useGetFeaturedProductsQuery } from "../../redux/api/products/featuredProductsApi";
 
 const FeaturedProducts = () => {
   //const { data: response, isLoading, error } = useGetFeaturedProductsQuery();

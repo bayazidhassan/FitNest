@@ -2,8 +2,8 @@ import type {
   GetCategoriesResponse,
   GetProductResponse,
   GetProductsResponse,
-} from "../../types/TProduct";
-import { baseApi } from "./BaseApi";
+} from "../../../types/TProduct";
+import { baseApi } from "../BaseApi";
 
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

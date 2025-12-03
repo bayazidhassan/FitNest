@@ -2,11 +2,9 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import {
-  useGetAllCategoriesQuery,
-  useGetAllProductsQuery,
-} from "../../redux/api/productsApi";
+
 import type { TProduct } from "../../types/TProduct";
+import { useGetAllCategoriesQuery, useGetAllProductsQuery } from "../../redux/api/products/productsApi";
 
 const Products = () => {
   const location = useLocation();

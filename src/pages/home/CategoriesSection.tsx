@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { useGetAllCategoriesQuery } from "../../redux/api/productsApi";
+import { useGetAllCategoriesQuery } from "../../redux/api/products/productsApi";
+
 
 const CategoriesSection = () => {
   const { data: categoryResponse } = useGetAllCategoriesQuery();
