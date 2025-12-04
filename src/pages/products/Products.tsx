@@ -107,7 +107,7 @@ const Products = () => {
   return (
     <div className="py-10 px-6 max-w-7xl mx-auto">
       {/* Row 1: Title + Search */}
-      <div className="md:flex justify-between items-center mb-10">
+      <div className="md:flex justify-between items-center mb-5">
         <h1 className="text-3xl font-bold text-[#0D9488]">Our Products</h1>
         <input
           type="text"
@@ -223,7 +223,7 @@ const Products = () => {
                 key={product._id}
                 className="bg-white p-4 rounded shadow flex flex-col"
               >
-                <div className="w-full h-48 overflow-hidden rounded">
+                <div className="w-full aspect-w-1 aspect-h-1 sm:aspect-h-1 md:aspect-h-1 lg:aspect-h-1 overflow-hidden rounded">
                   <img
                     src={product.images[0]}
                     alt={product.name}
