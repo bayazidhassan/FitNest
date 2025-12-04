@@ -26,16 +26,16 @@ const Login = () => {
       const userInfo = {
         name: `${user.data.name.firstName} ${user.data.name.lastName}`,
         email: user.data.email,
+        role: user.data.role,
         image: user.data.image,
       };
       dispatch(setUser(userInfo));
       toast.success("Login successful!");
 
       setTimeout(() => {
-        navigate("/products");
-      }, 1000);
+        navigate("/");
+      }, 2000);
     } catch (err: any) {
-      console.log(err);
       toast.error(err?.data?.message || "Login failed!");
     }
   };

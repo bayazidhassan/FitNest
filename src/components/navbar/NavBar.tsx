@@ -6,15 +6,20 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../../redux/hook";
+import { logout } from "../../redux/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { persistor } from "../../redux/store";
 
 const NavBar = () => {
   const user = useAppSelector((state) => state.auth);
-
+  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
-  //const [role, setRole] = useState<"admin" | "user">("admin");
-  const role = "admin";
+  const handleLogout = () => {
+    dispatch(logout()); // Clear auth state
+    persistor.purge(); // Clear persisted storage
+    window.location.href = "/login"; // Redirect to login page
+  };
 
   return (
     <nav className="bg-[#0F172A] px-6 py-4 fixed top-0 left-0 w-full z-50">
@@ -36,7 +41,7 @@ const NavBar = () => {
           <Link to="/products" className="text-white hover:text-[#F97316]">
             Products
           </Link>
-          {role === "admin" && (
+          {user.role === "admin" && (
             <Link
               to="/productManagement"
               className="text-white hover:text-[#F97316]"
@@ -64,7 +69,12 @@ const NavBar = () => {
 
               <DropdownMenuContent className="w-40">
                 <DropdownMenuItem>{user.name}</DropdownMenuItem>
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  className="cursor-pointer text-red-500"
+                >
+                  Logout
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}
@@ -115,7 +125,7 @@ const NavBar = () => {
           <Link to="/products" className="text-white hover:text-[#F97316]">
             Products
           </Link>
-          {role === "admin" && (
+          {user.role === "admin" && (
             <Link
               to="/productManagement"
               className="text-white hover:text-[#F97316]"
