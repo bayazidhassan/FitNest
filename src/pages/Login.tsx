@@ -28,13 +28,12 @@ const Login = () => {
         email: user.data.email,
         image: user.data.image,
       };
-      console.log(userInfo);
       dispatch(setUser(userInfo));
       toast.success("Login successful!");
 
       setTimeout(() => {
         navigate("/products");
-      }, 2000);
+      }, 1000);
     } catch (err: any) {
       console.log(err);
       toast.error(err?.data?.message || "Login failed!");

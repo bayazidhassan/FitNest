@@ -1,19 +1,51 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "./api/BaseApi";
 import authReducer from "./features/auth/authSlice";
 
-export const store = configureStore({
-  reducer: {
-    //RTK Query
-    [baseApi.reducerPath]: baseApi.reducer,
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  persistReducer,
+  persistStore,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from "redux-persist";
 
-    //reducer
-    auth: authReducer,
-  },
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+
+const rootReducer = combineReducers({
+  //RTK Query
+  [baseApi.reducerPath]: baseApi.reducer,
+
+  //reducers
+  auth: authReducer,
+  //other reducers-> products: productsReducer
+});
+
+// Persist config: persist only `auth` slice
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["auth"], // only auth will be persisted
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
 
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(baseApi.middleware),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(baseApi.middleware),
 });
+
+// create persistor for PersistGate and to purge on logout if needed
+export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
