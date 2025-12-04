@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../redux/api/auth/authApi";
 import { setUser } from "../redux/features/auth/authSlice";
 import { useAppDispatch } from "../redux/hook";
@@ -8,6 +8,7 @@ import { useAppDispatch } from "../redux/hook";
 const Login = () => {
   const [login] = useLoginUserMutation();
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState("");
@@ -32,8 +33,10 @@ const Login = () => {
       dispatch(setUser(userInfo));
       toast.success("Login successful!");
 
+      const redirectPath = location.state?.from || "/";
+
       setTimeout(() => {
-        navigate("/");
+        navigate(redirectPath, { replace: true });
       }, 2000);
     } catch (err: any) {
       toast.error(err?.data?.message || "Login failed!");
