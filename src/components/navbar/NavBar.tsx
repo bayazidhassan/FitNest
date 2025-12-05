@@ -4,6 +4,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ShoppingCartIcon } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../../redux/features/auth/authSlice";
@@ -14,6 +15,8 @@ const NavBar = () => {
   const user = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const number_of_products = 10;
 
   const handleLogout = () => {
     dispatch(logout());
@@ -47,8 +50,15 @@ const NavBar = () => {
               Product Management
             </Link>
           )}
-          <Link to="/cart" className="text-white hover:text-[#F97316]">
-            Cart
+          <Link
+            to="/cart"
+            className="relative inline-block text-white hover:text-[#F97316]"
+          >
+            <ShoppingCartIcon className="w-6 h-6" />
+
+            <span className="absolute -top-2 -right-2 bg-red-400 text-white text-xs w-5 h-5 font-semibold flex items-center justify-center rounded-full">
+              {number_of_products}
+            </span>
           </Link>
           <Link to="/aboutUs" className="text-white hover:text-[#F97316]">
             About Us
@@ -133,44 +143,34 @@ const NavBar = () => {
                 asChild
                 className="text-white hover:text-[#F97316]"
               >
-                <Link to="/products">
-                  Products
-                </Link>
+                <Link to="/products">Products</Link>
               </DropdownMenuItem>
               {user.role === "admin" && (
                 <DropdownMenuItem
                   asChild
                   className="text-white hover:text-[#F97316]"
                 >
-                  <Link to="/productManagement">
-                    Product Management
-                  </Link>
+                  <Link to="/productManagement">Product Management</Link>
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem
                 asChild
                 className="text-white hover:text-[#F97316]"
               >
-                <Link to="/cart">
-                  Cart
-                </Link>
+                <Link to="/cart">Cart</Link>
               </DropdownMenuItem>
               <DropdownMenuItem
                 asChild
                 className="text-white hover:text-[#F97316]"
               >
-                <Link to="/aboutUs">
-                  About Us
-                </Link>
+                <Link to="/aboutUs">About Us</Link>
               </DropdownMenuItem>
               {!user.name ? (
                 <DropdownMenuItem
                   asChild
                   className="text-white hover:text-[#F97316]"
                 >
-                  <Link to="/login">
-                    Login
-                  </Link>
+                  <Link to="/login">Login</Link>
                 </DropdownMenuItem>
               ) : (
                 <DropdownMenuItem
