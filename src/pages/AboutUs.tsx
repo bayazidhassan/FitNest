@@ -51,7 +51,7 @@ const AboutUs = () => {
           {/* Member 1 */}
           <div className="bg-white p-6 rounded-lg shadow text-center">
             <img
-              src="https://i.ibb.co.com/mq2GQwW/20181002-135522.jpg"
+              src="https://i.ibb.co.com/jVxbGmt/profile-pic.jpg"
               alt="Team Member 1"
               className="w-32 h-32 rounded-full mx-auto object-cover mb-4"
             />
@@ -85,7 +85,7 @@ const AboutUs = () => {
           {/* Member 3 */}
           <div className="bg-white p-6 rounded-lg shadow text-center">
             <img
-              src="https://i.ibb.co.com/Bf5wSJJ/Bayazid.png"
+              src="https://i.ibb.co.com/jVxbGmt/profile-pic.jpg"
               alt="Team Member 3"
               className="w-32 h-32 rounded-full mx-auto object-cover mb-4"
             />

@@ -21,17 +21,11 @@ const NavBar = () => {
     window.location.href = "/login";
   };
 
-  const handleCloseMobileMenu = () => setIsMobileMenuOpen(false);
-
   return (
     <nav className="bg-[#0F172A] px-6 py-4 fixed top-0 left-0 w-full z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
-        <Link
-          to="/"
-          className="flex items-center space-x-2 text-white"
-          onClick={handleCloseMobileMenu}
-        >
+        <Link to="/" className="flex items-center space-x-2 text-white">
           <img
             src="https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"
             alt="Logo"
@@ -139,7 +133,7 @@ const NavBar = () => {
                 asChild
                 className="text-white hover:text-[#F97316]"
               >
-                <Link to="/products" onClick={handleCloseMobileMenu}>
+                <Link to="/products">
                   Products
                 </Link>
               </DropdownMenuItem>
@@ -148,7 +142,7 @@ const NavBar = () => {
                   asChild
                   className="text-white hover:text-[#F97316]"
                 >
-                  <Link to="/productManagement" onClick={handleCloseMobileMenu}>
+                  <Link to="/productManagement">
                     Product Management
                   </Link>
                 </DropdownMenuItem>
@@ -157,7 +151,7 @@ const NavBar = () => {
                 asChild
                 className="text-white hover:text-[#F97316]"
               >
-                <Link to="/cart" onClick={handleCloseMobileMenu}>
+                <Link to="/cart">
                   Cart
                 </Link>
               </DropdownMenuItem>
@@ -165,7 +159,7 @@ const NavBar = () => {
                 asChild
                 className="text-white hover:text-[#F97316]"
               >
-                <Link to="/aboutUs" onClick={handleCloseMobileMenu}>
+                <Link to="/aboutUs">
                   About Us
                 </Link>
               </DropdownMenuItem>
@@ -174,7 +168,7 @@ const NavBar = () => {
                   asChild
                   className="text-white hover:text-[#F97316]"
                 >
-                  <Link to="/login" onClick={handleCloseMobileMenu}>
+                  <Link to="/login">
                     Login
                   </Link>
                 </DropdownMenuItem>
@@ -182,7 +176,6 @@ const NavBar = () => {
                 <DropdownMenuItem
                   onClick={() => {
                     handleLogout();
-                    handleCloseMobileMenu();
                   }}
                   className="text-red-500"
                 >
