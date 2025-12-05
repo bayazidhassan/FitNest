@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetAProductQuery } from "../../redux/api/products/productsApi";
+import { addToCart } from "../../redux/features/cart/addToCartSlice";
+import { useAppDispatch } from "../../redux/hook";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { data: response, isLoading, error } = useGetAProductQuery(id!);
+  const dispatch = useAppDispatch();
 
   const product = response?.data;
 
@@ -21,6 +24,16 @@ const ProductDetails = () => {
   if (mainImage === null && product.images.length > 0) {
     setMainImage(product.images[0]);
   }
+
+  const handleAddToCart = () => {
+    dispatch(
+      addToCart({
+        product_id: product._id,
+        quantity: 1,
+        stock: product.stock_quantity,
+      })
+    );
+  };
 
   return (
     <div className="px-6 py-10 max-w-6xl mx-auto">
@@ -73,7 +86,7 @@ const ProductDetails = () => {
           {/* Add to Cart */}
           <button
             className="mt-6 bg-[#F97316] text-white px-6 py-2 rounded hover:bg-[#ea5f0d] w-full md:w-auto"
-            onClick={() => console.log("Add to Cart:", product.name)}
+            onClick={handleAddToCart}
           >
             Add to Cart
           </button>

@@ -13,10 +13,9 @@ import { persistor } from "../../redux/store";
 
 const NavBar = () => {
   const user = useAppSelector((state) => state.auth);
+  const cartItem = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const number_of_products = 10;
 
   const handleLogout = () => {
     dispatch(logout());
@@ -55,10 +54,11 @@ const NavBar = () => {
             className="relative inline-block text-white hover:text-[#F97316]"
           >
             <ShoppingCartIcon className="w-6 h-6" />
-
-            <span className="absolute -top-2 -right-2 bg-red-400 text-white text-xs w-5 h-5 font-semibold flex items-center justify-center rounded-full">
-              {number_of_products}
-            </span>
+            {cartItem.length !== 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-400 text-white text-xs w-5 h-5 font-semibold flex items-center justify-center rounded-full">
+                {cartItem.length}
+              </span>
+            )}
           </Link>
           <Link to="/aboutUs" className="text-white hover:text-[#F97316]">
             About Us

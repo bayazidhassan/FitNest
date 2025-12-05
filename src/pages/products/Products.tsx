@@ -3,10 +3,16 @@ import Slider from "@mui/material/Slider";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import {
+  useGetAllCategoriesQuery,
+  useGetAllProductsQuery,
+} from "../../redux/api/products/productsApi";
+import { addToCart } from "../../redux/features/cart/addToCartSlice";
+import { useAppDispatch } from "../../redux/hook";
 import type { TProduct } from "../../types/TProduct";
-import { useGetAllCategoriesQuery, useGetAllProductsQuery } from "../../redux/api/products/productsApi";
 
 const Products = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const categoryFromQuery = queryParams.get("category");
@@ -243,7 +249,18 @@ const Products = () => {
                   >
                     View Details
                   </Link>
-                  <button className="flex-1 text-center bg-[#F97316] text-white px-2 py-1 rounded hover:bg-[#ea5f0d] text-sm">
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        addToCart({
+                          product_id: product._id,
+                          quantity: 1,
+                          stock: product.stock_quantity,
+                        })
+                      )
+                    }
+                    className="flex-1 text-center bg-[#F97316] text-white px-2 py-1 rounded hover:bg-[#ea5f0d] text-sm"
+                  >
                     Add to Cart
                   </button>
                 </div>
