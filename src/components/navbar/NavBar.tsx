@@ -8,6 +8,7 @@ import { ShoppingCartIcon } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../../redux/features/auth/authSlice";
+import { clearCart } from "../../redux/features/cart/addToCartSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { persistor } from "../../redux/store";
 
@@ -19,6 +20,7 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(clearCart());
     persistor.purge();
     window.location.href = "/login";
   };
