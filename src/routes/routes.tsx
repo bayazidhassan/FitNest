@@ -9,6 +9,7 @@ import ProductManagement from "../pages/products/ProductManagement";
 import Products from "../pages/products/Products";
 import ProtectedRouteForProductManagement from "../pages/products/ProtectedRouteForProductManagement";
 import Register from "../pages/Register";
+import Checkout from "../pages/cart/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "cart",
         Component: cart,
+      },
+       {
+        path: "checkout",
+        Component: Checkout,
       },
       {
         path: "aboutUs",

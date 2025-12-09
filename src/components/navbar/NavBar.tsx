@@ -65,7 +65,7 @@ const NavBar = () => {
           <Link to="/aboutUs" className="text-white hover:text-[#F97316]">
             About Us
           </Link>
-          {!user.name ? (
+          {!user.firstName ? (
             <Link to="/login" className="text-white hover:text-[#F97316]">
               Login
             </Link>
@@ -74,11 +74,14 @@ const NavBar = () => {
               <DropdownMenuTrigger asChild>
                 <img
                   src={user.image as string}
+                  alt={user.firstName + " " + user.lastName}
                   className="w-8 h-8 rounded-full cursor-pointer"
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-40">
-                <DropdownMenuItem>{user.name}</DropdownMenuItem>
+                <DropdownMenuItem>
+                  {user.firstName + " " + user.lastName}
+                </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={handleLogout}
                   className="cursor-pointer text-red-500"
@@ -131,14 +134,16 @@ const NavBar = () => {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="flex flex-col space-y-2 bg-[#0F172A] p-4 rounded mt-2 mr-6">
-              {user.name && (
+              {user.firstName && (
                 <div className="flex items-center space-x-2 border-b border-gray-700 pb-2">
                   <img
                     src={user.image as string}
-                    alt={user.name}
+                    alt={user.firstName + " " + user.lastName}
                     className="w-8 h-8 rounded-full"
                   />
-                  <span className="text-white font-semibold">{user.name}</span>
+                  <span className="text-white font-semibold">
+                    {user.firstName + " " + user.lastName}
+                  </span>
                 </div>
               )}
               <DropdownMenuItem
@@ -167,7 +172,7 @@ const NavBar = () => {
               >
                 <Link to="/aboutUs">About Us</Link>
               </DropdownMenuItem>
-              {!user.name ? (
+              {!user.firstName ? (
                 <DropdownMenuItem
                   asChild
                   className="text-white hover:text-[#F97316]"

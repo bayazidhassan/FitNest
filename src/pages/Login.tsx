@@ -25,8 +25,11 @@ const Login = () => {
     try {
       const user = await login(loginInfo).unwrap();
       const userInfo = {
-        name: `${user.data.name.firstName} ${user.data.name.lastName}`,
+        firstName: user.data.name.firstName,
+        lastName: user.data.name.lastName,
+        address: user.data.address,
         email: user.data.email,
+        phone: user.data.phone,
         role: user.data.role,
         image: user.data.image,
       };

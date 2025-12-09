@@ -3,15 +3,21 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 export type TRole = "admin" | "user";
 
 type TAuthState = {
-  name: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  address: string | null;
   email: string | null;
+  phone: string | null;
   role: TRole;
   image: string | null;
 };
 
 const initialState: TAuthState = {
-  name: null,
+  firstName: null,
+  lastName: null,
+  address: null,
   email: null,
+  phone: null,
   role: "user",
   image: null,
 };
@@ -23,20 +29,29 @@ const authSlice = createSlice({
     setUser: (
       state,
       action: PayloadAction<{
-        name: string;
+        firstName: string;
+        lastName: string;
+        address: string;
         email: string;
+        phone: string;
         role: TRole;
         image: string;
       }>
     ) => {
-      state.name = action.payload.name;
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+      state.address = action.payload.address;
       state.email = action.payload.email;
+      state.phone = action.payload.phone;
       state.role = action.payload.role;
       state.image = action.payload.image;
     },
     logout: (state) => {
-      state.name = null;
+      state.firstName = null;
+      state.lastName = null;
+      state.address = null;
       state.email = null;
+      state.phone = null;
       state.role = "user";
       state.image = null;
     },
