@@ -57,7 +57,7 @@ const NavBar = () => {
           >
             <ShoppingCartIcon className="w-6 h-6" />
             {cartItem.length !== 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-400 text-white text-xs w-5 h-5 font-semibold flex items-center justify-center rounded-full">
+              <span className="absolute -top-2 -right-2 bg-[#F97316] text-white text-xs w-5 h-5 font-semibold flex items-center justify-center rounded-full">
                 {cartItem.length}
               </span>
             )}

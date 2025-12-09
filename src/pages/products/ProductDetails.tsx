@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useGetAProductQuery } from "../../redux/api/products/productsApi";
 import { addToCart } from "../../redux/features/cart/addToCartSlice";
@@ -26,6 +27,7 @@ const ProductDetails = () => {
   }
 
   const handleAddToCart = () => {
+    toast.success(`${product.name} is added to cart.`);
     dispatch(
       addToCart({
         product_id: product._id,
@@ -37,6 +39,7 @@ const ProductDetails = () => {
 
   return (
     <div className="px-6 py-10 max-w-6xl mx-auto">
+      <Toaster position="top-center" />
       <div className="flex flex-col md:flex-row gap-8 items-center">
         {/* Left: Images */}
         <div className="md:w-1/2 flex flex-col gap-1 items-center">

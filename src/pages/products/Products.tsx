@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { Link, useLocation } from "react-router-dom";
 
 import {
@@ -112,6 +113,7 @@ const Products = () => {
 
   return (
     <div className="py-10 px-6 max-w-7xl mx-auto">
+      <Toaster position="top-center" />
       {/* Row 1: Title + Search */}
       <div className="md:flex justify-between items-center mb-5">
         <h1 className="text-3xl font-bold text-[#0D9488]">Our Products</h1>
@@ -250,15 +252,17 @@ const Products = () => {
                     View Details
                   </Link>
                   <button
-                    onClick={() =>
+                    onClick={() => {
+                      toast.success(`${product.name} is added to cart.`);
+
                       dispatch(
                         addToCart({
                           product_id: product._id,
                           quantity: 1,
                           stock: product.stock_quantity,
                         })
-                      )
-                    }
+                      );
+                    }}
                     className="flex-1 text-center bg-[#F97316] text-white px-2 py-1 rounded hover:bg-[#ea5f0d] text-sm"
                   >
                     Add to Cart
