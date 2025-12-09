@@ -1,3 +1,12 @@
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   clearCart,
@@ -15,6 +24,26 @@ const Cart = () => {
   );
 
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
+  const [open, setOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+
+  const handleOpen = (id: string) => {
+    setDeleteId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setDeleteId(null);
+  };
+
+  const handleConfirmDelete = () => {
+    if (deleteId) {
+      dispatch(removeFromCart(deleteId));
+    }
+    handleClose();
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -61,7 +90,7 @@ const Cart = () => {
             <div className="flex flex-col items-end gap-2">
               {/* DELETE */}
               <button
-                onClick={() => dispatch(removeFromCart(product.product_id))}
+                onClick={() => handleOpen(product.product_id)}
                 className="px-2 py-1 bg-[#F97316] text-white rounded hover:bg-[#ea5f0d] transition text-sm"
               >
                 Delete
@@ -136,6 +165,47 @@ const Cart = () => {
           Proceed to Checkout
         </Link>
       </div>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Delete Item</DialogTitle>
+
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to remove this item from your cart?
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          <Button
+            onClick={handleClose}
+            variant="outlined"
+            sx={{
+              color: "#4B5563",
+              borderColor: "#D1D5DB",
+              borderRadius: "8px",
+              "&:hover": {
+                backgroundColor: "#F3F4F6",
+                borderColor: "#D1D5DB",
+              },
+            }}
+          >
+            Cancel
+          </Button>
+
+          <Button
+            onClick={handleConfirmDelete}
+            variant="contained"
+            sx={{
+              backgroundColor: "#F97316",
+              color: "#fff",
+              "&:hover": {
+                backgroundColor: "#ea5f0d",
+              },
+            }}
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
