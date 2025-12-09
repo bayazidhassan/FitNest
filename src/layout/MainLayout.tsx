@@ -10,9 +10,15 @@ const MainLayout = () => {
   const shouldHideFooter = hideFooterRoutes.includes(pathname);
 
   return (
-    <div className="pt-24">
+    <div className="min-h-screen flex flex-col pt-24">
       <NavBar></NavBar>
-      <Outlet></Outlet>
+
+      {/* <Outlet></Outlet> */}
+      {/* Main content area should expand */}
+      <div className="flex-1">
+        <Outlet />
+      </div>
+
       {/* <Footer></Footer> */}
       {/* do not show footer section when I will visit about us page */}
       {!shouldHideFooter && <Footer></Footer>}

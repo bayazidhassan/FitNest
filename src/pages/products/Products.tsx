@@ -258,8 +258,10 @@ const Products = () => {
                       dispatch(
                         addToCart({
                           product_id: product._id,
-                          quantity: 1,
-                          stock: product.stock_quantity,
+                          name: product.name,
+                          price: product.price,
+                          image: product.images[0],
+                          stock_quantity: product.stock_quantity,
                         })
                       );
                     }}

@@ -2,6 +2,10 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 type TCartItem = {
   product_id: string;
+  name: string;
+  price: number;
+  image: string;
+  stock_quantity: number;
   quantity: number;
 };
 
@@ -15,23 +19,44 @@ const cartSlice = createSlice({
       state,
       action: PayloadAction<{
         product_id: string;
-        quantity: number;
-        stock: number;
+        name: string;
+        price: number;
+        image: string;
+        stock_quantity: number;
       }>
     ) => {
       const item = state.find(
         (p) => p.product_id === action.payload.product_id
       );
-
       if (item) {
-        if (item.quantity < action.payload.stock) {
-          item.quantity += action.payload.quantity;
+        if (item.quantity < item.stock_quantity) {
+          item.quantity += 1;
         }
       } else {
         state.push({
           product_id: action.payload.product_id,
-          quantity: Math.min(action.payload.quantity, action.payload.stock),
+          name: action.payload.name,
+          price: action.payload.price,
+          image: action.payload.image,
+          stock_quantity: action.payload.stock_quantity,
+          quantity: 1,
         });
+      }
+    },
+    removeFromCart: (state, action: PayloadAction<string>) => {
+      return state.filter((item) => item.product_id !== action.payload);
+    },
+    updateQuantity: (
+      state,
+      action: PayloadAction<{ id: string; type: "inc" | "dec" }>
+    ) => {
+      const item = state.find((i) => i.product_id === action.payload.id);
+      if (item) {
+        if (action.payload.type === "inc") {
+          item.quantity += 1;
+        } else if (action.payload.type === "dec" && item.quantity > 1) {
+          item.quantity -= 1;
+        }
       }
     },
     clearCart: () => {
@@ -40,5 +65,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateQuantity, clearCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;

@@ -31,14 +31,16 @@ const ProductDetails = () => {
     dispatch(
       addToCart({
         product_id: product._id,
-        quantity: 1,
-        stock: product.stock_quantity,
+        name: product.name,
+        price: product.price,
+        image: product.images[0],
+        stock_quantity: product.stock_quantity,
       })
     );
   };
 
   return (
-    <div className="px-6 py-10 max-w-6xl mx-auto">
+    <div className="mb-6 px-2 max-w-6xl mx-auto">
       <Toaster position="top-center" />
       <div className="flex flex-col md:flex-row gap-8 items-center">
         {/* Left: Images */}
