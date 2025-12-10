@@ -2,6 +2,7 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../../redux/features/cart/addToCartSlice";
+import { allowSuccessOrder } from "../../redux/features/order/successOrderSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 
 const DELIVERY_CHARGE = 60;
@@ -69,7 +70,8 @@ const Checkout = () => {
     console.log(orderInfo);
 
     dispatch(clearCart());
-    navigate("/checkout/confirmOrder");
+    dispatch(allowSuccessOrder());
+    navigate("/checkout/successOrder");
   };
 
   return (

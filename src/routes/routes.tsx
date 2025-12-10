@@ -3,8 +3,8 @@ import App from "../App";
 import AboutUs from "../pages/AboutUs";
 import cart from "../pages/cart/cart";
 import Checkout from "../pages/cart/Checkout";
-import ConfirmOrder from "../pages/cart/confirmOrder";
 import ProtectedRouteForCheckout from "../pages/cart/ProtectedRouteForCheckout";
+import SuccessOrder from "../pages/cart/SuccessOrder";
 import HomePage from "../pages/home/HomePage";
 import Login from "../pages/Login";
 import ProductDetails from "../pages/products/ProductDetails";
@@ -53,8 +53,8 @@ const router = createBrowserRouter([
             Component: Checkout,
           },
           {
-            path: "confirmOrder",
-            Component: ConfirmOrder,
+            path: "successOrder",
+            Component: SuccessOrder,
           },
         ],
       },
