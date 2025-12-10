@@ -11,7 +11,6 @@ const Register = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    address: "",
     phone: "",
     email: "",
     password: "",
@@ -39,7 +38,6 @@ const Register = () => {
     /*
     form.append("firstName", formData.firstName);
     form.append("lastName", formData.lastName);
-    form.append("address", formData.address);
     form.append("phone", formData.phone);
     form.append("email", formData.email);
     form.append("password", formData.password);
@@ -63,7 +61,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <Toaster position="top-center" />
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-4xl">
         <div className="flex justify-between">
@@ -111,22 +109,6 @@ const Register = () => {
                 name="lastName"
                 placeholder="Enter last name"
                 value={formData.lastName}
-                onChange={handleChange}
-                required
-                className="w-full px-3 py-2 border rounded outline-none focus:ring-2 focus:ring-[#0D9488]"
-              />
-            </div>
-
-            {/* Address */}
-            <div>
-              <label className="block mb-1 text-gray-700 font-medium">
-                Address
-              </label>
-              <input
-                type="text"
-                name="address"
-                placeholder="Enter address"
-                value={formData.address}
                 onChange={handleChange}
                 required
                 className="w-full px-3 py-2 border rounded outline-none focus:ring-2 focus:ring-[#0D9488]"
@@ -199,19 +181,18 @@ const Register = () => {
                 className="w-full px-3 py-2 border rounded outline-none focus:ring-2 focus:ring-[#0D9488]"
               />
             </div>
-
-            {/* Image Upload */}
-            <div>
-              <label className="block mb-1 text-gray-700 font-medium">
-                Upload Image
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => setImage(e.target.files?.[0] || null)}
-                className="w-full px-3 py-2 border rounded cursor-pointer"
-              />
-            </div>
+          </div>
+          {/* Image Upload */}
+          <div className="col-span-2">
+            <label className="block mb-1 text-gray-700 font-medium">
+              Upload Image
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files?.[0] || null)}
+              className="w-full px-3 py-2 border rounded cursor-pointer"
+            />
           </div>
 
           {/* SUBMIT BUTTON */}
