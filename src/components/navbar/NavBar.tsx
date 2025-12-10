@@ -79,8 +79,11 @@ const NavBar = () => {
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-40">
-                <DropdownMenuItem>
+                <DropdownMenuItem className="font-semibold border-b-2">
                   {user.firstName + " " + user.lastName}
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer">
+                  Dashboard
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={handleLogout}
@@ -148,34 +151,39 @@ const NavBar = () => {
               )}
               <DropdownMenuItem
                 asChild
-                className="text-white hover:text-[#F97316]"
+                className="text-white"
               >
                 <Link to="/products">Products</Link>
               </DropdownMenuItem>
               {user.role === "admin" && (
                 <DropdownMenuItem
                   asChild
-                  className="text-white hover:text-[#F97316]"
+                  className="text-white"
                 >
                   <Link to="/productManagement">Product Management</Link>
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem
                 asChild
-                className="text-white hover:text-[#F97316]"
+                className="text-white"
               >
                 <Link to="/cart">Cart</Link>
               </DropdownMenuItem>
               <DropdownMenuItem
                 asChild
-                className="text-white hover:text-[#F97316]"
+                className="text-white"
               >
                 <Link to="/aboutUs">About Us</Link>
               </DropdownMenuItem>
+              {user.firstName && (
+                <DropdownMenuItem className="text-white">
+                  Dashboard
+                </DropdownMenuItem>
+              )}
               {!user.firstName ? (
                 <DropdownMenuItem
                   asChild
-                  className="text-white hover:text-[#F97316]"
+                  className="text-white"
                 >
                   <Link to="/login">Login</Link>
                 </DropdownMenuItem>
