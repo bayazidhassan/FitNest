@@ -25,7 +25,7 @@ const Checkout = () => {
     lastName: user?.lastName || "",
     email: user?.email || "",
     phone: user?.phone || "",
-    address: "",
+    street_address: "",
     upazila: "",
     district: "",
     comment: "", // comment box
@@ -39,7 +39,7 @@ const Checkout = () => {
   };
 
   const handlePlaceOrder = () => {
-    const { firstName, lastName, email, phone, address, upazila, district } =
+    const { firstName, lastName, email, phone, street_address, upazila, district } =
       form;
 
     if (
@@ -47,7 +47,7 @@ const Checkout = () => {
       !lastName ||
       !email ||
       !phone ||
-      !address ||
+      !street_address ||
       !upazila ||
       !district
     ) {
@@ -60,7 +60,7 @@ const Checkout = () => {
       lastName: form.lastName,
       email: form.email,
       phone: form.phone,
-      address: form.address,
+      address: form.street_address,
       upazila: form.upazila,
       district: form.district,
       comment: form.comment,
@@ -131,7 +131,7 @@ const Checkout = () => {
             type="text"
             name="address"
             placeholder="Street Address"
-            value={form.address}
+            value={form.street_address}
             onChange={handleChange}
             className="border p-2 rounded"
             required
