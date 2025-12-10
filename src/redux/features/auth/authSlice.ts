@@ -5,7 +5,6 @@ export type TRole = "admin" | "user" | "guest";
 type TAuthState = {
   firstName: string | null;
   lastName: string | null;
-  address: string | null;
   email: string | null;
   phone: string | null;
   role: TRole;
@@ -15,7 +14,6 @@ type TAuthState = {
 const initialState: TAuthState = {
   firstName: null,
   lastName: null,
-  address: null,
   email: null,
   phone: null,
   role: "guest",
@@ -31,7 +29,6 @@ const authSlice = createSlice({
       action: PayloadAction<{
         firstName: string;
         lastName: string;
-        address: string;
         email: string;
         phone: string;
         role: TRole;
@@ -40,7 +37,6 @@ const authSlice = createSlice({
     ) => {
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
-      state.address = action.payload.address;
       state.email = action.payload.email;
       state.phone = action.payload.phone;
       state.role = action.payload.role;
@@ -49,7 +45,6 @@ const authSlice = createSlice({
     logout: (state) => {
       state.firstName = null;
       state.lastName = null;
-      state.address = null;
       state.email = null;
       state.phone = null;
       state.role = "guest";

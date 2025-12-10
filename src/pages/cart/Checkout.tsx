@@ -25,7 +25,7 @@ const Checkout = () => {
     lastName: user?.lastName || "",
     email: user?.email || "",
     phone: user?.phone || "",
-    address: user?.address || "",
+    address: "",
     upazila: "",
     district: "",
     comment: "", // comment box
