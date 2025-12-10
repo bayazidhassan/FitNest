@@ -69,7 +69,7 @@ const Checkout = () => {
     console.log(orderInfo);
 
     dispatch(clearCart());
-    navigate("/");
+    navigate("/checkout/confirmOrder");
   };
 
   return (
