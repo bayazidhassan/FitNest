@@ -54,9 +54,22 @@ const Checkout = () => {
       return;
     }
 
-    console.log("Order placed!", { form, cartItems, totalPrice });
-    // dispatch(clearCart());
-    // navigate("/success");
+    const orderInfo = {
+      firstName: form.firstName,
+      lastName: form.lastName,
+      email: form.email,
+      phone: form.phone,
+      address: form.address,
+      upazila: form.upazila,
+      district: form.district,
+      comment: form.comment,
+      cartItems: cartItems,
+      totalPrice: totalPrice,
+    };
+    console.log(orderInfo);
+
+    dispatch(clearCart());
+    navigate("/");
   };
 
   return (
@@ -64,14 +77,14 @@ const Checkout = () => {
       <Toaster position="top-center" />
 
       {/* Page Heading */}
-      <h1 className="mb-4 text-3xl font-bold text-[#0D9488]">
-        Checkout
-      </h1>
+      <h1 className="mb-4 text-3xl font-bold text-[#0D9488]">Checkout</h1>
 
       <div className="flex flex-col md:flex-row gap-6">
         {/* LEFT: Form */}
         <div className="w-full md:w-2/3 bg-white p-6 rounded-lg shadow flex flex-col gap-4">
-          <h2 className="text-xl font-semibold">Shipping & Billing Information</h2>
+          <h2 className="text-xl font-semibold">
+            Shipping & Billing Information
+          </h2>
 
           <div className="flex gap-4">
             <input
