@@ -1,6 +1,7 @@
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { usePlaceOrderMutation } from "../../redux/api/orders/placeOrderApi";
 import { clearCart } from "../../redux/features/cart/addToCartSlice";
 import { allowSuccessOrder } from "../../redux/features/order/successOrderSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
@@ -12,6 +13,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const cartItems = useAppSelector((state) => state.cart);
   const user = useAppSelector((state) => state.auth);
+  const [placeOrder] = usePlaceOrderMutation();
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -28,8 +30,8 @@ const Checkout = () => {
     street_address: "",
     upazila: "",
     district: "",
-    comment: "", // comment box
-    paymentMethod: "cod", // default
+    comment: "",
+    paymentMethod: "cod",
   });
 
   const handleChange = (
@@ -39,8 +41,15 @@ const Checkout = () => {
   };
 
   const handlePlaceOrder = () => {
-    const { firstName, lastName, email, phone, street_address, upazila, district } =
-      form;
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      street_address,
+      upazila,
+      district,
+    } = form;
 
     if (
       !firstName ||
@@ -55,7 +64,7 @@ const Checkout = () => {
       return;
     }
 
-    const orderInfo = {
+    const orderInfo: any = {
       firstName: form.firstName,
       lastName: form.lastName,
       email: form.email,
@@ -63,15 +72,18 @@ const Checkout = () => {
       street_address: form.street_address,
       upazila: form.upazila,
       district: form.district,
-      comment: form.comment,
+      //comment: form.comment,
       cartItems: cartItems,
       totalPrice: totalPrice,
     };
-    console.log(orderInfo);
-    
-    //dispatch(clearCart());
-    //dispatch(allowSuccessOrder());
-    //navigate("/checkout/successOrder");
+    if (form.comment.trim() !== "") {
+      orderInfo.comment = form.comment;
+    }
+
+    placeOrder(orderInfo);
+    dispatch(clearCart());
+    dispatch(allowSuccessOrder());
+    navigate("/checkout/successOrder");
   };
 
   return (
