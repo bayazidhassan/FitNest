@@ -112,8 +112,9 @@ const Cart = () => {
                         updateQuantity({ id: product.product_id, type: "dec" })
                       )
                     }
+                  
                     disabled={product.quantity === 1}
-                    className="px-2 py-1 bg-gray-200 rounded disabled:opacity-40"
+                    className="px-2 py-1 bg-[#0D9488] rounded disabled:opacity-40"
                   >
                     -
                   </button>
@@ -128,7 +129,8 @@ const Cart = () => {
                         updateQuantity({ id: product.product_id, type: "inc" })
                       )
                     }
-                    className="px-2 py-1 bg-gray-200 rounded"
+                    disabled={product.quantity === product.stock_quantity}
+                    className="px-2 py-1 bg-[#0D9488] rounded disabled:opacity-40"
                   >
                     +
                   </button>
@@ -170,7 +172,7 @@ const Cart = () => {
             to="/checkout"
             className="block text-center w-full px-4 py-2 bg-[#0D9488] text-white rounded hover:bg-[#0a766f] transition"
           >
-            Proceed to Checkout
+            Checkout
           </Link>
         </div>
 
