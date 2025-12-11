@@ -60,7 +60,7 @@ const Checkout = () => {
       lastName: form.lastName,
       email: form.email,
       phone: form.phone,
-      address: form.street_address,
+      street_address: form.street_address,
       upazila: form.upazila,
       district: form.district,
       comment: form.comment,
@@ -68,10 +68,10 @@ const Checkout = () => {
       totalPrice: totalPrice,
     };
     console.log(orderInfo);
-
-    dispatch(clearCart());
-    dispatch(allowSuccessOrder());
-    navigate("/checkout/successOrder");
+    
+    //dispatch(clearCart());
+    //dispatch(allowSuccessOrder());
+    //navigate("/checkout/successOrder");
   };
 
   return (
@@ -129,7 +129,7 @@ const Checkout = () => {
           />
           <input
             type="text"
-            name="address"
+            name="street_address"
             placeholder="Street Address"
             value={form.street_address}
             onChange={handleChange}
