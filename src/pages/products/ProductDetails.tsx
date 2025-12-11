@@ -3,12 +3,13 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useGetAProductQuery } from "../../redux/api/products/productsApi";
 import { addToCart } from "../../redux/features/cart/addToCartSlice";
-import { useAppDispatch } from "../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { data: response, isLoading, error } = useGetAProductQuery(id!);
   const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state) => state.cart);
 
   const product = response?.data;
 
@@ -38,6 +39,9 @@ const ProductDetails = () => {
       })
     );
   };
+
+  const itemInCart = cartItems.find((item) => item.product_id === product._id);
+  const quantityInCart = itemInCart ? itemInCart.quantity : 0;
 
   return (
     <div className="mb-6 px-2 max-w-6xl mx-auto">
@@ -89,7 +93,8 @@ const ProductDetails = () => {
 
           {/* Add to Cart */}
           <button
-            className="mt-6 bg-[#F97316] text-white px-6 py-2 rounded hover:bg-[#ea5f0d] w-full md:w-auto"
+            disabled={quantityInCart >= product.stock_quantity}
+            className="mt-6 bg-[#F97316] text-white px-6 py-2 rounded hover:bg-[#ea5f0d] w-full md:w-auto disabled:opacity-40"
             onClick={handleAddToCart}
           >
             Add to Cart

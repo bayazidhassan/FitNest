@@ -9,11 +9,12 @@ import {
   useGetAllProductsQuery,
 } from "../../redux/api/products/productsApi";
 import { addToCart } from "../../redux/features/cart/addToCartSlice";
-import { useAppDispatch } from "../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import type { TProduct } from "../../types/TProduct";
 
 const Products = () => {
   const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state) => state.cart);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const categoryFromQuery = queryParams.get("category");
@@ -225,52 +226,59 @@ const Products = () => {
               </p>
             )}
 
-            {paginatedProducts.map((product: TProduct) => (
-              <div
-                key={product._id}
-                className="bg-white p-4 rounded shadow flex flex-col"
-              >
-                <div className="w-full aspect-w-1 aspect-h-1 sm:aspect-h-1 md:aspect-h-1 lg:aspect-h-1 overflow-hidden rounded">
-                  <img
-                    src={product.images[0]}
-                    alt={product.name}
-                    className="w-full h-full object-cover hover:scale-105 duration-300"
-                  />
+            {paginatedProducts.map((product: TProduct) => {
+              const itemInCart = cartItems.find(
+                (item) => item.product_id === product._id
+              );
+              const quantityInCart = itemInCart ? itemInCart.quantity : 0;
+              return (
+                <div
+                  key={product._id}
+                  className="bg-white p-4 rounded shadow flex flex-col"
+                >
+                  <div className="w-full aspect-w-1 aspect-h-1 sm:aspect-h-1 md:aspect-h-1 lg:aspect-h-1 overflow-hidden rounded">
+                    <img
+                      src={product.images[0]}
+                      alt={product.name}
+                      className="w-full h-full object-cover hover:scale-105 duration-300"
+                    />
+                  </div>
+
+                  <h2 className="text-gray-700 mt-3">{product.name}</h2>
+                  <p className="text-sm md:text-base text-gray-500 mt-1">
+                    ৳ {product.price}
+                  </p>
+
+                  <div className="mt-3 flex justify-between gap-2">
+                    <Link
+                      to={`/products/${product._id}`}
+                      className="flex-1 text-center bg-[#0D9488] text-white px-2 py-1 rounded hover:bg-[#0a766f] text-sm"
+                    >
+                      View Details
+                    </Link>
+                    <button
+                      onClick={() => {
+                        toast.success(`${product.name} is added to cart.`);
+
+                        dispatch(
+                          addToCart({
+                            product_id: product._id,
+                            name: product.name,
+                            price: product.price,
+                            image: product.images[0],
+                            stock_quantity: product.stock_quantity,
+                          })
+                        );
+                      }}
+                      disabled={quantityInCart >= product.stock_quantity}
+                      className="flex-1 text-center bg-[#F97316] text-white px-2 py-1 rounded hover:bg-[#ea5f0d] text-sm disabled:opacity-40"
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
-
-                <h2 className="text-gray-700 mt-3">{product.name}</h2>
-                <p className="text-sm md:text-base text-gray-500 mt-1">
-                  ৳ {product.price}
-                </p>
-
-                <div className="mt-3 flex justify-between gap-2">
-                  <Link
-                    to={`/products/${product._id}`}
-                    className="flex-1 text-center bg-[#0D9488] text-white px-2 py-1 rounded hover:bg-[#0a766f] text-sm"
-                  >
-                    View Details
-                  </Link>
-                  <button
-                    onClick={() => {
-                      toast.success(`${product.name} is added to cart.`);
-
-                      dispatch(
-                        addToCart({
-                          product_id: product._id,
-                          name: product.name,
-                          price: product.price,
-                          image: product.images[0],
-                          stock_quantity: product.stock_quantity,
-                        })
-                      );
-                    }}
-                    className="flex-1 text-center bg-[#F97316] text-white px-2 py-1 rounded hover:bg-[#ea5f0d] text-sm"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Pagination Buttons */}
