@@ -1,5 +1,5 @@
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { usePlaceOrderMutation } from "../../redux/api/orders/placeOrderApi";
 import { clearCart } from "../../redux/features/cart/addToCartSlice";
@@ -40,7 +40,7 @@ const Checkout = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     const {
       firstName,
       lastName,
@@ -80,16 +80,20 @@ const Checkout = () => {
       orderInfo.comment = form.comment;
     }
 
-    placeOrder(orderInfo);
-    dispatch(clearCart());
-    dispatch(allowSuccessOrder());
-    navigate("/checkout/successOrder");
+    try {
+      const res = await placeOrder(orderInfo).unwrap();
+      //toast.success(res.message); //show  in success page
+
+      dispatch(clearCart());
+      dispatch(allowSuccessOrder());
+      navigate("/checkout/successOrder", { state: { msg: res.message } });
+    } catch (err) {
+      toast.error((err as Error).message);
+    }
   };
 
   return (
     <div className="px-2 md:px-0 max-w-6xl mx-auto my-6">
-      <Toaster position="top-center" />
-
       {/* Page Heading */}
       <h1 className="mb-4 text-3xl font-bold text-[#0D9488]">Checkout</h1>
 

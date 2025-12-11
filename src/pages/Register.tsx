@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../redux/api/user/userApi";
 
@@ -62,7 +62,6 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <Toaster position="top-center" />
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-4xl">
         <div className="flex justify-between">
           <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">

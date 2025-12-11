@@ -1,5 +1,6 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 import { resetSuccessOrder } from "../../redux/features/order/successOrderSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 
@@ -8,12 +9,22 @@ const SuccessOrder = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { state } = useLocation();
+
+  const hasShownToast = useRef(false); //prevents multiple toasts
 
   useEffect(() => {
     if (!successOrderAllowed) {
       navigate("/");
       return;
     }
+
+     //Show toast once
+    if (!hasShownToast.current && state?.msg) {
+      toast.success(state.msg);
+      hasShownToast.current = true; //mark toast as shown
+    }
+
     dispatch(resetSuccessOrder());
   }, []);
 
