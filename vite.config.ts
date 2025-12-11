@@ -12,6 +12,17 @@ export default defineConfig({
     },
   },
   build: {
-    chunkSizeWarningLimit: 700,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ["react", "react-dom", "react-router-dom", "react-hook-form"],
+          mui: ["@mui/material", "@emotion/react", "@emotion/styled"],
+          redux: ["@reduxjs/toolkit", "react-redux", "redux-persist"],
+          icons: ["@heroicons/react", "lucide-react"],
+          swiper: ["swiper"],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
   },
 });
