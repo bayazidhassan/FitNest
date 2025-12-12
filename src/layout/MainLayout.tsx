@@ -12,9 +12,6 @@ const MainLayout = () => {
 
   return (
     <div className="min-h-screen flex flex-col pt-24">
-      {/* globally declare Toast container */}
-      <Toaster position="top-center" />
-
       <NavBar></NavBar>
 
       {/* <Outlet></Outlet> */}
