@@ -83,7 +83,7 @@ const NavBar = () => {
                   {user.firstName + " " + user.lastName}
                 </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer">
-                  Dashboard
+                  <Link to={`/dashboard/${user.role}`}>Dashboard</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={handleLogout}
@@ -149,42 +149,27 @@ const NavBar = () => {
                   </span>
                 </div>
               )}
-              <DropdownMenuItem
-                asChild
-                className="text-white"
-              >
+              <DropdownMenuItem asChild className="text-white">
                 <Link to="/products">Products</Link>
               </DropdownMenuItem>
               {user.role === "admin" && (
-                <DropdownMenuItem
-                  asChild
-                  className="text-white"
-                >
+                <DropdownMenuItem asChild className="text-white">
                   <Link to="/productManagement">Product Management</Link>
                 </DropdownMenuItem>
               )}
-              <DropdownMenuItem
-                asChild
-                className="text-white"
-              >
+              <DropdownMenuItem asChild className="text-white">
                 <Link to="/cart">Cart</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem
-                asChild
-                className="text-white"
-              >
+              <DropdownMenuItem asChild className="text-white">
                 <Link to="/aboutUs">About Us</Link>
               </DropdownMenuItem>
               {user.firstName && (
                 <DropdownMenuItem className="text-white">
-                  Dashboard
+                  <Link to={`/dashboard/${user.role}`}>Dashboard</Link>
                 </DropdownMenuItem>
               )}
               {!user.firstName ? (
-                <DropdownMenuItem
-                  asChild
-                  className="text-white"
-                >
+                <DropdownMenuItem asChild className="text-white">
                   <Link to="/login">Login</Link>
                 </DropdownMenuItem>
               ) : (
