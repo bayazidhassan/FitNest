@@ -7,6 +7,13 @@ import { baseApi } from "../BaseApi";
 
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    createNewProduct: builder.mutation({
+      query: (formData: FormData) => ({
+        url: "/products/createNewProduct",
+        method: "POST",
+        body: formData,
+      }),
+    }),
     getAllProducts: builder.query<GetProductsResponse, void>({
       query: () => ({
         url: "/products",
@@ -29,6 +36,7 @@ const productsApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useCreateNewProductMutation,
   useGetAllProductsQuery,
   useGetAProductQuery,
   useGetAllCategoriesQuery,

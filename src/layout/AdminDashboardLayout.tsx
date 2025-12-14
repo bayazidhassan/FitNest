@@ -8,7 +8,7 @@ const AdminDashboardLayout = () => {
   return (
     <div className="min-h-screen flex bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r p-4">
+      <aside className="w-64 bg-white border-r p-4 fixed top-0 left-0 h-full overflow-y-auto">
         {/* Logo */}
         <NavLink to="/" className="flex items-center gap-2 mb-6">
           <img
@@ -28,7 +28,7 @@ const AdminDashboardLayout = () => {
             className={({ isActive }) =>
               `${linkBase} ${
                 isActive
-                  ? "bg-teal-500 text-white"
+                  ? "bg-[#0D9488] text-white"
                   : "hover:bg-gray-100 text-gray-700"
               }`
             }
@@ -42,7 +42,7 @@ const AdminDashboardLayout = () => {
             className={({ isActive }) =>
               `${linkBase} ${
                 isActive
-                  ? "bg-teal-500 text-white"
+                  ? "bg-[#0D9488] text-white"
                   : "hover:bg-gray-100 text-gray-700"
               }`
             }
@@ -56,7 +56,7 @@ const AdminDashboardLayout = () => {
             className={({ isActive }) =>
               `${linkBase} ${
                 isActive
-                  ? "bg-teal-500 text-white"
+                  ? "bg-[#0D9488] text-white"
                   : "hover:bg-gray-100 text-gray-700"
               }`
             }
@@ -68,7 +68,7 @@ const AdminDashboardLayout = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-6 ml-64">
         <Outlet />
       </main>
     </div>
