@@ -43,14 +43,6 @@ const NavBar = () => {
           <Link to="/products" className="text-white hover:text-[#F97316]">
             Products
           </Link>
-          {user.role === "admin" && (
-            <Link
-              to="/productManagement"
-              className="text-white hover:text-[#F97316]"
-            >
-              Product Management
-            </Link>
-          )}
           <Link
             to="/cart"
             className="relative inline-block text-white hover:text-[#F97316]"
@@ -152,11 +144,6 @@ const NavBar = () => {
               <DropdownMenuItem asChild className="text-white">
                 <Link to="/products">Products</Link>
               </DropdownMenuItem>
-              {user.role === "admin" && (
-                <DropdownMenuItem asChild className="text-white">
-                  <Link to="/productManagement">Product Management</Link>
-                </DropdownMenuItem>
-              )}
               <DropdownMenuItem asChild className="text-white">
                 <Link to="/cart">Cart</Link>
               </DropdownMenuItem>
