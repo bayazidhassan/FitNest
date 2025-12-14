@@ -7,5 +7,6 @@ export const baseApi = createApi({
     //baseUrl: "https://fit-nest-backend.vercel.app/api/v1",
     credentials: "include",
   }),
+  tagTypes: ["Products"],
   endpoints: () => ({}),
 });

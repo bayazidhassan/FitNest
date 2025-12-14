@@ -13,12 +13,14 @@ const productsApi = baseApi.injectEndpoints({
         method: "POST",
         body: formData,
       }),
+       invalidatesTags: ['Products'],
     }),
     getAllProducts: builder.query<GetProductsResponse, void>({
       query: () => ({
         url: "/products",
         method: "GET",
       }),
+      providesTags: ['Products'],
     }),
     getAProduct: builder.query<GetProductResponse, string>({
       query: (id) => ({
