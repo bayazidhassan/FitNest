@@ -43,11 +43,6 @@ const ProductManagement = () => {
   const handleAddProduct = async (e: FormEvent) => {
     e.preventDefault();
 
-    const { name, price, category, stock_quantity, description } = formData;
-    if (!name || !price || !category || !stock_quantity || !description) {
-      toast.error("Please fill in all fields!");
-      return;
-    }
     if (!image) {
       toast.error("Please select an image!");
       return;
@@ -55,9 +50,9 @@ const ProductManagement = () => {
 
     const form = new FormData();
     // form.append("name", name);
-    // form.append("price", Number(price).toString());
+    // form.append("price", price);
     // form.append("category", category);
-    // form.append("stock_quantity", Number(stock_quantity).toString());
+    // form.append("stock_quantity", stock_quantity);
     // form.append("description", description);
     Object.entries(formData).forEach(([key, value]) => {
       form.append(key, value);
@@ -107,7 +102,7 @@ const ProductManagement = () => {
               <th className="px-4 py-2 border">Name</th>
               <th className="px-4 py-2 border">Price</th>
               <th className="px-4 py-2 border">Category</th>
-              <th className="px-4 py-2 border">Stock</th>
+              <th className="px-4 py-2 border">Stock Quantity</th>
               <th className="px-4 py-2 border">Actions</th>
             </tr>
           </thead>
@@ -144,52 +139,53 @@ const ProductManagement = () => {
 
         <form onSubmit={handleAddProduct}>
           <DialogContent dividers>
-            <DialogContentText className="mb-2">
+            <DialogContentText>
               Fill in the details to add a new product.
             </DialogContentText>
 
-            <TextField
-              autoFocus
-              label="Product Name"
-              name="name"
-              fullWidth
-              margin="normal"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
+            <div className="mt-4 flex gap-2">
+              <TextField
+                label="Product Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                fullWidth={false}
+                className="w-3/5"
+              />
+              <TextField
+                label="Category"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                required
+                fullWidth={false}
+                className="w-2/5"
+              />
+            </div>
 
-            <TextField
-              label="Price"
-              name="price"
-              type="number"
-              fullWidth
-              margin="normal"
-              value={formData.price}
-              onChange={handleChange}
-              required
-            />
-
-            <TextField
-              label="Category"
-              name="category"
-              fullWidth
-              margin="normal"
-              value={formData.category}
-              onChange={handleChange}
-              required
-            />
-
-            <TextField
-              label="Stock Quantity"
-              name="stock_quantity"
-              type="number"
-              fullWidth
-              margin="normal"
-              value={formData.stock_quantity}
-              onChange={handleChange}
-              required
-            />
+            <div className="mt-4 flex gap-2">
+              <TextField
+                label="Price"
+                name="price"
+                type="number"
+                value={formData.price}
+                onChange={handleChange}
+                required
+                fullWidth={false}
+                className="flex-1"
+              />
+              <TextField
+                label="Stock Quantity"
+                name="stock_quantity"
+                type="number"
+                value={formData.stock_quantity}
+                onChange={handleChange}
+                required
+                fullWidth={false}
+                className="flex-1"
+              />
+            </div>
 
             <div className="mt-4">
               <Button
