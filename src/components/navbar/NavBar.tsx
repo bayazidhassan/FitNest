@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ShoppingCartIcon } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { logout } from "../../redux/features/auth/authSlice";
 import { clearCart } from "../../redux/features/cart/addToCartSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
@@ -40,12 +40,23 @@ const NavBar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 items-center">
-          <Link to="/products" className="text-white hover:text-[#F97316]">
+          <NavLink
+            to="/products"
+            className={({ isActive }) =>
+              `transition-colors duration-200 hover:text-[#F97316] ${
+                isActive ? "text-[#F97316] font-semibold" : "text-white"
+              }`
+            }
+          >
             Products
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/cart"
-            className="relative inline-block text-white hover:text-[#F97316]"
+            className={({ isActive }) =>
+              `transition-colors duration-200 relative inline-block hover:text-[#F97316] ${
+                isActive ? "text-[#F97316] font-semibold" : "text-white"
+              }`
+            }
           >
             <ShoppingCartIcon className="w-6 h-6" />
             {cartItem.length !== 0 && (
@@ -53,10 +64,17 @@ const NavBar = () => {
                 {cartItem.length}
               </span>
             )}
-          </Link>
-          <Link to="/aboutUs" className="text-white hover:text-[#F97316]">
+          </NavLink>
+          <NavLink
+            to="/aboutUs"
+            className={({ isActive }) =>
+              `transition-colors duration-200 hover:text-[#F97316] ${
+                isActive ? "text-[#F97316] font-semibold" : "text-white"
+              }`
+            }
+          >
             About Us
-          </Link>
+          </NavLink>
           {!user.firstName ? (
             <Link to="/login" className="text-white hover:text-[#F97316]">
               Login
