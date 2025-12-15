@@ -15,15 +15,14 @@ import {
 } from "../../../redux/api/products/productsApi";
 
 const ProductManagement = () => {
-  const [createNewProduct, { isLoading }] = useCreateNewProductMutation();
   const { data: response } = useGetAllProductsQuery();
   const products = response?.data || [];
+  const [createNewProduct, { isLoading }] = useCreateNewProductMutation();
 
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+  //add new product
+  const [addProductOpen, setAddProductOpen] = useState(false);
+  const handleAddProductOpen = () => setAddProductOpen(true);
+  const handleAddProductClose = () => setAddProductOpen(false);
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -31,23 +30,18 @@ const ProductManagement = () => {
     stock_quantity: "",
     description: "",
   });
-
   const [image, setImage] = useState<File | null>(null);
-
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handleAddProduct = async (e: FormEvent) => {
     e.preventDefault();
-
     if (!image) {
       toast.error("Please select an image!");
       return;
     }
-
     const form = new FormData();
     // form.append("name", name);
     // form.append("price", price);
@@ -58,11 +52,9 @@ const ProductManagement = () => {
       form.append(key, value);
     });
     form.append("image", image);
-
     try {
       await createNewProduct(form).unwrap();
       toast.success("New product created successfully!");
-
       setFormData({
         name: "",
         price: "",
@@ -71,11 +63,16 @@ const ProductManagement = () => {
         description: "",
       });
       setImage(null);
-      handleClose();
+      handleAddProductClose();
     } catch (err: any) {
       toast.error(err?.data?.message || "Failed to create new product!");
     }
   };
+
+  //update product
+  const [updateProductOpen, setUpdateProductOpen] = useState(false);
+  const handleUpdateProductOpen = () => setUpdateProductOpen(true);
+  const handleUpdateProductClose = () => setUpdateProductOpen(false);
 
   return (
     <div>
@@ -85,7 +82,7 @@ const ProductManagement = () => {
         <button
           onClick={(e) => {
             e.currentTarget.blur(); // fixes aria-hidden warning
-            handleOpen();
+            handleAddProductOpen();
           }}
           className="bg-[#0D9488] hover:bg-[#0a766f] text-white px-4 py-2 rounded"
         >
@@ -115,7 +112,13 @@ const ProductManagement = () => {
                 <td className="px-4 py-2 border">{product.category}</td>
                 <td className="px-4 py-2 border">{product.stock_quantity}</td>
                 <td className="px-4 py-2 border space-x-2">
-                  <button className="text-blue-600 hover:underline">
+                  <button
+                    onClick={(e) => {
+                      e.currentTarget.blur(); // fixes aria-hidden warning
+                      handleUpdateProductOpen();
+                    }}
+                    className="text-blue-600 hover:underline"
+                  >
                     Edit
                   </button>
                   <button className="text-red-600 hover:underline">
@@ -128,21 +131,57 @@ const ProductManagement = () => {
         </table>
       </div>
 
-      {/* Dialog */}
+      {/* Dialog for update product */}
       <Dialog
-        open={open}
-        onClose={isLoading ? undefined : handleClose}
+        open={updateProductOpen}
+        onClose={handleUpdateProductClose}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle>Update Existing Product</DialogTitle>
+        <DialogActions>
+          <Button
+            onClick={handleUpdateProductClose}
+            variant="outlined"
+            sx={{
+              color: "#4B5563",
+              borderColor: "#D1D5DB",
+              borderRadius: "8px",
+              "&:hover": {
+                backgroundColor: "#F3F4F6",
+                borderColor: "#D1D5DB",
+              },
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleUpdateProductClose}
+            variant="contained"
+            sx={{
+              backgroundColor: "#F97316",
+              color: "#fff",
+              "&:hover": { backgroundColor: "#ea5f0d" },
+            }}
+          >
+            Update
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog for add product */}
+      <Dialog
+        open={addProductOpen}
+        onClose={isLoading ? undefined : handleAddProductClose}
         fullWidth
         maxWidth="sm"
       >
         <DialogTitle>Add New Product</DialogTitle>
-
         <form onSubmit={handleAddProduct}>
           <DialogContent dividers>
             <DialogContentText>
               Fill in the details to add a new product.
             </DialogContentText>
-
             <div className="mt-4 flex gap-2">
               <TextField
                 label="Product Name"
@@ -164,7 +203,6 @@ const ProductManagement = () => {
                 className="w-2/5"
               />
             </div>
-
             <div className="mt-4 flex gap-2">
               <TextField
                 label="Price"
@@ -187,7 +225,6 @@ const ProductManagement = () => {
                 className="flex-1"
               />
             </div>
-
             <div className="mt-4">
               <Button
                 variant="outlined"
@@ -207,7 +244,6 @@ const ProductManagement = () => {
                   onChange={(e) => setImage(e.target.files?.[0] || null)}
                 />
               </Button>
-
               {image && (
                 <div className="mt-3 flex items-center gap-4">
                   <img
@@ -219,7 +255,6 @@ const ProductManagement = () => {
                 </div>
               )}
             </div>
-
             <TextField
               label="Description"
               name="description"
@@ -232,10 +267,9 @@ const ProductManagement = () => {
               required
             />
           </DialogContent>
-
           <DialogActions>
             <Button
-              onClick={handleClose}
+              onClick={handleAddProductClose}
               variant="outlined"
               sx={{
                 color: "#4B5563",
@@ -249,7 +283,6 @@ const ProductManagement = () => {
             >
               Cancel
             </Button>
-
             <Button
               type="submit"
               variant="contained"
