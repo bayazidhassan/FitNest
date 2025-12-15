@@ -12,12 +12,14 @@ import toast from "react-hot-toast";
 import {
   useCreateNewProductMutation,
   useGetAllProductsQuery,
+  useUpdateAProductMutation,
 } from "../../../redux/api/products/productsApi";
 
 const ProductManagement = () => {
   const { data: response } = useGetAllProductsQuery();
   const products = response?.data || [];
-  const [createNewProduct, { isLoading }] = useCreateNewProductMutation();
+  const [createNewProduct, { isLoading: isLoadingAddProduct }] =
+    useCreateNewProductMutation();
 
   //add new product
   const [addProductOpen, setAddProductOpen] = useState(false);
@@ -69,10 +71,50 @@ const ProductManagement = () => {
     }
   };
 
-  //update product
+  //update a product
+  const [updateProduct, { isLoading: isUpdating }] =
+    useUpdateAProductMutation();
   const [updateProductOpen, setUpdateProductOpen] = useState(false);
   const handleUpdateProductOpen = () => setUpdateProductOpen(true);
   const handleUpdateProductClose = () => setUpdateProductOpen(false);
+  const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
+  const [updateFormData, setUpdateFormData] = useState({
+    name: "",
+    price: "",
+    category: "",
+    stock_quantity: "",
+    description: "",
+  });
+  const handleUpdateChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setUpdateFormData({
+      ...updateFormData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleUpdateProduct = async () => {
+    if (!selectedProduct) return;
+
+    try {
+      const payload = {
+        ...updateFormData,
+        price: Number(updateFormData.price),
+        stock_quantity: Number(updateFormData.stock_quantity),
+      };
+      await updateProduct({
+        id: selectedProduct._id,
+        //updateData: updateFormData, //wrong -> Types of property 'price' are incompatible. Type 'string' is not assignable to type 'number'.
+        updateData: payload,
+      }).unwrap();
+
+      toast.success("Product updated successfully!");
+      handleUpdateProductClose();
+      setSelectedProduct(null);
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to update product!");
+    }
+  };
 
   return (
     <div>
@@ -81,7 +123,7 @@ const ProductManagement = () => {
         <h1 className="text-2xl font-bold">Product Management</h1>
         <button
           onClick={(e) => {
-            e.currentTarget.blur(); // fixes aria-hidden warning
+            e.currentTarget.blur(); //fixes aria-hidden warning
             handleAddProductOpen();
           }}
           className="bg-[#0D9488] hover:bg-[#0a766f] text-white px-4 py-2 rounded"
@@ -114,7 +156,15 @@ const ProductManagement = () => {
                 <td className="px-4 py-2 border space-x-2">
                   <button
                     onClick={(e) => {
-                      e.currentTarget.blur(); // fixes aria-hidden warning
+                      e.currentTarget.blur(); //fixes aria-hidden warning
+                      setSelectedProduct(product);
+                      setUpdateFormData({
+                        name: product.name,
+                        price: product.price,
+                        category: product.category,
+                        stock_quantity: product.stock_quantity,
+                        description: product.description,
+                      });
                       handleUpdateProductOpen();
                     }}
                     className="text-blue-600 hover:underline"
@@ -139,6 +189,57 @@ const ProductManagement = () => {
         maxWidth="sm"
       >
         <DialogTitle>Update Existing Product</DialogTitle>
+        <DialogContent dividers>
+          <div className="mt-2 flex gap-2">
+            <TextField
+              label="Product Name"
+              name="name"
+              value={updateFormData.name}
+              onChange={handleUpdateChange}
+              fullWidth
+              required
+            />
+            <TextField
+              label="Category"
+              name="category"
+              value={updateFormData.category}
+              onChange={handleUpdateChange}
+              fullWidth
+              required
+            />
+          </div>
+          <div className="mt-4 flex gap-2">
+            <TextField
+              label="Price"
+              name="price"
+              type="number"
+              value={updateFormData.price}
+              onChange={handleUpdateChange}
+              fullWidth
+              required
+            />
+            <TextField
+              label="Stock Quantity"
+              name="stock_quantity"
+              type="number"
+              value={updateFormData.stock_quantity}
+              onChange={handleUpdateChange}
+              fullWidth
+              required
+            />
+          </div>
+          <TextField
+            label="Description"
+            name="description"
+            multiline
+            rows={3}
+            fullWidth
+            margin="normal"
+            value={updateFormData.description}
+            onChange={handleUpdateChange}
+            required
+          />
+        </DialogContent>
         <DialogActions>
           <Button
             onClick={handleUpdateProductClose}
@@ -156,15 +257,16 @@ const ProductManagement = () => {
             Cancel
           </Button>
           <Button
-            onClick={handleUpdateProductClose}
+            onClick={handleUpdateProduct}
             variant="contained"
             sx={{
               backgroundColor: "#F97316",
               color: "#fff",
               "&:hover": { backgroundColor: "#ea5f0d" },
             }}
+            disabled={isUpdating}
           >
-            Update
+            {isUpdating ? "Updating..." : "Update"}
           </Button>
         </DialogActions>
       </Dialog>
@@ -172,7 +274,7 @@ const ProductManagement = () => {
       {/* Dialog for add product */}
       <Dialog
         open={addProductOpen}
-        onClose={isLoading ? undefined : handleAddProductClose}
+        onClose={isLoadingAddProduct ? undefined : handleAddProductClose}
         fullWidth
         maxWidth="sm"
       >
@@ -291,9 +393,9 @@ const ProductManagement = () => {
                 color: "#fff",
                 "&:hover": { backgroundColor: "#ea5f0d" },
               }}
-              disabled={isLoading}
+              disabled={isLoadingAddProduct}
             >
-              {isLoading ? "Saving..." : "Add Product"}
+              {isLoadingAddProduct ? "Saving..." : "Add Product"}
             </Button>
           </DialogActions>
         </form>

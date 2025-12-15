@@ -2,6 +2,7 @@ import type {
   GetCategoriesResponse,
   GetProductResponse,
   GetProductsResponse,
+  TProduct,
 } from "../../../types/TProduct";
 import { baseApi } from "../BaseApi";
 
@@ -13,14 +14,14 @@ const productsApi = baseApi.injectEndpoints({
         method: "POST",
         body: formData,
       }),
-       invalidatesTags: ['Products'],
+      invalidatesTags: ["Products"],
     }),
     getAllProducts: builder.query<GetProductsResponse, void>({
       query: () => ({
         url: "/products",
         method: "GET",
       }),
-      providesTags: ['Products'],
+      providesTags: ["Products"],
     }),
     getAProduct: builder.query<GetProductResponse, string>({
       query: (id) => ({
@@ -34,6 +35,17 @@ const productsApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    updateAProduct: builder.mutation<
+      GetProductResponse,
+      { id: string; updateData: Omit<TProduct, "_id" | "images" | "isDeleted"> }
+    >({
+      query: ({ id, updateData }) => ({
+        url: `/products/${id}`,
+        method: "PATCH",
+        body: updateData,
+      }),
+      invalidatesTags: ["Products"],
+    }),
   }),
 });
 
@@ -42,4 +54,5 @@ export const {
   useGetAllProductsQuery,
   useGetAProductQuery,
   useGetAllCategoriesQuery,
+  useUpdateAProductMutation,
 } = productsApi;
