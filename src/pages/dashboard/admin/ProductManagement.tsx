@@ -152,6 +152,7 @@ const ProductManagement = () => {
                 required
                 fullWidth={false}
                 className="w-3/5"
+                autoFocus
               />
               <TextField
                 label="Category"
