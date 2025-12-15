@@ -37,7 +37,10 @@ const productsApi = baseApi.injectEndpoints({
     }),
     updateAProduct: builder.mutation<
       GetProductResponse,
-      { id: string; updateData: Omit<TProduct, "_id" | "images" | "isDeleted"> }
+      {
+        id: string;
+        updateData: Partial<Omit<TProduct, "_id" | "images" | "isDeleted">>;
+      }
     >({
       query: ({ id, updateData }) => ({
         url: `/products/${id}`,

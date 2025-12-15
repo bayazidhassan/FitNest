@@ -14,6 +14,7 @@ import {
   useGetAllProductsQuery,
   useUpdateAProductMutation,
 } from "../../../redux/api/products/productsApi";
+import { getChangedFields } from "../../../utils/getChangedFields";
 
 const ProductManagement = () => {
   const { data: response } = useGetAllProductsQuery();
@@ -102,10 +103,24 @@ const ProductManagement = () => {
         price: Number(updateFormData.price),
         stock_quantity: Number(updateFormData.stock_quantity),
       };
+      const changedData = getChangedFields(
+        {
+          name: selectedProduct.name,
+          price: selectedProduct.price,
+          category: selectedProduct.category,
+          stock_quantity: selectedProduct.stock_quantity,
+          description: selectedProduct.description,
+        },
+        payload
+      );
+      if (Object.keys(changedData).length === 0) {
+        toast.error("No changes detected");
+        return;
+      }
       await updateProduct({
         id: selectedProduct._id,
         //updateData: updateFormData, //wrong -> Types of property 'price' are incompatible. Type 'string' is not assignable to type 'number'.
-        updateData: payload,
+        updateData: changedData,
       }).unwrap();
 
       toast.success("Product updated successfully!");
