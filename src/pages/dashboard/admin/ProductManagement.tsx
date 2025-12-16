@@ -93,7 +93,8 @@ const ProductManagement = () => {
                   </Button>
                   <Button
                     color="error"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.currentTarget.blur();
                       setSelectedProduct(product);
                       setDeleteFormOpen(true);
                     }}
