@@ -17,7 +17,7 @@ const ProductManagement = () => {
   const { data: response } = useGetAllProductsQuery();
   const products = response?.data || [];
 
-  //for add/update
+  // for add/update
   const [formOpen, setFormOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
   const handleAddProductOpen = () => {
@@ -30,7 +30,7 @@ const ProductManagement = () => {
   };
   const handleFormClose = () => setFormOpen(false);
 
-  //for delete
+  // for delete
   const [deleteAProduct, { isLoading: isDeleting }] =
     useDeleteAProductMutation();
   const [deleteFormOpen, setDeleteFormOpen] = useState(false);
@@ -50,18 +50,16 @@ const ProductManagement = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <h1 className="text-2xl font-bold">Product Management</h1>
         <Button
           variant="contained"
           onClick={handleAddProductOpen}
           sx={{
             backgroundColor: "#0D9488",
-            "&:hover": {
-              backgroundColor: "#0a766f",
-            },
+            "&:hover": { backgroundColor: "#0a766f" },
             color: "#fff",
           }}
         >
@@ -71,34 +69,38 @@ const ProductManagement = () => {
 
       {/* Products Table */}
       <div className="bg-white shadow rounded overflow-x-auto">
-        <table className="min-w-full border">
+        <table className="min-w-full border text-center">
           <thead className="bg-gray-100">
             <tr>
-              <th className="px-4 py-2 border">#</th>
-              <th className="px-4 py-2 border">Name</th>
-              <th className="px-4 py-2 border">Price</th>
-              <th className="px-4 py-2 border">Category</th>
-              <th className="px-4 py-2 border">Stock Quantity</th>
-              <th className="px-4 py-2 border">Actions</th>
+              <th className="px-2 md:px-4 py-2 border">#</th>
+              <th className="px-2 md:px-4 py-2 border">Name</th>
+              <th className="px-2 md:px-4 py-2 border">Price</th>
+              <th className="px-2 md:px-4 py-2 border">Category</th>
+              <th className="px-2 md:px-4 py-2 border">Stock Qty</th>
+              <th className="px-2 md:px-4 py-2 border">Actions</th>
             </tr>
           </thead>
           <tbody>
             {products.map((product: any, index: number) => (
               <tr key={product._id} className="text-center">
-                <td className="px-4 py-2 border">{index + 1}</td>
-                <td className="px-4 py-2 border">{product.name}</td>
-                <td className="px-4 py-2 border">${product.price}</td>
-                <td className="px-4 py-2 border">{product.category}</td>
-                <td className="px-4 py-2 border">{product.stock_quantity}</td>
-                <td className="px-4 py-2 border space-x-2">
+                <td className="px-2 md:px-4 py-2 border">{index + 1}</td>
+                <td className="px-2 md:px-4 py-2 border">{product.name}</td>
+                <td className="px-2 md:px-4 py-2 border">${product.price}</td>
+                <td className="px-2 md:px-4 py-2 border">{product.category}</td>
+                <td className="px-2 md:px-4 py-2 border">
+                  {product.stock_quantity}
+                </td>
+                <td className="px-2 md:px-4 py-2 border flex flex-col md:flex-row justify-center items-center gap-2 md:gap-1">
                   <Button
                     color="primary"
+                    size="small"
                     onClick={() => handleEditProductOpen(product)}
                   >
                     Edit
                   </Button>
                   <Button
                     color="error"
+                    size="small"
                     onClick={(e) => {
                       e.currentTarget.blur();
                       setSelectedProduct(product);
@@ -123,8 +125,13 @@ const ProductManagement = () => {
         />
       )}
 
-      {/* for delete a product */}
-      <Dialog open={deleteFormOpen} onClose={handleDeleteFormClose}>
+      {/* Delete Dialog */}
+      <Dialog
+        open={deleteFormOpen}
+        onClose={handleDeleteFormClose}
+        fullWidth
+        maxWidth="xs"
+      >
         <DialogTitle>Delete Product</DialogTitle>
         <DialogContent>
           Are you sure you want to delete{" "}
