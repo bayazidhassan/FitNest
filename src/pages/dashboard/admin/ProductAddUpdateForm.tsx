@@ -9,7 +9,10 @@ import {
 } from "@mui/material";
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import toast from "react-hot-toast";
-import { useCreateNewProductMutation, useUpdateAProductMutation } from "../../../redux/api/products/productsApi";
+import {
+  useCreateNewProductMutation,
+  useUpdateAProductMutation,
+} from "../../../redux/api/products/productsApi";
 import { getChangedFields } from "../../../utils/getChangedFields";
 
 interface ProductFormProps {
@@ -255,13 +258,33 @@ const ProductAddUpdateForm = ({ open, onClose, product }: ProductFormProps) => {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={onClose} variant="outlined">
+          <Button
+            onClick={onClose}
+            variant="outlined"
+            sx={{
+              color: "#4B5563",
+              borderColor: "#D1D5DB",
+              borderRadius: "8px",
+              "&:hover": {
+                backgroundColor: "#F3F4F6",
+                borderColor: "#D1D5DB",
+              },
+            }}
+          >
             Cancel
           </Button>
+
           <Button
             type="submit"
             variant="contained"
             disabled={isAdding || isUpdating}
+            sx={{
+              backgroundColor: "#F97316",
+              "&:hover": {
+                backgroundColor: "#ea5f0d",
+              },
+              color: "#fff",
+            }}
           >
             {isUpdate
               ? isUpdating

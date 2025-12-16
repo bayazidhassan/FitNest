@@ -56,8 +56,14 @@ const ProductManagement = () => {
         <h1 className="text-2xl font-bold">Product Management</h1>
         <Button
           variant="contained"
-          color="success"
           onClick={handleAddProductOpen}
+          sx={{
+            backgroundColor: "#0D9488",
+            "&:hover": {
+              backgroundColor: "#0a766f",
+            },
+            color: "#fff",
+          }}
         >
           + Add Product
         </Button>
