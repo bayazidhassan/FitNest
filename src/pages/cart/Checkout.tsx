@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { usePlaceOrderMutation } from "../../redux/api/orders/placeOrderApi";
@@ -33,10 +33,12 @@ const Checkout = () => {
     comment: "",
     paymentMethod: "cod",
   });
+  const [isFormDirty, setIsFormDirty] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    setIsFormDirty(true);
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -86,11 +88,26 @@ const Checkout = () => {
 
       dispatch(clearCart());
       dispatch(allowSuccessOrder());
+      setIsFormDirty(false);
       navigate("/checkout/successOrder", { state: { msg: res.message } });
     } catch (err) {
       toast.error((err as Error).message);
     }
   };
+
+  //for page refresh warning
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isFormDirty) {
+        e.preventDefault();
+        e.returnValue = ""; // required for Chrome
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [isFormDirty]);
 
   return (
     <div className="px-2 md:px-0 max-w-6xl mx-auto my-6">
