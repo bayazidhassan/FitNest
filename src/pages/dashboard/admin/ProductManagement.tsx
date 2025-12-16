@@ -1,15 +1,25 @@
-import { Button } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import { useState } from "react";
-import { useGetAllProductsQuery } from "../../../redux/api/products/productsApi";
-import ProductAddUpdateForm from "../../products/ProductAddUpdateForm";
+import toast from "react-hot-toast";
+import {
+  useDeleteAProductMutation,
+  useGetAllProductsQuery,
+} from "../../../redux/api/products/productsApi";
+import ProductAddUpdateForm from "./ProductAddUpdateForm";
 
 const ProductManagement = () => {
   const { data: response } = useGetAllProductsQuery();
   const products = response?.data || [];
 
+  //for add/update
   const [formOpen, setFormOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
-
   const handleAddProductOpen = () => {
     setSelectedProduct(null);
     setFormOpen(true);
@@ -19,6 +29,25 @@ const ProductManagement = () => {
     setFormOpen(true);
   };
   const handleFormClose = () => setFormOpen(false);
+
+  //for delete
+  const [deleteAProduct, { isLoading: isDeleting }] =
+    useDeleteAProductMutation();
+  const [deleteFormOpen, setDeleteFormOpen] = useState(false);
+  const handleDeleteFormClose = () => {
+    setSelectedProduct(null);
+    setDeleteFormOpen(false);
+  };
+  const handleDeleteConfirm = async () => {
+    try {
+      await deleteAProduct(selectedProduct._id);
+      setSelectedProduct(null);
+      setDeleteFormOpen(false);
+      toast.success("Product is deleted successfully.");
+    } catch (err) {
+      toast.error("Failed to delete product!");
+    }
+  };
 
   return (
     <div>
@@ -62,7 +91,15 @@ const ProductManagement = () => {
                   >
                     Edit
                   </Button>
-                  <Button color="error">Delete</Button>
+                  <Button
+                    color="error"
+                    onClick={() => {
+                      setSelectedProduct(product);
+                      setDeleteFormOpen(true);
+                    }}
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -78,6 +115,25 @@ const ProductManagement = () => {
           product={selectedProduct}
         />
       )}
+
+      {/* for delete a product */}
+      <Dialog open={deleteFormOpen} onClose={handleDeleteFormClose}>
+        <DialogTitle>Delete Product</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete{" "}
+          <strong>{selectedProduct?.name}</strong>?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteFormClose}>Cancel</Button>
+          <Button
+            disabled={isDeleting}
+            color="error"
+            onClick={handleDeleteConfirm}
+          >
+            {isDeleting ? "Deleting..." : "Delete"}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

@@ -9,11 +9,8 @@ import {
 } from "@mui/material";
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import toast from "react-hot-toast";
-import {
-  useCreateNewProductMutation,
-  useUpdateAProductMutation,
-} from "../../redux/api/products/productsApi";
-import { getChangedFields } from "../../utils/getChangedFields";
+import { useCreateNewProductMutation, useUpdateAProductMutation } from "../../../redux/api/products/productsApi";
+import { getChangedFields } from "../../../utils/getChangedFields";
 
 interface ProductFormProps {
   open: boolean;
