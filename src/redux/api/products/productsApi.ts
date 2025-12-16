@@ -2,7 +2,6 @@ import type {
   GetCategoriesResponse,
   GetProductResponse,
   GetProductsResponse,
-  TProduct,
 } from "../../../types/TProduct";
 import { baseApi } from "../BaseApi";
 
@@ -39,7 +38,7 @@ const productsApi = baseApi.injectEndpoints({
       GetProductResponse,
       {
         id: string;
-        updateData: Partial<Omit<TProduct, "_id" | "images" | "isDeleted">>;
+        updateData: FormData;
       }
     >({
       query: ({ id, updateData }) => ({
