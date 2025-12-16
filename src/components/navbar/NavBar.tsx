@@ -41,6 +41,16 @@ const NavBar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 items-center">
           <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `transition-colors duration-200 hover:text-[#F97316] ${
+                isActive ? "text-[#F97316] font-semibold" : "text-white"
+              }`
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
             to="/products"
             className={({ isActive }) =>
               `transition-colors duration-200 hover:text-[#F97316] ${
@@ -159,6 +169,9 @@ const NavBar = () => {
                   </span>
                 </div>
               )}
+              <DropdownMenuItem asChild className="text-white">
+                <Link to="/">Home</Link>
+              </DropdownMenuItem>
               <DropdownMenuItem asChild className="text-white">
                 <Link to="/products">Products</Link>
               </DropdownMenuItem>
