@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import App from "../App";
 import AdminDashboardLayout from "../layout/AdminDashboardLayout";
 import OrderManagementLayout from "../layout/OrderManagementLayout";
@@ -119,7 +119,8 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                Component: pendingOrders,
+                // Component: pendingOrders,
+                loader: () => redirect("pendingOrders"), //active this route for the first time visit
               },
               {
                 path: "pendingOrders",
