@@ -6,7 +6,7 @@ const OrderManagementLayout = () => {
       <h1 className="text-2xl font-bold">Order Management</h1>
       <div className="mt-4 grid grid-cols-2 md:grid-cols-6 gap-4">
         <NavLink
-          to="/dashboard/admin/orderManagement/pendingOrders"
+          to="pendingOrders"
           className={({ isActive }) =>
             `text-center py-2 rounded-md transition-colors ${
               isActive
@@ -18,7 +18,7 @@ const OrderManagementLayout = () => {
           Pending Orders
         </NavLink>
         <NavLink
-          to="/dashboard/admin/orderManagement/confirmedOrders"
+          to="confirmedOrders"
           className={({ isActive }) =>
             `text-center py-2 rounded-md transition-colors ${
               isActive
@@ -30,7 +30,7 @@ const OrderManagementLayout = () => {
           Confirmed Orders
         </NavLink>
         <NavLink
-          to="/dashboard/admin/orderManagement/processingOrders"
+          to="processingOrders"
           className={({ isActive }) =>
             `text-center py-2 rounded-md transition-colors ${
               isActive
@@ -42,7 +42,7 @@ const OrderManagementLayout = () => {
           Processing Orders
         </NavLink>
         <NavLink
-          to="/dashboard/admin/orderManagement/shippedOrders"
+          to="shippedOrders"
           className={({ isActive }) =>
             `text-center py-2 rounded-md transition-colors ${
               isActive
@@ -54,7 +54,7 @@ const OrderManagementLayout = () => {
           Shipped Orders
         </NavLink>
         <NavLink
-          to="/dashboard/admin/orderManagement/deliveredOrders"
+          to="deliveredOrders"
           className={({ isActive }) =>
             `text-center py-2 rounded-md transition-colors ${
               isActive
@@ -66,7 +66,7 @@ const OrderManagementLayout = () => {
           Delivered Orders
         </NavLink>
         <NavLink
-          to="/dashboard/admin/orderManagement/cancelledOrders"
+          to="cancelledOrders"
           className={({ isActive }) =>
             `text-center py-2 rounded-md transition-colors ${
               isActive
