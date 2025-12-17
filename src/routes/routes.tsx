@@ -103,7 +103,8 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            Component: adminHome,
+            //Component: adminHome,
+            loader: () => redirect("home"), //active this route when visit -> /dashboard/admin for the first time
           },
           {
             path: "home",
@@ -120,7 +121,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 // Component: pendingOrders,
-                loader: () => redirect("pendingOrders"), //active this route for the first time visit
+                loader: () => redirect("pendingOrders"), //active this route when visit -> /dashboard/admin/orderManagement for the first time
               },
               {
                 path: "pendingOrders",
