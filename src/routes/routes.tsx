@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import AdminDashboardLayout from "../layout/AdminDashboardLayout";
+import OrderManagementLayout from "../layout/OrderManagementLayout";
 import UserDashboardLayout from "../layout/UserDashboardLayout";
 import AboutUs from "../pages/AboutUs";
 import cart from "../pages/cart/cart";
@@ -8,7 +9,12 @@ import Checkout from "../pages/cart/Checkout";
 import ProtectedRouteForCheckout from "../pages/cart/ProtectedRouteForCheckout";
 import SuccessOrder from "../pages/cart/SuccessOrder";
 import adminHome from "../pages/dashboard/admin/adminHome";
-import OrderManagement from "../pages/dashboard/admin/OrderManagement";
+import cancelledOrders from "../pages/dashboard/admin/orders/cancelledOrders";
+import confirmedOrders from "../pages/dashboard/admin/orders/confirmedOrders";
+import deliveredOrders from "../pages/dashboard/admin/orders/deliveredOrders";
+import pendingOrders from "../pages/dashboard/admin/orders/pendingOrders";
+import processingOrders from "../pages/dashboard/admin/orders/processingOrders";
+import shippedOrders from "../pages/dashboard/admin/orders/shippedOrders";
 import ProductManagement from "../pages/dashboard/admin/ProductManagement";
 import userHome from "../pages/dashboard/user/userHome";
 import HomePage from "../pages/home/HomePage";
@@ -109,7 +115,37 @@ const router = createBrowserRouter([
           },
           {
             path: "orderManagement",
-            Component: OrderManagement,
+            Component: OrderManagementLayout,
+            children: [
+              {
+                index: true,
+                Component: pendingOrders,
+              },
+              {
+                path: "pendingOrders",
+                Component: pendingOrders,
+              },
+              {
+                path: "confirmedOrders",
+                Component: confirmedOrders,
+              },
+              {
+                path: "processingOrders",
+                Component: processingOrders,
+              },
+              {
+                path: "shippedOrders",
+                Component: shippedOrders,
+              },
+              {
+                path: "deliveredOrders",
+                Component: deliveredOrders,
+              },
+              {
+                path: "cancelledOrders",
+                Component: cancelledOrders,
+              },
+            ],
           },
         ],
       },
