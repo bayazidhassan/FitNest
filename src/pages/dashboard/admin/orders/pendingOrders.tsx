@@ -1,4 +1,5 @@
 import { useGetOrdersByStatusQuery } from "../../../../redux/api/orders/getOrdersByStatusApi";
+import type { TOrder } from "../../../../types/TOrder";
 
 const pendingOrders = () => {
   const {
@@ -15,9 +16,13 @@ const pendingOrders = () => {
       <p className="text-center mt-10 text-red-500">Error loading orders.</p>
     );
 
+  console.log(orders);
+
   return (
     <div>
-      {orders.map((order) => <h1>{order.firstName}</h1>)}
+      {orders.map((order: TOrder) => (
+        <h1>{order.firstName}</h1>
+      ))}
     </div>
   );
 };
