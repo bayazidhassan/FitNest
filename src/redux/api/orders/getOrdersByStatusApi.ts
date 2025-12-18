@@ -4,7 +4,7 @@ const getOrdersByStatusApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getOrdersByStatus: builder.query({
       query: (status) => ({
-        url: `/orders/${status}`,
+        url: `/order/byStatus/${status}`,
         method: "GET",
       }),
     }),
