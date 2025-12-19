@@ -12,7 +12,7 @@ const OrderManagementLayout = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <h1 className="text-2xl font-bold border-b pb-2">Order Management</h1>
+      <h1 className="text-2xl font-bold border-b pb-4 md:pb-2">Order Management</h1>
       <div className="mt-4 grid grid-cols-2 md:grid-cols-6 gap-4">
         {orderTabs.map((tab) => (
           <NavLink
