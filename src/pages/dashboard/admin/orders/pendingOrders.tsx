@@ -179,7 +179,7 @@ const pendingOrders = () => {
                       activeAction === "cancelled"
                     }
                     onClick={() => handleUpdate(order._id, "cancelled")}
-                    className="bg-red-500 text-white cursor-pointer px-3 py-2 rounded-md disabled:opacity-50"
+                    className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-2 rounded-sm disabled:opacity-50"
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
@@ -195,7 +195,7 @@ const pendingOrders = () => {
                       activeAction === "confirmed"
                     }
                     onClick={() => handleUpdate(order._id, "confirmed")}
-                    className="bg-[#0D9488] text-white cursor-pointer px-3 py-2 rounded-md disabled:opacity-50"
+                    className="bg-[#0D9488] hover:bg-[#0a766f] text-white cursor-pointer px-3 py-2 rounded-sm disabled:opacity-50"
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&

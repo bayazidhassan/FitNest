@@ -63,8 +63,8 @@ const AdminDashboardLayout = () => {
               className={({ isActive }) =>
                 `${linkBase} ${
                   isActive
-                    ? "bg-[#0D9488] text-white"
-                    : "hover:bg-gray-100 text-gray-700"
+                    ? "bg-[#0D9488] hover:bg-[#0a766f] text-white"
+                    : "border shadow hover:bg-gray-200 text-gray-700"
                 }`
               }
               onClick={() => setSidebarOpen(false)} // close on mobile

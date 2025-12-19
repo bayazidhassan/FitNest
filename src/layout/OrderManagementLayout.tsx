@@ -12,17 +12,17 @@ const OrderManagementLayout = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <h1 className="text-2xl font-bold border-b pb-4 md:pb-2">Order Management</h1>
+      <h1 className="text-2xl font-bold border-b border-gray-300 pb-4 md:pb-2">Order Management</h1>
       <div className="mt-4 grid grid-cols-2 md:grid-cols-6 gap-4">
         {orderTabs.map((tab) => (
           <NavLink
             key={tab.path}
             to={tab.path}
             className={({ isActive }) =>
-              `text-center py-2 rounded-md text-sm font-medium transition-colors ${
+              `text-center py-2 shadow border rounded-md text-sm font-medium transition-colors ${
                 isActive
-                  ? "bg-[#0D9488] text-white"
-                  : "bg-gray-200 hover:bg-gray-300 text-gray-700"
+                  ? "bg-[#0D9488] hover:bg-[#0a766f] text-white"
+                  : "bg-white hover:bg-gray-200 text-gray-700"
               }`
             }
           >
