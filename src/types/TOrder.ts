@@ -7,7 +7,7 @@ type TCartItems = {
   product_id: string;
 };
 
-type TStatus =
+export type TStatus =
   | "pending"
   | "confirmed"
   | "processing"

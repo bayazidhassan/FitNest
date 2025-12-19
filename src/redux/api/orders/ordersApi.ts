@@ -1,3 +1,4 @@
+import type { TStatus } from "../../../types/TOrder";
 import { baseApi } from "../BaseApi";
 
 const ordersApi = baseApi.injectEndpoints({
@@ -11,7 +12,7 @@ const ordersApi = baseApi.injectEndpoints({
     }),
     updateOrderStatus: builder.mutation<
       any,
-      { id: string; status: "confirmed" | "cancelled" }
+      { id: string; status: TStatus }
     >({
       query: ({ id, status }) => ({
         url: `/order/updateStatus/${id}`,
