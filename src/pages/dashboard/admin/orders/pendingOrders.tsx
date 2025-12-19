@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import {
   useGetOrdersByStatusQuery,
   useUpdateOrderStatusMutation,
@@ -38,6 +39,13 @@ const pendingOrders = () => {
 
     try {
       await updateOrderStatus({ id, status }).unwrap();
+      toast.success(
+        status === "confirmed"
+          ? "Order confirmed successfully!"
+          : "Order cancelled successfully!"
+      );
+    } catch (err: any) {
+      toast.error(err?.data?.message || err.message || "Something went wrong");
     } finally {
       setActiveOrderId(null);
       setActiveAction(null);
@@ -127,18 +135,15 @@ const pendingOrders = () => {
         <table className="min-w-full border">
           <thead className="bg-gray-100">
             <tr>
-              <th className="p-2">Customer</th>
-              <th className="p-2">Items</th>
-              <th className="p-2">Total</th>
+              <th className="p-2 border-r">Customer</th>
+              <th className="p-2 border-r">Items</th>
+              <th className="p-2 border-r">Total</th>
               <th className="p-2">Actions</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((order: TOrder) => (
-              <tr
-                key={order._id}
-                className="border-t-2 border-gray-300"
-              >
+              <tr key={order._id} className="border-t-2 border-gray-300">
                 <td className="p-2 border-r">
                   <p className="font-medium">{`${order.firstName} ${order.lastName}`}</p>
                   <p className="text-sm text-gray-600">{order.email}</p>
@@ -179,7 +184,7 @@ const pendingOrders = () => {
                       activeAction === "cancelled"
                     }
                     onClick={() => handleUpdate(order._id, "cancelled")}
-                    className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-2 rounded-sm disabled:opacity-50"
+                    className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
@@ -195,7 +200,7 @@ const pendingOrders = () => {
                       activeAction === "confirmed"
                     }
                     onClick={() => handleUpdate(order._id, "confirmed")}
-                    className="bg-[#0D9488] hover:bg-[#0a766f] text-white cursor-pointer px-3 py-2 rounded-sm disabled:opacity-50"
+                    className="bg-[#0D9488] hover:bg-[#0a766f] text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
