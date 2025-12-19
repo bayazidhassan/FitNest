@@ -1,7 +1,219 @@
+import { useState } from "react";
+import toast from "react-hot-toast";
+import {
+  useGetOrdersByStatusQuery,
+  useUpdateOrderStatusMutation,
+} from "../../../../redux/api/orders/ordersApi";
+import type { TOrder } from "../../../../types/TOrder";
+
 const shippedOrders = () => {
+  const {
+    data: response,
+    isLoading,
+    error,
+  } = useGetOrdersByStatusQuery("shipped");
+
+  const orders = response?.data || [];
+
+  const [updateOrderStatus, { isLoading: isUpdating }] =
+    useUpdateOrderStatusMutation();
+
+  const [activeOrderId, setActiveOrderId] = useState<string | null>(null);
+  const [activeAction, setActiveAction] = useState<
+    "delivered" | "cancelled" | null
+  >(null);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (!orders.length) return <p>No shipped orders</p>;
+  if (error)
+    return (
+      <p className="text-center mt-10 text-red-500">Error loading orders.</p>
+    );
+
+  const handleUpdate = async (
+    id: string,
+    status: "delivered" | "cancelled"
+  ) => {
+    setActiveOrderId(id);
+    setActiveAction(status);
+
+    try {
+      await updateOrderStatus({ id, status }).unwrap();
+      toast.success(
+        status === "delivered"
+          ? "Order delivered successfully!"
+          : "Order cancelled successfully!"
+      );
+    } catch (err: any) {
+      toast.error(err?.data?.message || err.message || "Something went wrong");
+    } finally {
+      setActiveOrderId(null);
+      setActiveAction(null);
+    }
+  };
+
   return (
-    <div>
-      <h1>Shipped orders</h1>
+    <div className="space-y-4">
+      {/* MOBILE: CARD VIEW */}
+      <div className="space-y-4 md:hidden">
+        {orders.map((order: TOrder) => (
+          <div
+            key={order._id}
+            className="rounded-lg border bg-white p-4 shadow-sm space-y-3"
+          >
+            {/* User info */}
+            <div>
+              <h3 className="font-semibold">{`${order.firstName} ${order.lastName}`}</h3>
+              <p className="text-sm text-gray-600">{order.email}</p>
+              <p className="text-sm text-gray-600">{order.phone}</p>
+              <p className="text-sm text-gray-600">{order.street_address}</p>
+              <p className="text-sm text-gray-600">{`${order.upazila}, ${order.district}`}</p>
+            </div>
+
+            {/* Comment */}
+            {order.comment && (
+              <p className="text-sm italic">“{order.comment}”</p>
+            )}
+
+            {/* Items */}
+            <div className="border-t pt-2 text-sm space-y-1">
+              {order.cartItems.map((item) => (
+                <p key={item.product_id} className="flex justify-between">
+                  <span>
+                    {item.name} × {item.quantity}
+                  </span>
+                  <span>৳{item.price * item.quantity}</span>
+                </p>
+              ))}
+            </div>
+
+            {/* Total */}
+            <div className="flex justify-between font-semibold border-t py-2">
+              <span>Total</span>
+              <span>৳{order.totalPrice}</span>
+            </div>
+
+            {/* Actions */}
+            <div className="flex gap-2">
+              <button
+                disabled={
+                  isUpdating &&
+                  activeOrderId === order._id &&
+                  activeAction === "cancelled"
+                }
+                onClick={() => handleUpdate(order._id, "cancelled")}
+                className="flex-1 bg-red-500 text-white cursor-pointer py-2 rounded-md disabled:opacity-50"
+              >
+                {isUpdating &&
+                activeOrderId === order._id &&
+                activeAction === "cancelled"
+                  ? "Cancelling..."
+                  : "Cancel"}
+              </button>
+              <button
+                disabled={
+                  isUpdating &&
+                  activeOrderId === order._id &&
+                  activeAction === "delivered"
+                }
+                onClick={() => handleUpdate(order._id, "delivered")}
+                className="flex-1 bg-[#0D9488] text-white cursor-pointer py-2 rounded-md disabled:opacity-50"
+              >
+                {isUpdating &&
+                activeOrderId === order._id &&
+                activeAction === "delivered"
+                  ? "Delivering..."
+                  : "Deliver"}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* DESKTOP: TABLE VIEW */}
+      <div className="hidden md:block bg-white shadow border-gray-300 rounded overflow-x-auto">
+        <table className="min-w-full border">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="p-2 border-r">Customer</th>
+              <th className="p-2 border-r">Items</th>
+              <th className="p-2 border-r">Total</th>
+              <th className="p-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order: TOrder) => (
+              <tr key={order._id} className="border-t-2 border-gray-300">
+                <td className="p-2 border-r">
+                  <p className="font-medium">{`${order.firstName} ${order.lastName}`}</p>
+                  <p className="text-sm text-gray-600">{order.email}</p>
+                  <p className="text-sm">{order.phone}</p>
+                  <p className="text-sm text-gray-600">
+                    {order.street_address}
+                  </p>
+                  <p className="text-sm text-gray-600">{`${order.upazila}, ${order.district}`}</p>
+                  {order.comment && (
+                    <p className="text-sm italic">“{order.comment}”</p>
+                  )}
+                </td>
+
+                <td className="p-2 text-sm border-r">
+                  <div className="grid grid-cols-[1fr_auto] gap-x-2">
+                    {order.cartItems.map((item) => (
+                      <div key={item.product_id} className="contents">
+                        <span className="truncate">
+                          {item.name} × {item.quantity}
+                        </span>
+                        <span className="whitespace-nowrap text-right">
+                          ৳{item.price * item.quantity}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </td>
+
+                <td className="p-2 font-semibold text-center border-r">
+                  ৳{order.totalPrice}
+                </td>
+
+                <td className="p-2 space-x-2 text-center">
+                  <button
+                    disabled={
+                      isUpdating &&
+                      activeOrderId === order._id &&
+                      activeAction === "cancelled"
+                    }
+                    onClick={() => handleUpdate(order._id, "cancelled")}
+                    className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
+                  >
+                    {isUpdating &&
+                    activeOrderId === order._id &&
+                    activeAction === "cancelled"
+                      ? "Cancelling..."
+                      : "Cancel"}
+                  </button>
+
+                  <button
+                    disabled={
+                      isUpdating &&
+                      activeOrderId === order._id &&
+                      activeAction === "delivered"
+                    }
+                    onClick={() => handleUpdate(order._id, "delivered")}
+                    className="bg-[#0D9488] hover:bg-[#0a766f] text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
+                  >
+                    {isUpdating &&
+                    activeOrderId === order._id &&
+                    activeAction === "delivered"
+                      ? "Delivering..."
+                      : "Deliver"}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
