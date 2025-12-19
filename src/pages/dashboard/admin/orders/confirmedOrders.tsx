@@ -122,8 +122,8 @@ const confirmedOrders = () => {
                 {isUpdating &&
                 activeOrderId === order._id &&
                 activeAction === "processing"
-                  ? "Confirming..."
-                  : "Confirm"}
+                  ? "Processing..."
+                  : "Process"}
               </button>
             </div>
           </div>
