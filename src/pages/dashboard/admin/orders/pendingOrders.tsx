@@ -123,7 +123,7 @@ const pendingOrders = () => {
       </div>
 
       {/* DESKTOP: TABLE VIEW */}
-      <div className="hidden md:block bg-white shadow rounded overflow-x-auto">
+      <div className="hidden md:block bg-white shadow border-gray-300 rounded overflow-x-auto">
         <table className="min-w-full border">
           <thead className="bg-gray-100">
             <tr>
@@ -134,10 +134,10 @@ const pendingOrders = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order: TOrder, index: number) => (
+            {orders.map((order: TOrder) => (
               <tr
                 key={order._id}
-                className={index === 0 ? "border" : "border-t-2 border-gray-300"}
+                className="border-t-2 border-gray-300"
               >
                 <td className="p-2 border-r">
                   <p className="font-medium">{`${order.firstName} ${order.lastName}`}</p>
