@@ -20,7 +20,7 @@ const shippedOrders = () => {
 
   const [activeOrderId, setActiveOrderId] = useState<string | null>(null);
   const [activeAction, setActiveAction] = useState<
-    "delivered" | "cancelled" | null
+    "delivered" | "returned" | null
   >(null);
 
   if (isLoading) return <p>Loading...</p>;
@@ -30,10 +30,7 @@ const shippedOrders = () => {
       <p className="text-center mt-10 text-red-500">Error loading orders.</p>
     );
 
-  const handleUpdate = async (
-    id: string,
-    status: "delivered" | "cancelled"
-  ) => {
+  const handleUpdate = async (id: string, status: "delivered" | "returned") => {
     setActiveOrderId(id);
     setActiveAction(status);
 
@@ -42,7 +39,7 @@ const shippedOrders = () => {
       toast.success(
         status === "delivered"
           ? "Order delivered successfully!"
-          : "Order cancelled successfully!"
+          : "Order returned successfully!"
       );
     } catch (err: any) {
       toast.error(err?.data?.message || err.message || "Something went wrong");
@@ -99,16 +96,16 @@ const shippedOrders = () => {
                 disabled={
                   isUpdating &&
                   activeOrderId === order._id &&
-                  activeAction === "cancelled"
+                  activeAction === "returned"
                 }
-                onClick={() => handleUpdate(order._id, "cancelled")}
+                onClick={() => handleUpdate(order._id, "returned")}
                 className="flex-1 bg-red-500 text-white cursor-pointer py-2 rounded-md disabled:opacity-50"
               >
                 {isUpdating &&
                 activeOrderId === order._id &&
-                activeAction === "cancelled"
-                  ? "Cancelling..."
-                  : "Cancel"}
+                activeAction === "returned"
+                  ? "Returning..."
+                  : "Return"}
               </button>
               <button
                 disabled={
@@ -181,16 +178,16 @@ const shippedOrders = () => {
                     disabled={
                       isUpdating &&
                       activeOrderId === order._id &&
-                      activeAction === "cancelled"
+                      activeAction === "returned"
                     }
-                    onClick={() => handleUpdate(order._id, "cancelled")}
+                    onClick={() => handleUpdate(order._id, "returned")}
                     className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
-                    activeAction === "cancelled"
-                      ? "Cancelling..."
-                      : "Cancel"}
+                    activeAction === "returned"
+                      ? "Returning..."
+                      : "Return"}
                   </button>
 
                   <button

@@ -1,4 +1,4 @@
-import { XCircle } from "lucide-react";
+import { XCircle, CornerUpLeft } from "lucide-react";
 import { useGetOrdersByStatusQuery } from "../../../../redux/api/orders/ordersApi";
 import type { TOrder } from "../../../../types/TOrder";
 
@@ -12,11 +12,32 @@ const cancelledOrders = () => {
   const orders = response?.data || [];
 
   if (isLoading) return <p>Loading...</p>;
-  if (!orders.length) return <p>No cancelled orders</p>;
+  if (!orders.length) return <p>No cancelled or returned orders</p>;
   if (error)
     return (
       <p className="text-center mt-10 text-red-500">Error loading orders.</p>
     );
+
+  // Function to render status badge with icon
+  const renderStatusBadge = (status: string) => {
+    if (status === "cancelled") {
+      return (
+        <div className="flex items-center justify-center gap-1 text-red-600">
+          <XCircle size={20} />
+          <span className="font-medium">Cancelled</span>
+        </div>
+      );
+    }
+    if (status === "returned") {
+      return (
+        <div className="flex items-center justify-center gap-1 text-blue-600">
+          <CornerUpLeft size={20} />
+          <span className="font-medium">Returned</span>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <div className="space-y-4">
@@ -59,11 +80,8 @@ const cancelledOrders = () => {
               <span>৳{order.totalPrice}</span>
             </div>
 
-            {/* Actions */}
-            <div className="flex justify-center items-center text-red-600">
-              <XCircle size={24} />
-              <span className="ml-1 font-medium">Cancelled</span>
-            </div>
+            {/* Status */}
+            {renderStatusBadge(order.status)}
           </div>
         ))}
       </div>
@@ -114,11 +132,8 @@ const cancelledOrders = () => {
                   ৳{order.totalPrice}
                 </td>
 
-                <td className="p-2 text-center text-red-600">
-                  <div className="flex items-center justify-center gap-1">
-                    <XCircle size={20} />
-                    <span className="font-medium">Cancelled</span>
-                  </div>
+                <td className="p-2 text-center">
+                  {renderStatusBadge(order.status)}
                 </td>
               </tr>
             ))}
