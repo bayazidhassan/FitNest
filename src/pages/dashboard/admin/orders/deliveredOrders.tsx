@@ -11,11 +11,25 @@ const deliveredOrders = () => {
 
   const orders = response?.data || [];
 
-  if (isLoading) return <p>Loading...</p>;
-  if (!orders.length) return <p>No delivered orders</p>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <p className="text-lg font-medium">Loading...</p>
+      </div>
+    );
+  if (!orders.length)
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <p className="text-lg font-medium">No delivered orders</p>
+      </div>
+    );
   if (error)
     return (
-      <p className="text-center mt-10 text-red-500">Error loading orders.</p>
+      <div className="flex justify-center items-center h-[60vh]">
+        <p className="text-lg text-red-500 font-medium">
+          Error loading orders.
+        </p>
+      </div>
     );
 
   return (
