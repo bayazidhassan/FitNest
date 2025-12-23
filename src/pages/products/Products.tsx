@@ -174,7 +174,7 @@ const Products = () => {
           {/* Clear Filters Button */}
           <button
             onClick={clearFilters}
-            className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded"
+            className="cursor-pointer w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded"
           >
             Clear Filters
           </button>
@@ -271,7 +271,7 @@ const Products = () => {
                         );
                       }}
                       disabled={quantityInCart >= product.stock_quantity}
-                      className="flex-1 text-center bg-[#F97316] text-white px-2 py-1 rounded hover:bg-[#ea5f0d] text-sm disabled:opacity-40"
+                      className="cursor-pointer disabled:cursor-default flex-1 text-center bg-[#F97316] text-white px-2 py-1 rounded hover:bg-[#ea5f0d] text-sm disabled:opacity-40"
                     >
                       Add to Cart
                     </button>

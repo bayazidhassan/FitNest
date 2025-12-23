@@ -275,7 +275,7 @@ const Checkout = () => {
           {/* Place Order Button below Order Summary */}
           <button
             onClick={handlePlaceOrder}
-            className="mt-4 px-4 py-2 bg-[#F97316] hover:bg-[#ea5f0d] text-white rounded"
+            className="cursor-pointer mt-4 px-4 py-2 bg-[#F97316] hover:bg-[#ea5f0d] text-white rounded"
           >
             Place Order
           </button>

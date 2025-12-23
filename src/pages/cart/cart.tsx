@@ -99,7 +99,7 @@ const Cart = () => {
                 {/* DELETE */}
                 <button
                   onClick={() => handleOpen(product.product_id)}
-                  className="px-2 py-1 bg-[#F97316] text-white rounded hover:bg-[#ea5f0d] transition text-sm"
+                  className="cursor-pointer px-2 py-1 bg-[#F97316] text-white rounded hover:bg-[#ea5f0d] transition text-sm"
                 >
                   Delete
                 </button>
@@ -114,7 +114,7 @@ const Cart = () => {
                     }
                   
                     disabled={product.quantity === 1}
-                    className="px-2 py-1 bg-[#0D9488] rounded disabled:opacity-40"
+                    className="cursor-pointer disabled:cursor-default px-2 py-1 bg-[#0D9488] rounded disabled:opacity-40"
                   >
                     -
                   </button>
@@ -130,7 +130,7 @@ const Cart = () => {
                       )
                     }
                     disabled={product.quantity === product.stock_quantity}
-                    className="px-2 py-1 bg-[#0D9488] rounded disabled:opacity-40"
+                    className="cursor-pointer disabled:cursor-default px-2 py-1 bg-[#0D9488] rounded disabled:opacity-40"
                   >
                     +
                   </button>
@@ -163,7 +163,7 @@ const Cart = () => {
 
           <button
             onClick={() => dispatch(clearCart())}
-            className="w-full px-4 py-2 mb-3 bg-[#F97316] text-white rounded hover:bg-[#ea5f0d] transition"
+            className="cursor-pointer w-full px-4 py-2 mb-3 bg-[#F97316] text-white rounded hover:bg-[#ea5f0d] transition"
           >
             Clear Cart
           </button>
