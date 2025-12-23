@@ -89,7 +89,10 @@ const Checkout = () => {
       dispatch(clearCart());
       dispatch(allowSuccessOrder());
       setIsFormDirty(false);
-      navigate("/checkout/successOrder", { state: { msg: res.message } });
+      navigate("/checkout/successOrder", {
+        replace: true,
+        state: { msg: res.message },
+      });
     } catch (err) {
       toast.error((err as Error).message);
     }
