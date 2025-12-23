@@ -55,7 +55,7 @@ const confirmedOrders = () => {
       await updateOrderStatus({ id, status }).unwrap();
       toast.success(
         status === "processing"
-          ? "Order processed successfully!"
+          ? "Order is processing now."
           : "Order cancelled successfully!"
       );
     } catch (err: any) {
