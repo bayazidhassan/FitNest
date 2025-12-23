@@ -4,7 +4,7 @@ import {
   useGetOrdersByStatusQuery,
   useUpdateOrderStatusMutation,
 } from "../../../../redux/api/orders/ordersApi";
-import type { TOrder } from "../../../../types/TOrder";
+import type { TOrder, TStatus } from "../../../../types/TOrder";
 
 const shippedOrders = () => {
   const {
@@ -44,14 +44,22 @@ const shippedOrders = () => {
       </div>
     );
 
-  const handleUpdate = async (id: string, status: "delivered" | "returned") => {
+  const handleUpdate = async (
+    id: string,
+    currentStatus: TStatus,
+    newStatus: "delivered" | "returned"
+  ) => {
     setActiveOrderId(id);
-    setActiveAction(status);
+    setActiveAction(newStatus);
 
     try {
-      await updateOrderStatus({ id, status }).unwrap();
+      await updateOrderStatus({
+        id,
+        fromStatus: currentStatus,
+        toStatus: newStatus,
+      }).unwrap();
       toast.success(
-        status === "delivered"
+        newStatus === "delivered"
           ? "Order delivered successfully!"
           : "Order returned successfully!"
       );
@@ -112,7 +120,9 @@ const shippedOrders = () => {
                   activeOrderId === order._id &&
                   activeAction === "returned"
                 }
-                onClick={() => handleUpdate(order._id, "returned")}
+                onClick={() =>
+                  handleUpdate(order._id, order.status, "returned")
+                }
                 className="flex-1 bg-red-500 text-white cursor-pointer py-2 rounded-md disabled:opacity-50"
               >
                 {isUpdating &&
@@ -127,7 +137,9 @@ const shippedOrders = () => {
                   activeOrderId === order._id &&
                   activeAction === "delivered"
                 }
-                onClick={() => handleUpdate(order._id, "delivered")}
+                onClick={() =>
+                  handleUpdate(order._id, order.status, "delivered")
+                }
                 className="flex-1 bg-[#0D9488] text-white cursor-pointer py-2 rounded-md disabled:opacity-50"
               >
                 {isUpdating &&
@@ -194,7 +206,9 @@ const shippedOrders = () => {
                       activeOrderId === order._id &&
                       activeAction === "returned"
                     }
-                    onClick={() => handleUpdate(order._id, "returned")}
+                    onClick={() =>
+                      handleUpdate(order._id, order.status, "returned")
+                    }
                     className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
                   >
                     {isUpdating &&
@@ -210,7 +224,9 @@ const shippedOrders = () => {
                       activeOrderId === order._id &&
                       activeAction === "delivered"
                     }
-                    onClick={() => handleUpdate(order._id, "delivered")}
+                    onClick={() =>
+                      handleUpdate(order._id, order.status, "delivered")
+                    }
                     className="bg-[#0D9488] hover:bg-[#0a766f] text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
                   >
                     {isUpdating &&

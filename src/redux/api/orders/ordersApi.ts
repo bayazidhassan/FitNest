@@ -10,11 +10,14 @@ const ordersApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Orders"],
     }),
-    updateOrderStatus: builder.mutation<any, { id: string; status: TStatus }>({
-      query: ({ id, status }) => ({
+    updateOrderStatus: builder.mutation<
+      any,
+      { id: string; fromStatus: TStatus; toStatus: TStatus }
+    >({
+      query: ({ id, fromStatus, toStatus }) => ({
         url: `/order/updateStatus/${id}`,
         method: "PATCH",
-        body: { status },
+        body: { fromStatus, toStatus },
       }),
       invalidatesTags: ["Orders"],
     }),
