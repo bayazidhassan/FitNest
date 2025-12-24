@@ -115,11 +115,7 @@ const shippedOrders = () => {
             {/* Actions */}
             <div className="flex gap-2">
               <button
-                disabled={
-                  isUpdating &&
-                  activeOrderId === order._id &&
-                  activeAction === "returned"
-                }
+                disabled={isUpdating && activeOrderId === order._id}
                 onClick={() =>
                   handleUpdate(order._id, order.status, "returned")
                 }
@@ -132,11 +128,7 @@ const shippedOrders = () => {
                   : "Return"}
               </button>
               <button
-                disabled={
-                  isUpdating &&
-                  activeOrderId === order._id &&
-                  activeAction === "delivered"
-                }
+                disabled={isUpdating && activeOrderId === order._id}
                 onClick={() =>
                   handleUpdate(order._id, order.status, "delivered")
                 }
@@ -201,11 +193,7 @@ const shippedOrders = () => {
 
                 <td className="p-2 space-x-2 text-center">
                   <button
-                    disabled={
-                      isUpdating &&
-                      activeOrderId === order._id &&
-                      activeAction === "returned"
-                    }
+                    disabled={isUpdating && activeOrderId === order._id}
                     onClick={() =>
                       handleUpdate(order._id, order.status, "returned")
                     }
@@ -219,11 +207,7 @@ const shippedOrders = () => {
                   </button>
 
                   <button
-                    disabled={
-                      isUpdating &&
-                      activeOrderId === order._id &&
-                      activeAction === "delivered"
-                    }
+                    disabled={isUpdating && activeOrderId === order._id}
                     onClick={() =>
                       handleUpdate(order._id, order.status, "delivered")
                     }

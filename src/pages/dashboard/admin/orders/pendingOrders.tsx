@@ -115,12 +115,10 @@ const pendingOrders = () => {
             {/* Actions */}
             <div className="flex gap-2">
               <button
-                disabled={
-                  isUpdating &&
-                  activeOrderId === order._id &&
-                  activeAction === "cancelled"
+                disabled={isUpdating && activeOrderId === order._id}
+                onClick={() =>
+                  handleUpdate(order._id, order.status, "cancelled")
                 }
-                onClick={() => handleUpdate(order._id,order.status, "cancelled")}
                 className="flex-1 bg-red-500 text-white cursor-pointer py-2 rounded-md disabled:opacity-50"
               >
                 {isUpdating &&
@@ -130,12 +128,10 @@ const pendingOrders = () => {
                   : "Cancel"}
               </button>
               <button
-                disabled={
-                  isUpdating &&
-                  activeOrderId === order._id &&
-                  activeAction === "confirmed"
+                disabled={isUpdating && activeOrderId === order._id}
+                onClick={() =>
+                  handleUpdate(order._id, order.status, "confirmed")
                 }
-                onClick={() => handleUpdate(order._id,order.status, "confirmed")}
                 className="flex-1 bg-[#0D9488] text-white cursor-pointer py-2 rounded-md disabled:opacity-50"
               >
                 {isUpdating &&
@@ -197,12 +193,10 @@ const pendingOrders = () => {
 
                 <td className="p-2 space-x-2 text-center">
                   <button
-                    disabled={
-                      isUpdating &&
-                      activeOrderId === order._id &&
-                      activeAction === "cancelled"
+                    disabled={isUpdating && activeOrderId === order._id}
+                    onClick={() =>
+                      handleUpdate(order._id, order.status, "cancelled")
                     }
-                    onClick={() => handleUpdate(order._id,order.status, "cancelled")}
                     className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
                   >
                     {isUpdating &&
@@ -213,12 +207,10 @@ const pendingOrders = () => {
                   </button>
 
                   <button
-                    disabled={
-                      isUpdating &&
-                      activeOrderId === order._id &&
-                      activeAction === "confirmed"
+                    disabled={isUpdating && activeOrderId === order._id}
+                    onClick={() =>
+                      handleUpdate(order._id, order.status, "confirmed")
                     }
-                    onClick={() => handleUpdate(order._id,order.status, "confirmed")}
                     className="bg-[#0D9488] hover:bg-[#0a766f] text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
                   >
                     {isUpdating &&

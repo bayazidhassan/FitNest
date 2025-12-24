@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "./api/BaseApi";
 import authReducer from "./features/auth/authSlice";
 import cartReducer from "./features/cart/addToCartSlice";
-import successOrderReducer from './features/order/successOrderSlice';
+import successOrderReducer from "./features/order/successOrderSlice";
 
 import {
   FLUSH,

@@ -115,11 +115,7 @@ const processingOrders = () => {
             {/* Actions */}
             <div className="flex gap-2">
               <button
-                disabled={
-                  isUpdating &&
-                  activeOrderId === order._id &&
-                  activeAction === "cancelled"
-                }
+                disabled={isUpdating && activeOrderId === order._id}
                 onClick={() =>
                   handleUpdate(order._id, order.status, "cancelled")
                 }
@@ -132,11 +128,7 @@ const processingOrders = () => {
                   : "Cancel"}
               </button>
               <button
-                disabled={
-                  isUpdating &&
-                  activeOrderId === order._id &&
-                  activeAction === "shipped"
-                }
+                disabled={isUpdating && activeOrderId === order._id}
                 onClick={() => handleUpdate(order._id, order.status, "shipped")}
                 className="flex-1 bg-[#0D9488] text-white cursor-pointer py-2 rounded-md disabled:opacity-50"
               >
@@ -199,39 +191,41 @@ const processingOrders = () => {
 
                 <td className="p-2 space-x-2 text-center">
                   <button
-                    disabled={
-                      isUpdating &&
-                      activeOrderId === order._id &&
-                      activeAction === "cancelled"
-                    }
+                    disabled={isUpdating && activeOrderId === order._id}
                     onClick={() =>
                       handleUpdate(order._id, order.status, "cancelled")
                     }
-                    className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
+                    className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
-                    activeAction === "cancelled"
-                      ? "Cancelling..."
-                      : "Cancel"}
+                    activeAction === "cancelled" ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        Cancelling...
+                      </span>
+                    ) : (
+                      "Cancel"
+                    )}
                   </button>
 
                   <button
-                    disabled={
-                      isUpdating &&
-                      activeOrderId === order._id &&
-                      activeAction === "shipped"
-                    }
+                    disabled={isUpdating && activeOrderId === order._id}
                     onClick={() =>
                       handleUpdate(order._id, order.status, "shipped")
                     }
-                    className="bg-[#0D9488] hover:bg-[#0a766f] text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
+                    className="bg-[#0D9488] hover:bg-[#0a766f] cursor-pointer text-white px-3 py-1 rounded-sm disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
-                    activeAction === "shipped"
-                      ? "Shipping..."
-                      : "Ship"}
+                    activeAction === "shipped" ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        Shipping...
+                      </span>
+                    ) : (
+                      "Ship"
+                    )}
                   </button>
                 </td>
               </tr>

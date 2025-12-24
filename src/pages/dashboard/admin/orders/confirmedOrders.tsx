@@ -115,11 +115,7 @@ const confirmedOrders = () => {
             {/* Actions */}
             <div className="flex gap-2">
               <button
-                disabled={
-                  isUpdating &&
-                  activeOrderId === order._id &&
-                  activeAction === "cancelled"
-                }
+                disabled={isUpdating && activeOrderId === order._id}
                 onClick={() =>
                   handleUpdate(order._id, order.status, "cancelled")
                 }
@@ -132,11 +128,7 @@ const confirmedOrders = () => {
                   : "Cancel"}
               </button>
               <button
-                disabled={
-                  isUpdating &&
-                  activeOrderId === order._id &&
-                  activeAction === "processing"
-                }
+                disabled={isUpdating && activeOrderId === order._id}
                 onClick={() =>
                   handleUpdate(order._id, order.status, "processing")
                 }
@@ -201,11 +193,7 @@ const confirmedOrders = () => {
 
                 <td className="p-2 space-x-2 text-center">
                   <button
-                    disabled={
-                      isUpdating &&
-                      activeOrderId === order._id &&
-                      activeAction === "cancelled"
-                    }
+                    disabled={isUpdating && activeOrderId === order._id}
                     onClick={() =>
                       handleUpdate(order._id, order.status, "cancelled")
                     }
@@ -219,11 +207,7 @@ const confirmedOrders = () => {
                   </button>
 
                   <button
-                    disabled={
-                      isUpdating &&
-                      activeOrderId === order._id &&
-                      activeAction === "processing"
-                    }
+                    disabled={isUpdating && activeOrderId === order._id}
                     onClick={() =>
                       handleUpdate(order._id, order.status, "processing")
                     }
