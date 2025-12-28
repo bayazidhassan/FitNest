@@ -52,9 +52,7 @@ const Register = () => {
       await register(form).unwrap();
       toast.success("Registration successful!");
 
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+      navigate("/login");
     } catch (err: any) {
       toast.error(err?.data?.message || "Registration failed!");
     }
@@ -199,7 +197,7 @@ const Register = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-[#0D9488] text-white py-3 rounded hover:bg-[#0a766f] transition"
+              className="cursor-pointer w-full bg-[#0D9488] text-white py-3 rounded hover:bg-[#0a766f] transition disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isLoading ? "Registering..." : "Register"}
             </button>

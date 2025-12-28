@@ -6,7 +6,7 @@ import { setUser } from "../redux/features/auth/authSlice";
 import { useAppDispatch } from "../redux/hook";
 
 const Login = () => {
-  const [login] = useLoginUserMutation();
+  const [login, { isLoading }] = useLoginUserMutation();
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
@@ -39,9 +39,7 @@ const Login = () => {
 
       const redirectPath = location.state?.from || "/";
 
-      setTimeout(() => {
-        navigate(redirectPath, { replace: true });
-      }, 2000);
+      navigate(redirectPath, { replace: true });
     } catch (err: any) {
       toast.error(err?.data?.message || "Login failed!");
     }
@@ -96,10 +94,11 @@ const Login = () => {
 
           {/* Login Button */}
           <button
+            disabled={isLoading}
             type="submit"
-            className="w-full bg-[#0D9488] text-white py-2 rounded hover:bg-[#0a766f] transition"
+            className="cursor-pointer w-full bg-[#0D9488] text-white py-2 rounded hover:bg-[#0a766f] transition disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Login
+            {isLoading ? "Logging..." : "Login"}
           </button>
         </form>
 
