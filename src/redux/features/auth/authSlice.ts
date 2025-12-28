@@ -9,6 +9,7 @@ type TAuthState = {
   phone: string | null;
   role: TRole;
   image: string | null;
+  token: string | null;
 };
 
 const initialState: TAuthState = {
@@ -18,6 +19,7 @@ const initialState: TAuthState = {
   phone: null,
   role: "guest",
   image: null,
+  token: null,
 };
 
 const authSlice = createSlice({
@@ -33,6 +35,7 @@ const authSlice = createSlice({
         phone: string;
         role: TRole;
         image: string;
+        token: string;
       }>
     ) => {
       state.firstName = action.payload.firstName;
@@ -41,6 +44,7 @@ const authSlice = createSlice({
       state.phone = action.payload.phone;
       state.role = action.payload.role;
       state.image = action.payload.image;
+      state.token = action.payload.token;
     },
     logout: (state) => {
       state.firstName = null;
@@ -49,6 +53,7 @@ const authSlice = createSlice({
       state.phone = null;
       state.role = "guest";
       state.image = null;
+      state.token = null;
     },
   },
 });

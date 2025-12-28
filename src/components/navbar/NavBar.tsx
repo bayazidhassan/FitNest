@@ -18,10 +18,10 @@ const NavBar = () => {
   const dispatch = useAppDispatch();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     dispatch(logout());
     dispatch(clearCart());
-    persistor.purge();
+    await persistor.purge();
     window.location.href = "/login";
   };
 

@@ -23,14 +23,16 @@ const Login = () => {
     };
 
     try {
-      const user = await login(loginInfo).unwrap();
+      const data = await login(loginInfo).unwrap();
+      const user = data.data.user;
       const userInfo = {
-        firstName: user.data.name.firstName,
-        lastName: user.data.name.lastName,
-        email: user.data.email,
-        phone: user.data.phone,
-        role: user.data.role,
-        image: user.data.image,
+        firstName: user.name.firstName,
+        lastName: user.name.lastName,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        image: user.image,
+        token: data.data.token, //for jwt token
       };
       dispatch(setUser(userInfo));
       toast.success("Login successful!");
