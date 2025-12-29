@@ -15,7 +15,7 @@ import {
   REHYDRATE,
 } from "redux-persist";
 
-import storage from "redux-persist/lib/storage"; //defaults to localStorage for web
+import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
   //RTK Query
@@ -25,14 +25,12 @@ const rootReducer = combineReducers({
   auth: authReducer,
   cart: cartReducer,
   successOrder: successOrderReducer,
-  //other reducers
 });
 
-//Persist config: persist only `auth` slice
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "cart", "successOrder"], //only these will be persisted
+  whitelist: ["auth", "cart", "successOrder"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -48,7 +46,6 @@ export const store = configureStore({
     }).concat(baseApi.middleware),
 });
 
-//create persistor for PersistGate and to purge on logout if needed
 export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
