@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ShoppingCartIcon } from "lucide-react";
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/features/auth/authSlice";
 import { clearCart } from "../../redux/features/cart/addToCartSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
@@ -18,11 +18,13 @@ const NavBar = () => {
   const dispatch = useAppDispatch();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleLogout = async () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
     dispatch(logout());
     dispatch(clearCart());
-    await persistor.purge();
-    window.location.href = "/login";
+    persistor.purge();
+    navigate("/login", { replace: true });
   };
 
   return (
