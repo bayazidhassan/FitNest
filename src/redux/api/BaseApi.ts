@@ -22,10 +22,11 @@ const baseQueryWithRefreshToken = async (
   api: any,
   extraOptions: any
 ) => {
+  //Try the original request first
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error?.status === 401) {
-    //try refresh
+    //Try refreshing the access token using refresh token
     const refreshResult = await baseQuery(
       { url: "/auth/refresh_token", method: "POST" },
       api,
@@ -35,12 +36,13 @@ const baseQueryWithRefreshToken = async (
     if (refreshResult.data) {
       const newToken = (refreshResult.data as any).data.token;
 
-      //update token in store
+      //update token in redux store
       api.dispatch(updateToken(newToken));
 
-      //retry original request
+      //retry original request with new access token
       result = await baseQuery(args, api, extraOptions);
     } else {
+      //No token → refresh failed → logout user
       api.dispatch(logout());
     }
   }
