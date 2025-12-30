@@ -7,6 +7,7 @@ import {
 import { ShoppingCartIcon } from "lucide-react";
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "../../redux/api/auth/authApi";
 import { logout } from "../../redux/features/auth/authSlice";
 import { clearCart } from "../../redux/features/cart/addToCartSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
@@ -17,14 +18,18 @@ const NavBar = () => {
   const cartItem = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const [logoutApi] = useLogoutMutation();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    dispatch(logout());
-    dispatch(clearCart());
-    persistor.purge();
-    navigate("/login", { replace: true });
+  const handleLogout = async () => {
+    try {
+      await logoutApi().unwrap(); //refresh token removed from DB + cookie cleared
+    } finally {
+      dispatch(logout()); //clear auth state
+      dispatch(clearCart()); //clear cart state
+      persistor.purge(); //remove persisted Redux data
+      navigate("/login", { replace: true }); //prevent back navigation
+    }
   };
 
   return (
