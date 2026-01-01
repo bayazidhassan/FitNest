@@ -78,7 +78,9 @@ const processingOrders = () => {
         {orders.map((order: TOrder) => (
           <div
             key={order._id}
-            className="rounded-lg border bg-white p-4 shadow-sm space-y-3"
+            className={`rounded-lg border p-4 ${
+              order.isAlreadyPaid ? "bg-green-100" : "bg-white"
+            } shadow-sm space-y-3`}
           >
             {/* User info */}
             <div>
@@ -115,11 +117,16 @@ const processingOrders = () => {
             {/* Actions */}
             <div className="flex gap-2">
               <button
-                disabled={isUpdating && activeOrderId === order._id}
+                disabled={
+                  (isUpdating && activeOrderId === order._id) ||
+                  order.isAlreadyPaid
+                }
                 onClick={() =>
                   handleUpdate(order._id, order.status, "cancelled")
                 }
-                className="flex-1 bg-red-500 text-white cursor-pointer py-2 rounded-md disabled:opacity-50"
+                className={`flex-1 bg-red-500 text-white ${
+                  order.isAlreadyPaid ? "cursor-not-allowed" : "cursor-pointer"
+                } py-2 rounded-md disabled:opacity-50`}
               >
                 {isUpdating &&
                 activeOrderId === order._id &&
@@ -156,7 +163,12 @@ const processingOrders = () => {
           </thead>
           <tbody>
             {orders.map((order: TOrder) => (
-              <tr key={order._id} className="border-t-2 border-gray-300">
+              <tr
+                key={order._id}
+                className={`border-t-2 border-gray-300 ${
+                  order.isAlreadyPaid && "bg-green-100"
+                }`}
+              >
                 <td className="p-2 border-r">
                   <p className="font-medium">{`${order.firstName} ${order.lastName}`}</p>
                   <p className="text-sm text-gray-600">{order.email}</p>
@@ -191,11 +203,18 @@ const processingOrders = () => {
 
                 <td className="p-2 space-x-2 text-center">
                   <button
-                    disabled={isUpdating && activeOrderId === order._id}
+                    disabled={
+                      (isUpdating && activeOrderId === order._id) ||
+                      order.isAlreadyPaid
+                    }
                     onClick={() =>
                       handleUpdate(order._id, order.status, "cancelled")
                     }
-                    className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                    className={`bg-red-500 ${
+                      order.isAlreadyPaid
+                        ? "cursor-not-allowed"
+                        : "hover:bg-red-600 cursor-pointer"
+                    }  text-white px-3 py-1 rounded-sm disabled:opacity-50`}
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&

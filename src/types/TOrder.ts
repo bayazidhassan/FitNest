@@ -28,6 +28,7 @@ export type TOrder = {
   comment?: string;
   cartItems: TCartItems[];
   totalPrice: number;
+  isAlreadyPaid: boolean;
   status: TStatus;
   createdAt: string;
   updatedAt: string;
