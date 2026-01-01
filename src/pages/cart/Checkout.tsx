@@ -81,6 +81,10 @@ const Checkout = () => {
     if (form.comment.trim() !== "") {
       orderInfo.comment = form.comment;
     }
+    if (form.paymentMethod !== "cod") {
+      orderInfo.isAlreadyPaid = true;
+      orderInfo.status = "confirmed";
+    }
 
     try {
       const res = await placeOrder(orderInfo).unwrap();
