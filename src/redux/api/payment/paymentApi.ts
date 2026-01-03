@@ -7,7 +7,6 @@ export const paymentApi = baseApi.injectEndpoints({
         url: "/payment/create_checkout_session",
         method: "POST",
         body: orderInfo,
-        //credentials: "include", //include cookies if using JWT in cookies
       }),
     }),
   }),
