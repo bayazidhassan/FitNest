@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { usePlaceOrderMutation } from "../../redux/api/orders/placeOrderApi";
 import { useCreateCheckoutSessionMutation } from "../../redux/api/payment/paymentApi";
-import { clearCart } from "../../redux/features/cart/addToCartSlice";
 import { allowSuccessOrder } from "../../redux/features/order/successOrderSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 
@@ -84,18 +83,20 @@ const Checkout = () => {
     try {
       if (form.paymentMethod === "cod") {
         const res = await placeOrder(orderInfo).unwrap();
-        dispatch(clearCart());
         dispatch(allowSuccessOrder());
         setIsFormDirty(false);
         navigate("/checkout/successOrder", {
           replace: true,
-          state: { msg: res.message },
+          state: { type: "cod", msg: res.message },
         });
       } else {
         const data = await createCheckoutSession(orderInfo).unwrap();
         if (!data.url) {
           throw new Error("Failed to create Stripe session!");
         }
+        dispatch(allowSuccessOrder());
+        setIsFormDirty(false);
+
         //Redirect user to Stripe Checkout
         window.location.href = data.url;
       }
@@ -110,6 +111,10 @@ const Checkout = () => {
 
   //for page refresh warning
   useEffect(() => {
+    //redirect if cart is empty
+    if (cartItems.length === 0) {
+      navigate("/cart", { replace: true });
+    }
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (isFormDirty) {
         e.preventDefault();
@@ -120,7 +125,7 @@ const Checkout = () => {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [isFormDirty]);
+  }, [cartItems.length, isFormDirty, navigate]);
 
   return (
     <div className="px-2 md:px-0 max-w-6xl mx-auto my-6">

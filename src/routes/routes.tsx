@@ -47,11 +47,15 @@ const router = createBrowserRouter([
       },
       {
         path: "checkout",
-        Component: ProtectedRouteForCheckout,
         children: [
           {
-            index: true,
-            Component: Checkout,
+            Component: ProtectedRouteForCheckout,
+            children: [
+              {
+                index: true,
+                Component: Checkout,
+              },
+            ],
           },
           {
             path: "successOrder",
