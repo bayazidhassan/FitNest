@@ -1,11 +1,4 @@
-type TCartItems = {
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-  stock_quantity: number;
-  product_id: string;
-};
+import type { TCartItem } from "../redux/features/cart/addToCartSlice";
 
 export type TStatus =
   | "pending"
@@ -26,7 +19,7 @@ export type TOrder = {
   upazila: string;
   district: string;
   comment?: string;
-  cartItems: TCartItems[];
+  cartItems: TCartItem[];
   totalPrice: number;
   isAlreadyPaid: boolean;
   status: TStatus;

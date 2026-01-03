@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { usePlaceOrderMutation } from "../../redux/api/orders/placeOrderApi";
+import { useCreateCheckoutSessionMutation } from "../../redux/api/payment/paymentApi";
 import { clearCart } from "../../redux/features/cart/addToCartSlice";
 import { allowSuccessOrder } from "../../redux/features/order/successOrderSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
@@ -14,6 +15,7 @@ const Checkout = () => {
   const cartItems = useAppSelector((state) => state.cart);
   const user = useAppSelector((state) => state.auth);
   const [placeOrder] = usePlaceOrderMutation();
+  const [createCheckoutSession] = useCreateCheckoutSessionMutation();
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -67,38 +69,42 @@ const Checkout = () => {
     }
 
     const orderInfo: any = {
-      firstName: form.firstName,
-      lastName: form.lastName,
-      email: form.email,
-      phone: form.phone,
-      street_address: form.street_address,
-      upazila: form.upazila,
-      district: form.district,
-      //comment: form.comment,
-      cartItems: cartItems,
-      totalPrice: totalPrice,
+      firstName,
+      lastName,
+      email,
+      phone,
+      street_address,
+      upazila,
+      district,
+      comment: form.comment.trim() || undefined,
+      cartItems,
+      totalPrice,
     };
-    if (form.comment.trim() !== "") {
-      orderInfo.comment = form.comment;
-    }
-    if (form.paymentMethod !== "cod") {
-      orderInfo.isAlreadyPaid = true;
-      orderInfo.status = "confirmed";
-    }
 
     try {
-      const res = await placeOrder(orderInfo).unwrap();
-      //toast.success(res.message); //show  in success page
-
-      dispatch(clearCart());
-      dispatch(allowSuccessOrder());
-      setIsFormDirty(false);
-      navigate("/checkout/successOrder", {
-        replace: true,
-        state: { msg: res.message },
-      });
+      if (form.paymentMethod === "cod") {
+        const res = await placeOrder(orderInfo).unwrap();
+        dispatch(clearCart());
+        dispatch(allowSuccessOrder());
+        setIsFormDirty(false);
+        navigate("/checkout/successOrder", {
+          replace: true,
+          state: { msg: res.message },
+        });
+      } else {
+        const data = await createCheckoutSession(orderInfo).unwrap();
+        if (!data.url) {
+          throw new Error("Failed to create Stripe session!");
+        }
+        //Redirect user to Stripe Checkout
+        window.location.href = data.url;
+      }
     } catch (err) {
-      toast.error((err as Error).message);
+      toast.error(
+        (err as any).data?.message ||
+          (err as Error).message ||
+          "Something went wrong!"
+      );
     }
   };
 
@@ -107,7 +113,7 @@ const Checkout = () => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (isFormDirty) {
         e.preventDefault();
-        e.returnValue = ""; // required for Chrome
+        e.returnValue = ""; //required for Chrome
       }
     };
     window.addEventListener("beforeunload", handleBeforeUnload);
