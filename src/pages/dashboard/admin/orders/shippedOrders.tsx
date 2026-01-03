@@ -130,9 +130,14 @@ const shippedOrders = () => {
               >
                 {isUpdating &&
                 activeOrderId === order._id &&
-                activeAction === "returned"
-                  ? "Returning..."
-                  : "Return"}
+                activeAction === "returned" ? (
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Returning...
+                  </span>
+                ) : (
+                  "Return"
+                )}
               </button>
               <button
                 disabled={isUpdating && activeOrderId === order._id}
@@ -143,9 +148,14 @@ const shippedOrders = () => {
               >
                 {isUpdating &&
                 activeOrderId === order._id &&
-                activeAction === "delivered"
-                  ? "Delivering..."
-                  : "Deliver"}
+                activeAction === "delivered" ? (
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Delivering...
+                  </span>
+                ) : (
+                  "Deliver"
+                )}
               </button>
             </div>
           </div>
@@ -220,9 +230,14 @@ const shippedOrders = () => {
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
-                    activeAction === "returned"
-                      ? "Returning..."
-                      : "Return"}
+                    activeAction === "returned" ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        Returning...
+                      </span>
+                    ) : (
+                      "Return"
+                    )}
                   </button>
 
                   <button
@@ -234,9 +249,14 @@ const shippedOrders = () => {
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
-                    activeAction === "delivered"
-                      ? "Delivering..."
-                      : "Deliver"}
+                    activeAction === "delivered" ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        Delivering...
+                      </span>
+                    ) : (
+                      "Deliver"
+                    )}
                   </button>
                 </td>
               </tr>

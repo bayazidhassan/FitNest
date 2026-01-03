@@ -130,9 +130,14 @@ const processingOrders = () => {
               >
                 {isUpdating &&
                 activeOrderId === order._id &&
-                activeAction === "cancelled"
-                  ? "Cancelling..."
-                  : "Cancel"}
+                activeAction === "cancelled" ? (
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Cancelling...
+                  </span>
+                ) : (
+                  "Cancel"
+                )}
               </button>
               <button
                 disabled={isUpdating && activeOrderId === order._id}
@@ -141,9 +146,14 @@ const processingOrders = () => {
               >
                 {isUpdating &&
                 activeOrderId === order._id &&
-                activeAction === "shipped"
-                  ? "Shipping..."
-                  : "Ship"}
+                activeAction === "shipped" ? (
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Shipping...
+                  </span>
+                ) : (
+                  "Ship"
+                )}
               </button>
             </div>
           </div>

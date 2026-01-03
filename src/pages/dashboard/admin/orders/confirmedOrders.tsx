@@ -130,9 +130,14 @@ const confirmedOrders = () => {
               >
                 {isUpdating &&
                 activeOrderId === order._id &&
-                activeAction === "cancelled"
-                  ? "Cancelling..."
-                  : "Cancel"}
+                activeAction === "cancelled" ? (
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Cancelling...
+                  </span>
+                ) : (
+                  "Cancel"
+                )}
               </button>
               <button
                 disabled={isUpdating && activeOrderId === order._id}
@@ -143,9 +148,14 @@ const confirmedOrders = () => {
               >
                 {isUpdating &&
                 activeOrderId === order._id &&
-                activeAction === "processing"
-                  ? "Processing..."
-                  : "Process"}
+                activeAction === "processing" ? (
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Processing...
+                  </span>
+                ) : (
+                  "Process"
+                )}
               </button>
             </div>
           </div>
@@ -220,9 +230,14 @@ const confirmedOrders = () => {
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
-                    activeAction === "cancelled"
-                      ? "Cancelling..."
-                      : "Cancel"}
+                    activeAction === "cancelled" ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        Cancelling...
+                      </span>
+                    ) : (
+                      "Cancel"
+                    )}
                   </button>
 
                   <button
@@ -234,9 +249,14 @@ const confirmedOrders = () => {
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
-                    activeAction === "processing"
-                      ? "Processing..."
-                      : "Process"}
+                    activeAction === "processing" ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        Processing...
+                      </span>
+                    ) : (
+                      "Process"
+                    )}
                   </button>
                 </td>
               </tr>
