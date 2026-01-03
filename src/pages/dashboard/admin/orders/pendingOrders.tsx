@@ -119,7 +119,7 @@ const pendingOrders = () => {
                 onClick={() =>
                   handleUpdate(order._id, order.status, "cancelled")
                 }
-                className="flex-1 bg-red-500 text-white cursor-pointer py-2 rounded-md disabled:opacity-50"
+                className="flex-1 bg-red-500 text-white cursor-pointer py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isUpdating &&
                 activeOrderId === order._id &&
@@ -132,7 +132,7 @@ const pendingOrders = () => {
                 onClick={() =>
                   handleUpdate(order._id, order.status, "confirmed")
                 }
-                className="flex-1 bg-[#0D9488] text-white cursor-pointer py-2 rounded-md disabled:opacity-50"
+                className="flex-1 bg-[#0D9488] text-white cursor-pointer py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isUpdating &&
                 activeOrderId === order._id &&
@@ -197,7 +197,7 @@ const pendingOrders = () => {
                     onClick={() =>
                       handleUpdate(order._id, order.status, "cancelled")
                     }
-                    className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
+                    className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-1 rounded-sm disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
@@ -211,7 +211,7 @@ const pendingOrders = () => {
                     onClick={() =>
                       handleUpdate(order._id, order.status, "confirmed")
                     }
-                    className="bg-[#0D9488] hover:bg-[#0a766f] text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
+                    className="bg-[#0D9488] hover:bg-[#0a766f] text-white cursor-pointer px-3 py-1 rounded-sm disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&

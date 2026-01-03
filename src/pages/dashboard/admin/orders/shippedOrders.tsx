@@ -126,7 +126,7 @@ const shippedOrders = () => {
                 }
                 className={`flex-1 bg-red-500 ${
                   order.isAlreadyPaid ? "cursor-not-allowed" : "cursor-pointer"
-                }  text-white px-3 py-1 rounded-sm disabled:opacity-50`}
+                }  text-white px-3 py-1 rounded-sm disabled:cursor-not-allowed disabled:opacity-50`}
               >
                 {isUpdating &&
                 activeOrderId === order._id &&
@@ -139,7 +139,7 @@ const shippedOrders = () => {
                 onClick={() =>
                   handleUpdate(order._id, order.status, "delivered")
                 }
-                className="flex-1 bg-[#0D9488] text-white cursor-pointer py-2 rounded-md disabled:opacity-50"
+                className="flex-1 bg-[#0D9488] text-white cursor-pointer py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isUpdating &&
                 activeOrderId === order._id &&
@@ -216,7 +216,7 @@ const shippedOrders = () => {
                       order.isAlreadyPaid
                         ? "cursor-not-allowed"
                         : "hover:bg-red-600 cursor-pointer"
-                    }  text-white px-3 py-1 rounded-sm disabled:opacity-50`}
+                    }  text-white px-3 py-1 rounded-sm disabled:cursor-not-allowed disabled:opacity-50`}
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
@@ -230,7 +230,7 @@ const shippedOrders = () => {
                     onClick={() =>
                       handleUpdate(order._id, order.status, "delivered")
                     }
-                    className="bg-[#0D9488] hover:bg-[#0a766f] text-white cursor-pointer px-3 py-1 rounded-sm disabled:opacity-50"
+                    className="bg-[#0D9488] hover:bg-[#0a766f] text-white cursor-pointer px-3 py-1 rounded-sm disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
