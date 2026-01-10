@@ -69,15 +69,14 @@ const deliveredOrders = () => {
                 <p className="text-sm text-gray-600">{order.phone}</p>
                 <p className="text-sm text-gray-600">{order.street_address}</p>
                 <p className="text-sm text-gray-600">{`${order.upazila}, ${order.district}`}</p>
+                {order.comment && (
+                  <p className="text-sm italic">“{order.comment}”</p>
+                )}
+                <p className="text-sm">{order._id}</p>
               </div>
 
-              {/* Comment */}
-              {order.comment && (
-                <p className="text-sm italic">“{order.comment}”</p>
-              )}
-
               {/* Items */}
-              <div className="border-t pt-2 text-sm space-y-1">
+              <div className="border-t pt-2 text-sm">
                 {order.cartItems.map((item) => (
                   <p key={item.product_id} className="flex justify-between">
                     <span>
@@ -130,6 +129,7 @@ const deliveredOrders = () => {
                     {order.comment && (
                       <p className="text-sm italic">“{order.comment}”</p>
                     )}
+                    <p className="text-sm">{order._id}</p>
                   </td>
 
                   <td className="p-2 text-sm border-r">
