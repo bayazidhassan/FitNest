@@ -1,5 +1,8 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import NoOrders from "../../../../components/order/NoOrders";
+import OrdersHeader from "../../../../components/order/OrdersHeader";
+import { useOrderSearch } from "../../../../hooks/useOrderSearch";
 import {
   useGetOrdersByStatusQuery,
   useUpdateOrderStatusMutation,
@@ -23,40 +26,13 @@ const pendingOrders = () => {
     "confirmed" | "cancelled" | null
   >(null);
 
-  const [searchText, setSearchText] = useState("");
-  const orders = ordersData.filter((order: TOrder) => {
-    const matchesFirstName = order.firstName
-      .toLowerCase()
-      .includes(searchText.toLowerCase());
-    const matchesLastName = order.lastName
-      .toLowerCase()
-      .includes(searchText.toLowerCase());
-    const email = order.email.toLowerCase().includes(searchText.toLowerCase());
-    const phone = order.phone.toLowerCase().includes(searchText.toLowerCase());
-    const street_address = order.street_address
-      .toLowerCase()
-      .includes(searchText.toLowerCase());
-    const upazila = order.upazila
-      .toLowerCase()
-      .includes(searchText.toLowerCase());
-    const district = order.district
-      .toLowerCase()
-      .includes(searchText.toLowerCase());
-    const comment = order.comment
-      ?.toLowerCase()
-      .includes(searchText.toLowerCase());
-
-    return (
-      matchesFirstName ||
-      matchesLastName ||
-      email ||
-      phone ||
-      street_address ||
-      upazila ||
-      district ||
-      comment
-    );
-  });
+  const {
+    searchText,
+    setSearchText,
+    filteredOrders: orders,
+    totalCount,
+    hasSearch,
+  } = useOrderSearch(ordersData);
 
   if (isLoading)
     return (
@@ -108,22 +84,14 @@ const pendingOrders = () => {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between">
-        <h1 className="font-semibold">Total Pending Orders: {orders.length}</h1>
-        <input
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          className="p-1 rounded border border-gray-400"
-          placeholder="Search orders..."
-          type="text"
-        />
-      </div>
-      {orders.length === 0 && searchText && (
-        <div className="flex justify-center items-center h-[40vh]">
-          <p className="text-gray-500 text-lg text-center px-4">
-            No orders match “{searchText}”
-          </p>
-        </div>
+      <OrdersHeader
+        title="Total Pending Orders"
+        total={totalCount}
+        searchText={searchText}
+        onSearch={setSearchText}
+      />
+      {orders.length === 0 && hasSearch && (
+        <NoOrders text={`No orders match "${searchText}"`} />
       )}
 
       {/* MOBILE: CARD VIEW */}
