@@ -29,7 +29,7 @@ const SuccessOrder = () => {
     if (hasRun.current) return;
     hasRun.current = true;
 
-    if (!successOrderAllowed) {
+    if (!successOrderAllowed && !sessionId) {
       navigate("/cart", { replace: true });
       return;
     }
