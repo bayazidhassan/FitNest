@@ -9,7 +9,16 @@ export const paymentApi = baseApi.injectEndpoints({
         body: orderInfo,
       }),
     }),
+    getOrderIdByStripeSession: builder.query({
+      query: (sessionId) => ({
+        url: `/payment/getOrderId_BySession/${sessionId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useCreateCheckoutSessionMutation } = paymentApi;
+export const {
+  useCreateCheckoutSessionMutation,
+  useGetOrderIdByStripeSessionQuery,
+} = paymentApi;

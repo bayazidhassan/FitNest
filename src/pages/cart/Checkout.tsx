@@ -87,7 +87,7 @@ const Checkout = () => {
         setIsFormDirty(false);
         navigate("/checkout/successOrder", {
           replace: true,
-          state: { type: "cod", msg: res.message },
+          state: { type: "cod", order_id: res.data._id, msg: res.message },
         });
       } else {
         const data = await createCheckoutSession(orderInfo).unwrap();
