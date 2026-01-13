@@ -71,8 +71,8 @@ const pendingOrders = () => {
       }).unwrap();
       toast.success(
         newStatus === "confirmed"
-          ? "Order confirmed successfully!"
-          : "Order cancelled successfully!"
+          ? "Order is confirmed."
+          : "Order is cancelled."
       );
     } catch (err: any) {
       toast.error(err?.data?.message || err.message || "Something went wrong");
@@ -114,7 +114,6 @@ const pendingOrders = () => {
                 )}
                 <p className="text-sm">{order._id}</p>
               </div>
-
               {/* Items */}
               <div className="border-t pt-2 text-sm">
                 {order.cartItems.map((item) => (
@@ -126,21 +125,19 @@ const pendingOrders = () => {
                   </p>
                 ))}
               </div>
-
               {/* Total */}
               <div className="flex justify-between font-semibold border-t py-2">
                 <span>Total</span>
                 <span>৳{order.totalPrice}</span>
               </div>
-
               {/* Actions */}
-              <div className="flex gap-2">
+              <div className="flex gap-6">
                 <button
                   disabled={isUpdating && activeOrderId === order._id}
                   onClick={() =>
                     handleUpdate(order._id, order.status, "cancelled")
                   }
-                  className="flex-1 bg-red-500 text-white cursor-pointer py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex flex-1 items-center justify-center bg-red-500 text-white cursor-pointer py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isUpdating &&
                   activeOrderId === order._id &&
@@ -158,7 +155,7 @@ const pendingOrders = () => {
                   onClick={() =>
                     handleUpdate(order._id, order.status, "confirmed")
                   }
-                  className="flex-1 bg-[#0D9488] text-white cursor-pointer py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex flex-1 items-center justify-center bg-[#0D9488] text-white cursor-pointer py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isUpdating &&
                   activeOrderId === order._id &&
@@ -205,7 +202,6 @@ const pendingOrders = () => {
                     )}
                     <p className="text-sm">{order._id}</p>
                   </td>
-
                   <td className="p-2 text-sm border-r">
                     <div className="grid grid-cols-[1fr_auto] gap-x-2">
                       {order.cartItems.map((item) => (
@@ -220,31 +216,10 @@ const pendingOrders = () => {
                       ))}
                     </div>
                   </td>
-
                   <td className="p-2 font-semibold text-center border-r">
                     ৳{order.totalPrice}
                   </td>
-
                   <td className="p-2 space-x-2 text-center">
-                    <button
-                      disabled={isUpdating && activeOrderId === order._id}
-                      onClick={() =>
-                        handleUpdate(order._id, order.status, "cancelled")
-                      }
-                      className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-1 rounded-sm disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                      {isUpdating &&
-                      activeOrderId === order._id &&
-                      activeAction === "cancelled" ? (
-                        <span className="flex items-center gap-2">
-                          <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          Cancelling...
-                        </span>
-                      ) : (
-                        "Cancel"
-                      )}
-                    </button>
-
                     <button
                       disabled={isUpdating && activeOrderId === order._id}
                       onClick={() =>
@@ -261,6 +236,24 @@ const pendingOrders = () => {
                         </span>
                       ) : (
                         "Confirm"
+                      )}
+                    </button>
+                    <button
+                      disabled={isUpdating && activeOrderId === order._id}
+                      onClick={() =>
+                        handleUpdate(order._id, order.status, "cancelled")
+                      }
+                      className="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-3 py-1 rounded-sm disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      {isUpdating &&
+                      activeOrderId === order._id &&
+                      activeAction === "cancelled" ? (
+                        <span className="flex items-center gap-2">
+                          <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          Cancelling...
+                        </span>
+                      ) : (
+                        "Cancel"
                       )}
                     </button>
                   </td>
