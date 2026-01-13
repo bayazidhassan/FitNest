@@ -10,20 +10,27 @@ import NoOrders from "./NoOrders";
 import OrdersHeader from "./OrdersHeader";
 
 const buttonActions = {
+  pending: ["confirmed", "cancelled"],
   confirmed: ["processing", "cancelled"],
   processing: ["shipped", "cancelled"],
   shipped: ["delivered", "returned"],
 } as const;
 
 const buttonText = {
+  confirmed: ["Confirm", "Confirming..."],
   processing: ["Process", "Processing..."],
   shipped: ["Ship", "Shipping..."],
   delivered: ["Deliver", "Delivering..."],
   cancelled: ["Cancel", "Cancelling..."],
   returned: ["Return", "Returning..."],
 };
+
+type OrderStatus = keyof typeof buttonActions;
+type OrderAction = (typeof buttonActions)[OrderStatus][number];
+
 type OrderManagementProps = {
-  status: "confirmed" | "processing" | "shipped";
+  //status: "confirmed" | "processing" | "shipped";
+  status: OrderStatus;
 };
 const OrderManagement = ({ status }: OrderManagementProps) => {
   const {
@@ -37,9 +44,7 @@ const OrderManagement = ({ status }: OrderManagementProps) => {
     useUpdateOrderStatusMutation();
 
   const [activeOrderId, setActiveOrderId] = useState<string | null>(null);
-  const [activeAction, setActiveAction] = useState<
-    "processing" | "shipped" | "delivered" | "cancelled" | "returned" | null
-  >(null);
+  const [activeAction, setActiveAction] = useState<OrderAction | null>(null);
 
   const {
     searchText,
@@ -70,14 +75,15 @@ const OrderManagement = ({ status }: OrderManagementProps) => {
       </div>
     );
 
-  const action1: "processing" | "shipped" | "delivered" =
-    buttonActions[status][0];
+  const action1 = buttonActions[status][0];
 
   const handleUpdate = async (
     id: string,
     currentStatus: TStatus,
-    newStatus: "processing" | "shipped" | "delivered" | "cancelled" | "returned"
+    newStatus: OrderAction
   ) => {
+    if (isUpdating) return;
+
     setActiveOrderId(id);
     setActiveAction(newStatus);
 
@@ -87,11 +93,7 @@ const OrderManagement = ({ status }: OrderManagementProps) => {
         fromStatus: currentStatus,
         toStatus: newStatus,
       }).unwrap();
-      toast.success(
-        newStatus === action1
-          ? `Order is ${action1}.`
-          : `Order is ${status === "shipped" ? "returned" : "cancelled"}.`
-      );
+      toast.success(`Order status updated to ${newStatus}.`);
     } catch (err: any) {
       toast.error(err?.data?.message || err.message || "Something went wrong");
     } finally {
