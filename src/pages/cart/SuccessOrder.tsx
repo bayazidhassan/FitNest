@@ -29,25 +29,24 @@ const SuccessOrder = () => {
     if (hasRun.current) return;
     hasRun.current = true;
 
-    if (!successOrderAllowed && !sessionId) {
+    if (!successOrderAllowed) {
       navigate("/cart", { replace: true });
       return;
     }
 
     dispatch(clearCart());
+    dispatch(resetSuccessOrder());
 
     if (state?.type === "cod") {
       toast.success(state.msg || "Order placed successfully!");
     } else {
       toast.success("Payment successful!");
     }
-
-    dispatch(resetSuccessOrder());
   }, [successOrderAllowed, dispatch, navigate, state]);
 
   useEffect(() => {
     if (isError) {
-      toast.error("Failed to fetch order details");
+      toast.error("Failed to fetch order Id.");
     }
   }, [isError]);
 

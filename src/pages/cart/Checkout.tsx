@@ -36,6 +36,13 @@ const Checkout = () => {
   });
   const [isFormDirty, setIsFormDirty] = useState(false);
 
+  //prevent access to checkout if cart is empty
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      navigate("/cart", { replace: true });
+    }
+  }, [cartItems, navigate]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -83,6 +90,9 @@ const Checkout = () => {
     try {
       if (form.paymentMethod === "cod") {
         const res = await placeOrder(orderInfo).unwrap();
+        if (!res || !res.data?._id) {
+          throw new Error("Failed to place order. Please try again.");
+        }
         dispatch(allowSuccessOrder());
         setIsFormDirty(false);
         navigate("/checkout/successOrder", {
@@ -97,8 +107,9 @@ const Checkout = () => {
         dispatch(allowSuccessOrder());
         setIsFormDirty(false);
 
-        //Redirect user to Stripe Checkout
-        window.location.href = data.url;
+        //redirect user to Stripe Checkout
+        //window.location.href = data.url;
+        window.location.replace(data.url); //prevents back navigation
       }
     } catch (err) {
       toast.error(
@@ -111,21 +122,15 @@ const Checkout = () => {
 
   //for page refresh warning
   useEffect(() => {
-    //redirect if cart is empty
-    if (cartItems.length === 0) {
-      navigate("/cart", { replace: true });
-    }
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (isFormDirty) {
         e.preventDefault();
-        e.returnValue = ""; //required for Chrome
+        e.returnValue = "";
       }
     };
     window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [cartItems.length, isFormDirty, navigate]);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [isFormDirty]);
 
   return (
     <div className="px-2 md:px-0 max-w-6xl mx-auto my-6">
