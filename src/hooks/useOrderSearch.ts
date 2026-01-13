@@ -18,7 +18,8 @@ export const useOrderSearch = (ordersData: TOrder[]) => {
         order.street_address.toLowerCase().includes(q) ||
         order.upazila.toLowerCase().includes(q) ||
         order.district.toLowerCase().includes(q) ||
-        order.comment?.toLowerCase().includes(q)
+        order.comment?.toLowerCase().includes(q) ||
+        order._id.toLowerCase().includes(q)
       );
     });
   }, [ordersData, searchText]);
