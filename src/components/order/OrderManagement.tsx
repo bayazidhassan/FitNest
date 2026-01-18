@@ -108,7 +108,7 @@ const OrderManagement = ({ status }: OrderManagementProps) => {
   return (
     <div className="space-y-4">
       <OrdersHeader
-        title={`Total ${status} Orders`}
+        title={`Total ${status} orders`}
         total={totalCount}
         searchText={searchText}
         onSearch={setSearchText}
@@ -155,60 +155,79 @@ const OrderManagement = ({ status }: OrderManagementProps) => {
                 <span>৳{order.totalPrice}</span>
               </div>
               {/* Actions */}
-              <div className="flex gap-6">
-                <button
-                  disabled={
-                    (isUpdating && activeOrderId === order._id) ||
-                    order.isAlreadyPaid
-                  }
-                  onClick={() =>
-                    handleUpdate(
-                      order._id,
-                      order.status,
-                      status === "shipped" ? "returned" : "cancelled"
-                    )
-                  }
-                  className={`flex flex-1 items-center justify-center bg-red-500 text-white ${
-                    order.isAlreadyPaid
-                      ? "cursor-not-allowed"
-                      : "cursor-pointer"
-                  } py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50`}
-                >
-                  {isUpdating &&
-                  activeOrderId === order._id &&
-                  activeAction ===
-                    (status === "shipped" ? "returned" : "cancelled") ? (
-                    <span className="flex items-center gap-2">
-                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      {status === "shipped" ? "Returning" : "Cancelling"}
-                    </span>
-                  ) : status === "shipped" ? (
-                    "Return"
-                  ) : (
-                    "Cancel"
-                  )}
-                </button>
-                {action1 && (
+              {status === "delivered" || status === "cancelled" ? (
+                status === "delivered" ? (
+                  <div className="flex items-center justify-center text-green-600 gap-1">
+                    <CheckCircle size={20} />
+                    <span className="font-medium">Delivered</span>
+                  </div>
+                ) : order.status === "cancelled" ? (
+                  <div className="flex items-center justify-center gap-1 text-red-600">
+                    <XCircle size={20} />
+                    <span className="font-medium">Cancelled</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center gap-1 text-blue-600">
+                    <CornerUpLeft size={20} />
+                    <span className="font-medium">Returned</span>
+                  </div>
+                )
+              ) : (
+                <div className="flex gap-6">
                   <button
-                    disabled={isUpdating && activeOrderId === order._id}
-                    onClick={() =>
-                      handleUpdate(order._id, order.status, action1)
+                    disabled={
+                      (isUpdating && activeOrderId === order._id) ||
+                      order.isAlreadyPaid
                     }
-                    className="flex flex-1 items-center justify-center bg-[#0D9488] text-white cursor-pointer py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50"
+                    onClick={() =>
+                      handleUpdate(
+                        order._id,
+                        order.status,
+                        status === "shipped" ? "returned" : "cancelled"
+                      )
+                    }
+                    className={`flex flex-1 items-center justify-center bg-red-500 text-white ${
+                      order.isAlreadyPaid
+                        ? "cursor-not-allowed"
+                        : "cursor-pointer"
+                    } py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50`}
                   >
                     {isUpdating &&
                     activeOrderId === order._id &&
-                    activeAction === action1 ? (
+                    activeAction ===
+                      (status === "shipped" ? "returned" : "cancelled") ? (
                       <span className="flex items-center gap-2">
                         <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        {buttonText[action1][1]}
+                        {status === "shipped" ? "Returning" : "Cancelling"}
                       </span>
+                    ) : status === "shipped" ? (
+                      "Return"
                     ) : (
-                      buttonText[action1][0]
+                      "Cancel"
                     )}
                   </button>
-                )}
-              </div>
+                  {action1 && (
+                    <button
+                      disabled={isUpdating && activeOrderId === order._id}
+                      onClick={() =>
+                        handleUpdate(order._id, order.status, action1)
+                      }
+                      className="flex flex-1 items-center justify-center bg-[#0D9488] text-white cursor-pointer py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      {isUpdating &&
+                      activeOrderId === order._id &&
+                      activeAction === action1 ? (
+                        <span className="flex items-center gap-2">
+                          <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          {buttonText[action1][1]}
+                        </span>
+                      ) : (
+                        buttonText[action1][0]
+                      )}
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>
