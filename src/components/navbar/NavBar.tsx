@@ -71,7 +71,7 @@ const NavBar = () => {
             alt="Logo"
             className="w-14 h-14 rounded-full"
           />
-          <span className="text-[#0D9488] font-bold text-2xl">FitNest</span>
+          <span className="hidden md:block text-[#0D9488] font-bold text-2xl">FitNest</span>
         </Link>
 
         {/* Search Bar */}
