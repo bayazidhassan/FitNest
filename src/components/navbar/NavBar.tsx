@@ -5,8 +5,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ShoppingCartIcon } from 'lucide-react';
-import { useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useLogoutMutation } from '../../redux/api/auth/authApi';
 import { useGetProductsBySearchQuery } from '../../redux/api/products/productsApi';
@@ -43,6 +43,24 @@ const NavBar = () => {
   });
   const products = data?.data || [];
 
+  //dropdown disappears if you click outside or navigate to another page
+  const location = useLocation();
+  useEffect(() => {
+    setSearchText(''); //clear search whenever route changes
+  }, [location.pathname]);
+  const searchRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setSearchText(''); //clear search whenever click outside
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <nav className="bg-[#0F172A] px-6 py-4 fixed top-0 left-0 w-full z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -57,7 +75,7 @@ const NavBar = () => {
         </Link>
 
         {/* Search Bar */}
-        <div className="relative md:w-1/4">
+        <div className="relative md:w-1/4" ref={searchRef}>
           <input
             className="w-full px-2 py-1 bg-gray-200 rounded"
             placeholder="Search products..."
