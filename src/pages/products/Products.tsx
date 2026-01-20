@@ -1,32 +1,28 @@
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { Link, useLocation } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import { useEffect, useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
+import { Link, useLocation } from 'react-router-dom';
 
 import {
   useGetAllCategoriesQuery,
   useGetAllProductsQuery,
-} from "../../redux/api/products/productsApi";
-import { addToCart } from "../../redux/features/cart/addToCartSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import type { TProduct } from "../../types/TProduct";
+} from '../../redux/api/products/productsApi';
+import { addToCart } from '../../redux/features/cart/addToCartSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import type { TProduct } from '../../types/TProduct';
 
 const Products = () => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const categoryFromQuery = queryParams.get("category");
+  const categoryFromQuery = queryParams.get('category');
 
   const { data: response } = useGetAllProductsQuery();
-  const {
-    data: categoryResponse,
-    isLoading,
-    error,
-  } = useGetAllCategoriesQuery();
+  const { data: categoryResponse, isLoading, error } = useGetAllCategoriesQuery();
 
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   useEffect(() => {
@@ -42,9 +38,7 @@ const Products = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   // Sorting: default | asc | desc
-  const [sortOption, setSortOption] = useState<"default" | "asc" | "desc">(
-    "default"
-  );
+  const [sortOption, setSortOption] = useState<'default' | 'asc' | 'desc'>('default');
 
   const products = response?.data || [];
   const categories = categoryResponse?.data || [];
@@ -63,22 +57,21 @@ const Products = () => {
 
   const toggleCategory = (category: string) => {
     setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category]
+      prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]
     );
   };
 
   const clearFilters = () => {
-    setSearchText("");
+    setSearchText('');
     setSelectedCategories([]);
     setValue([0, maxPrice]);
     setItemsPerPage(12);
     setCurrentPage(1);
-    setSortOption("default");
+    setSortOption('default');
   };
 
   // Filter products
+  /*
   let filteredProducts = products.filter((product: TProduct) => {
     const matchesSearch = product.name
       .toLowerCase()
@@ -89,28 +82,33 @@ const Products = () => {
     const matchesPrice = product.price >= value[0] && product.price <= value[1];
     return matchesSearch && matchesCategory && matchesPrice;
   });
+  */
+  //useMemo() -> React reuses the previously memoized value until one of the dependencies changes.
+  let filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      const matchesSearch = product.name.toLowerCase().includes(searchText.toLowerCase());
+      const matchesCategory =
+        selectedCategories.length === 0 || selectedCategories.includes(product.category);
+      const matchesPrice = product.price >= value[0] && product.price <= value[1];
+      return matchesSearch && matchesCategory && matchesPrice;
+    });
+  }, [products, searchText, selectedCategories, value]);
 
   // Sort products
-  if (sortOption === "asc") {
+  if (sortOption === 'asc') {
     filteredProducts = [...filteredProducts].sort((a, b) => a.price - b.price);
-  } else if (sortOption === "desc") {
+  } else if (sortOption === 'desc') {
     filteredProducts = [...filteredProducts].sort((a, b) => b.price - a.price);
   }
   // else "default" keeps original API order
 
   // Pagination
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedProducts = filteredProducts.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
-  if (error)
-    return (
-      <p className="text-center mt-10 text-red-500">Error loading products</p>
-    );
+  if (error) return <p className="text-center mt-10 text-red-500">Error loading products</p>;
 
   return (
     <div className="py-10 px-6 max-w-7xl mx-auto">
@@ -133,9 +131,9 @@ const Products = () => {
           {/* Price Slider */}
           <div className="bg-white p-4 rounded shadow mb-6">
             <span className="font-semibold text-gray-700">Price Range:</span>
-            <Box sx={{ width: "91%", ml: 1.3 }}>
+            <Box sx={{ width: '91%', ml: 1.3 }}>
               <Slider
-                getAriaLabel={() => "Price range"}
+                getAriaLabel={() => 'Price range'}
                 value={value}
                 min={0}
                 max={maxPrice}
@@ -153,21 +151,19 @@ const Products = () => {
           <div className="bg-white p-4 rounded shadow mb-6">
             <span className="font-semibold text-gray-700">Categories:</span>
             <div className="flex flex-col gap-2 mt-2">
-              {categories.map(
-                (category: { category: string; image?: string }) => (
-                  <label
-                    key={category.category}
-                    className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded cursor-pointer hover:bg-gray-200"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selectedCategories.includes(category.category)}
-                      onChange={() => toggleCategory(category.category)}
-                    />
-                    <span>{category.category}</span>
-                  </label>
-                )
-              )}
+              {categories.map((category: { category: string; image?: string }) => (
+                <label
+                  key={category.category}
+                  className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded cursor-pointer hover:bg-gray-200"
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedCategories.includes(category.category)}
+                    onChange={() => toggleCategory(category.category)}
+                  />
+                  <span>{category.category}</span>
+                </label>
+              ))}
             </div>
           </div>
 
@@ -207,9 +203,7 @@ const Products = () => {
               <select
                 className="border rounded px-2 py-1"
                 value={sortOption}
-                onChange={(e) =>
-                  setSortOption(e.target.value as "default" | "asc" | "desc")
-                }
+                onChange={(e) => setSortOption(e.target.value as 'default' | 'asc' | 'desc')}
               >
                 <option value="default">Default</option>
                 <option value="asc">Price (Low → High)</option>
@@ -221,21 +215,14 @@ const Products = () => {
           {/* Products Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {paginatedProducts.length === 0 && (
-              <p className="text-center col-span-4 text-gray-500">
-                No products found.
-              </p>
+              <p className="text-center col-span-4 text-gray-500">No products found.</p>
             )}
 
             {paginatedProducts.map((product: TProduct) => {
-              const itemInCart = cartItems.find(
-                (item) => item.product_id === product._id
-              );
+              const itemInCart = cartItems.find((item) => item.product_id === product._id);
               const quantityInCart = itemInCart ? itemInCart.quantity : 0;
               return (
-                <div
-                  key={product._id}
-                  className="bg-white p-4 rounded shadow flex flex-col"
-                >
+                <div key={product._id} className="bg-white p-4 rounded shadow flex flex-col">
                   <div className="w-full aspect-w-1 aspect-h-1 sm:aspect-h-1 md:aspect-h-1 lg:aspect-h-1 overflow-hidden rounded">
                     <img
                       src={product.images[0]}
@@ -245,9 +232,7 @@ const Products = () => {
                   </div>
 
                   <h2 className="text-gray-700 mt-3">{product.name}</h2>
-                  <p className="text-sm md:text-base text-gray-500 mt-1">
-                    ৳ {product.price}
-                  </p>
+                  <p className="text-sm md:text-base text-gray-500 mt-1">৳ {product.price}</p>
 
                   <div className="mt-3 flex justify-between gap-2">
                     <Link
@@ -284,21 +269,17 @@ const Products = () => {
           {/* Pagination Buttons */}
           {totalPages > 1 && (
             <div className="flex justify-center mt-6 gap-2">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                (page) => (
-                  <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`px-3 py-1 border rounded ${
-                      page === currentPage
-                        ? "bg-[#0D9488] text-white"
-                        : "bg-white"
-                    }`}
-                  >
-                    {page}
-                  </button>
-                )
-              )}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`px-3 py-1 border rounded ${
+                    page === currentPage ? 'bg-[#0D9488] text-white' : 'bg-white'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
             </div>
           )}
         </div>
