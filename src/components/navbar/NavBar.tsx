@@ -7,6 +7,7 @@ import {
 import { ShoppingCartIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useDebounce } from '../../hooks/useDebounce';
 import { useLogoutMutation } from '../../redux/api/auth/authApi';
 import { useGetProductsBySearchQuery } from '../../redux/api/products/productsApi';
 import { logout } from '../../redux/features/auth/authSlice';
@@ -35,7 +36,11 @@ const NavBar = () => {
   };
 
   const [searchText, setSearchText] = useState('');
-  const { data } = useGetProductsBySearchQuery(searchText, { skip: !searchText });
+  //const { data } = useGetProductsBySearchQuery(searchText, { skip: !searchText });
+  const debouncedSearch = useDebounce(searchText, 300); //300ms delay
+  const { data } = useGetProductsBySearchQuery(debouncedSearch, {
+    skip: !debouncedSearch,
+  });
   const products = data?.data || [];
 
   return (
