@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { usePlaceOrderMutation } from "../../redux/api/orders/placeOrderApi";
-import { useCreateCheckoutSessionMutation } from "../../redux/api/payment/paymentApi";
-import { allowSuccessOrder } from "../../redux/features/order/successOrderSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { usePlaceOrderMutation } from '../../redux/api/orders/ordersApi';
+import { useCreateCheckoutSessionMutation } from '../../redux/api/payment/paymentApi';
+import { allowSuccessOrder } from '../../redux/features/order/successOrderSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
 
 const DELIVERY_CHARGE = 60;
 
@@ -16,61 +16,40 @@ const Checkout = () => {
   const [placeOrder] = usePlaceOrderMutation();
   const [createCheckoutSession] = useCreateCheckoutSessionMutation();
 
-  const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const totalPrice = subtotal + DELIVERY_CHARGE;
 
   const [form, setForm] = useState({
-    firstName: user?.firstName || "",
-    lastName: user?.lastName || "",
-    email: user?.email || "",
-    phone: user?.phone || "",
-    street_address: "",
-    upazila: "",
-    district: "",
-    comment: "",
-    paymentMethod: "cod",
+    firstName: user?.firstName || '',
+    lastName: user?.lastName || '',
+    email: user?.email || '',
+    phone: user?.phone || '',
+    street_address: '',
+    upazila: '',
+    district: '',
+    comment: '',
+    paymentMethod: 'cod',
   });
   const [isFormDirty, setIsFormDirty] = useState(false);
 
   //prevent access to checkout if cart is empty
   useEffect(() => {
     if (cartItems.length === 0) {
-      navigate("/cart", { replace: true });
+      navigate('/cart', { replace: true });
     }
   }, [cartItems, navigate]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setIsFormDirty(true);
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handlePlaceOrder = async () => {
-    const {
-      firstName,
-      lastName,
-      email,
-      phone,
-      street_address,
-      upazila,
-      district,
-    } = form;
+    const { firstName, lastName, email, phone, street_address, upazila, district } = form;
 
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !phone ||
-      !street_address ||
-      !upazila ||
-      !district
-    ) {
-      toast.error("Please fill all fields!");
+    if (!firstName || !lastName || !email || !phone || !street_address || !upazila || !district) {
+      toast.error('Please fill all fields!');
       return;
     }
 
@@ -88,21 +67,21 @@ const Checkout = () => {
     };
 
     try {
-      if (form.paymentMethod === "cod") {
+      if (form.paymentMethod === 'cod') {
         const res = await placeOrder(orderInfo).unwrap();
         if (!res || !res.data?._id) {
-          throw new Error("Failed to place order. Please try again.");
+          throw new Error('Failed to place order. Please try again.');
         }
         dispatch(allowSuccessOrder());
         setIsFormDirty(false);
-        navigate("/checkout/successOrder", {
+        navigate('/checkout/successOrder', {
           replace: true,
-          state: { type: "cod", order_id: res.data._id, msg: res.message },
+          state: { type: 'cod', order_id: res.data._id, msg: res.message },
         });
       } else {
         const data = await createCheckoutSession(orderInfo).unwrap();
         if (!data.url) {
-          throw new Error("Failed to create Stripe session!");
+          throw new Error('Failed to create Stripe session!');
         }
         dispatch(allowSuccessOrder());
         setIsFormDirty(false);
@@ -112,11 +91,7 @@ const Checkout = () => {
         window.location.replace(data.url); //prevents back navigation
       }
     } catch (err) {
-      toast.error(
-        (err as any).data?.message ||
-          (err as Error).message ||
-          "Something went wrong!"
-      );
+      toast.error((err as any).data?.message || (err as Error).message || 'Something went wrong!');
     }
   };
 
@@ -125,11 +100,11 @@ const Checkout = () => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (isFormDirty) {
         e.preventDefault();
-        e.returnValue = "";
+        e.returnValue = '';
       }
     };
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [isFormDirty]);
 
   return (
@@ -140,9 +115,7 @@ const Checkout = () => {
       <div className="flex flex-col md:flex-row gap-6">
         {/* LEFT: Form */}
         <div className="w-full md:w-2/3 bg-white p-6 rounded-lg shadow flex flex-col gap-4">
-          <h2 className="text-xl font-semibold">
-            Shipping & Billing Information
-          </h2>
+          <h2 className="text-xl font-semibold">Shipping & Billing Information</h2>
 
           <div className="flex gap-4">
             <input
@@ -232,16 +205,14 @@ const Checkout = () => {
             <div className="flex flex-col gap-2">
               <label
                 className={`flex items-center gap-3 p-2 border rounded cursor-pointer hover:bg-gray-50 ${
-                  form.paymentMethod === "cod"
-                    ? "border-[#F97316]"
-                    : "border-gray-300"
+                  form.paymentMethod === 'cod' ? 'border-[#F97316]' : 'border-gray-300'
                 }`}
               >
                 <input
                   type="radio"
                   name="paymentMethod"
                   value="cod"
-                  checked={form.paymentMethod === "cod"}
+                  checked={form.paymentMethod === 'cod'}
                   onChange={handleChange}
                   className="accent-[#F97316]"
                 />
@@ -250,16 +221,14 @@ const Checkout = () => {
 
               <label
                 className={`flex items-center gap-3 p-2 border rounded cursor-pointer hover:bg-gray-50 ${
-                  form.paymentMethod === "online"
-                    ? "border-[#F97316]"
-                    : "border-gray-300"
+                  form.paymentMethod === 'online' ? 'border-[#F97316]' : 'border-gray-300'
                 }`}
               >
                 <input
                   type="radio"
                   name="paymentMethod"
                   value="online"
-                  checked={form.paymentMethod === "online"}
+                  checked={form.paymentMethod === 'online'}
                   onChange={handleChange}
                   className="accent-[#F97316]"
                 />

@@ -2,6 +2,7 @@ import type {
   GetCategoriesResponse,
   GetProductResponse,
   GetProductsResponse,
+  TProduct,
 } from '../../../types/TProduct';
 import { baseApi } from '../BaseApi';
 
@@ -40,6 +41,17 @@ const productsApi = baseApi.injectEndpoints({
         params: { searchText },
       }),
     }),
+    //getFeaturedProducts: builder.query<GetProductsResponse, void>({
+    getFeaturedProducts: builder.query<TProduct[], void>({
+      query: () => ({
+        url: '/products/featuredProducts',
+        method: 'GET',
+      }),
+      //only return the products array
+      transformResponse: (response: GetProductsResponse) => {
+        return response.data;
+      },
+    }),
     getAllCategories: builder.query<GetCategoriesResponse, void>({
       query: () => ({
         url: '/products/categories',
@@ -69,7 +81,8 @@ export const {
   useGetAllProductsQuery,
   useGetAProductQuery,
   useGetProductsBySearchQuery,
-  useGetAllCategoriesQuery,
+  useGetFeaturedProductsQuery,
+   useGetAllCategoriesQuery,
   useUpdateAProductMutation,
   useDeleteAProductMutation,
 } = productsApi;

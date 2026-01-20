@@ -1,14 +1,21 @@
-import type { TStatus } from "../../../types/TOrder";
-import { baseApi } from "../BaseApi";
+import type { TStatus } from '../../../types/TOrder';
+import { baseApi } from '../BaseApi';
 
 const ordersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    placeOrder: builder.mutation({
+      query: (orderInformation) => ({
+        url: '/order/placeOrder',
+        method: 'POST',
+        body: orderInformation,
+      }),
+    }),
     getOrdersByStatus: builder.query({
       query: (status) => ({
         url: `/order/byStatus/${status}`,
-        method: "GET",
+        method: 'GET',
       }),
-      providesTags: ["Orders"],
+      providesTags: ['Orders'],
     }),
     updateOrderStatus: builder.mutation<
       any,
@@ -16,13 +23,13 @@ const ordersApi = baseApi.injectEndpoints({
     >({
       query: ({ id, fromStatus, toStatus }) => ({
         url: `/order/updateStatus/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: { fromStatus, toStatus },
       }),
-      invalidatesTags: ["Orders"],
+      invalidatesTags: ['Orders'],
     }),
   }),
 });
 
-export const { useGetOrdersByStatusQuery, useUpdateOrderStatusMutation } =
+export const { usePlaceOrderMutation, useGetOrdersByStatusQuery, useUpdateOrderStatusMutation } =
   ordersApi;

@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import type { TProduct } from "../../types/TProduct";
-import { useGetFeaturedProductsQuery } from "../../redux/api/products/featuredProductsApi";
+import { Link } from 'react-router-dom';
+import { useGetFeaturedProductsQuery } from '../../redux/api/products/productsApi';
+import type { TProduct } from '../../types/TProduct';
 
 const FeaturedProducts = () => {
   //const { data: response, isLoading, error } = useGetFeaturedProductsQuery();
@@ -10,9 +10,7 @@ const FeaturedProducts = () => {
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
   if (error)
-    return (
-      <p className="text-center mt-10 text-red-500">Error loading products</p>
-    );
+    return <p className="text-center mt-10 text-red-500">Error loading featured products</p>;
 
   return (
     <div className="my-20 max-w-7xl mx-auto px-4">
