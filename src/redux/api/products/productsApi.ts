@@ -2,52 +2,64 @@ import type {
   GetCategoriesResponse,
   GetProductResponse,
   GetProductsResponse,
-} from "../../../types/TProduct";
-import { baseApi } from "../BaseApi";
+} from '../../../types/TProduct';
+import { baseApi } from '../BaseApi';
 
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createNewProduct: builder.mutation({
       query: (formData: FormData) => ({
-        url: "/products/createNewProduct",
-        method: "POST",
+        url: '/products/createNewProduct',
+        method: 'POST',
         body: formData,
       }),
-      invalidatesTags: ["Products"],
+      invalidatesTags: ['Products'],
     }),
     getAllProducts: builder.query<GetProductsResponse, void>({
       query: () => ({
-        url: "/products",
-        method: "GET",
+        url: '/products',
+        method: 'GET',
       }),
-      providesTags: ["Products"],
+      providesTags: ['Products'],
     }),
     getAProduct: builder.query<GetProductResponse, string>({
       query: (id) => ({
         url: `/products/${id}`,
-        method: "GET",
+        method: 'GET',
+      }),
+    }),
+    /*
+    getProductsBySearch: builder.query({
+      query: (searchText) => `/products/search?searchText=${encodeURIComponent(searchText)}`,
+    }),
+    */
+    getProductsBySearch: builder.query({
+      query: (searchText) => ({
+        url: '/products/search',
+        method: 'GET',
+        params: { searchText },
       }),
     }),
     getAllCategories: builder.query<GetCategoriesResponse, void>({
       query: () => ({
-        url: "/products/categories",
-        method: "GET",
+        url: '/products/categories',
+        method: 'GET',
       }),
     }),
     updateAProduct: builder.mutation({
       query: ({ id, updateData }) => ({
         url: `/products/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: updateData,
       }),
-      invalidatesTags: ["Products"],
+      invalidatesTags: ['Products'],
     }),
     deleteAProduct: builder.mutation({
       query: (id) => ({
         url: `/products/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
-      invalidatesTags: ["Products"],
+      invalidatesTags: ['Products'],
     }),
   }),
 });
@@ -56,6 +68,7 @@ export const {
   useCreateNewProductMutation,
   useGetAllProductsQuery,
   useGetAProductQuery,
+  useGetProductsBySearchQuery,
   useGetAllCategoriesQuery,
   useUpdateAProductMutation,
   useDeleteAProductMutation,

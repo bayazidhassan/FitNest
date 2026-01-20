@@ -3,15 +3,17 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ShoppingCartIcon } from "lucide-react";
-import { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useLogoutMutation } from "../../redux/api/auth/authApi";
-import { logout } from "../../redux/features/auth/authSlice";
-import { clearCart } from "../../redux/features/cart/addToCartSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { persistor } from "../../redux/store";
+} from '@/components/ui/dropdown-menu';
+import { ShoppingCartIcon } from 'lucide-react';
+import { useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useLogoutMutation } from '../../redux/api/auth/authApi';
+import { useGetProductsBySearchQuery } from '../../redux/api/products/productsApi';
+import { logout } from '../../redux/features/auth/authSlice';
+import { clearCart } from '../../redux/features/cart/addToCartSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { persistor } from '../../redux/store';
+import type { TProduct } from '../../types/TProduct';
 
 const NavBar = () => {
   const user = useAppSelector((state) => state.auth);
@@ -28,9 +30,13 @@ const NavBar = () => {
       dispatch(logout()); //clear auth state
       dispatch(clearCart()); //clear cart state
       persistor.purge(); //remove persisted Redux data
-      navigate("/login", { replace: true }); //prevent back navigation
+      navigate('/login', { replace: true }); //prevent back navigation
     }
   };
+
+  const [searchText, setSearchText] = useState('');
+  const { data } = useGetProductsBySearchQuery(searchText, { skip: !searchText });
+  const products = data?.data || [];
 
   return (
     <nav className="bg-[#0F172A] px-6 py-4 fixed top-0 left-0 w-full z-50">
@@ -45,13 +51,56 @@ const NavBar = () => {
           <span className="text-[#0D9488] font-bold text-2xl">FitNest</span>
         </Link>
 
+        {/* Search Bar */}
+        <div className="relative md:w-1/4">
+          <input
+            className="w-full px-2 py-1 bg-gray-200 rounded"
+            placeholder="Search products..."
+            type="text"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+
+          {/* Search results dropdown */}
+          {searchText && products.length > 0 && (
+            <ul className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded mt-1 max-h-60 overflow-y-auto z-50 shadow-lg">
+              {products.map((product: TProduct) => (
+                <li key={product._id} className="px-3 py-2 hover:bg-gray-100 cursor-pointer">
+                  <Link
+                    to={`/products/${product._id}`}
+                    onClick={() => setSearchText('')} //clear search after click
+                    className="flex items-center gap-2"
+                  >
+                    <img
+                      src={product.images[0]}
+                      alt={product.name}
+                      className="w-10 h-10 object-cover rounded"
+                    />
+                    <span className="text-gray-700">{product.name}</span>
+                    <span className="hidden md:block text-gray-500 text-sm">
+                      {product.category} | ৳{product.price}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {/* show no products */}
+          {searchText && products.length === 0 && (
+            <div className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded mt-1 px-3 py-2 text-gray-500">
+              No products found.
+            </div>
+          )}
+        </div>
+
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 items-center">
           <NavLink
             to="/"
             className={({ isActive }) =>
               `transition-colors duration-200 hover:text-[#F97316] ${
-                isActive ? "text-[#F97316] font-semibold" : "text-white"
+                isActive ? 'text-[#F97316] font-semibold' : 'text-white'
               }`
             }
           >
@@ -61,7 +110,7 @@ const NavBar = () => {
             to="/products"
             className={({ isActive }) =>
               `transition-colors duration-200 hover:text-[#F97316] ${
-                isActive ? "text-[#F97316] font-semibold" : "text-white"
+                isActive ? 'text-[#F97316] font-semibold' : 'text-white'
               }`
             }
           >
@@ -71,7 +120,7 @@ const NavBar = () => {
             to="/cart"
             className={({ isActive }) =>
               `transition-colors duration-200 relative inline-block hover:text-[#F97316] ${
-                isActive ? "text-[#F97316] font-semibold" : "text-white"
+                isActive ? 'text-[#F97316] font-semibold' : 'text-white'
               }`
             }
           >
@@ -86,7 +135,7 @@ const NavBar = () => {
             to="/aboutUs"
             className={({ isActive }) =>
               `transition-colors duration-200 hover:text-[#F97316] ${
-                isActive ? "text-[#F97316] font-semibold" : "text-white"
+                isActive ? 'text-[#F97316] font-semibold' : 'text-white'
               }`
             }
           >
@@ -101,21 +150,18 @@ const NavBar = () => {
               <DropdownMenuTrigger asChild>
                 <img
                   src={user.image as string}
-                  alt={user.firstName + " " + user.lastName}
+                  alt={user.firstName + ' ' + user.lastName}
                   className="w-8 h-8 rounded-full cursor-pointer"
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-40">
                 <DropdownMenuItem className="font-semibold border-b-2">
-                  {user.firstName + " " + user.lastName}
+                  {user.firstName + ' ' + user.lastName}
                 </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer">
                   <Link to={`/dashboard/${user.role}`}>Dashboard</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={handleLogout}
-                  className="cursor-pointer text-red-500"
-                >
+                <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-red-500">
                   Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -125,19 +171,11 @@ const NavBar = () => {
 
         {/* Mobile Hamburger */}
         <div className="md:hidden">
-          <DropdownMenu
-            open={isMobileMenuOpen}
-            onOpenChange={setIsMobileMenuOpen}
-          >
+          <DropdownMenu open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <DropdownMenuTrigger asChild>
               <button className="text-white focus:outline-none">
                 {isMobileMenuOpen ? (
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -146,12 +184,7 @@ const NavBar = () => {
                     />
                   </svg>
                 ) : (
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -168,11 +201,11 @@ const NavBar = () => {
                 <div className="flex items-center space-x-2 border-b border-gray-700 pb-2">
                   <img
                     src={user.image as string}
-                    alt={user.firstName + " " + user.lastName}
+                    alt={user.firstName + ' ' + user.lastName}
                     className="w-8 h-8 rounded-full"
                   />
                   <span className="text-white font-semibold">
-                    {user.firstName + " " + user.lastName}
+                    {user.firstName + ' ' + user.lastName}
                   </span>
                 </div>
               )}
