@@ -65,7 +65,7 @@ const NavBar = () => {
     <nav className="bg-[#0F172A] px-6 py-4 fixed top-0 left-0 w-full z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2 text-white">
+        <Link to="/" className="flex items-center md:space-x-2 text-white">
           <img
             src="https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"
             alt="Logo"
@@ -75,7 +75,7 @@ const NavBar = () => {
         </Link>
 
         {/* Search Bar */}
-        <div className="relative md:w-1/4" ref={searchRef}>
+        <div className="relative w-2/3 md:w-1/3" ref={searchRef}>
           <input
             className="w-full px-2 py-1 bg-gray-200 rounded"
             placeholder="Search products..."
