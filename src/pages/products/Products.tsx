@@ -12,6 +12,17 @@ import { addToCart } from '../../redux/features/cart/addToCartSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import type { TProduct } from '../../types/TProduct';
 
+import { ListFilter } from 'lucide-react';
+import { Button } from '../../components/ui/button';
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '../../components/ui/sheet';
+
 const Products = () => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart);
@@ -37,7 +48,7 @@ const Products = () => {
   const [itemsPerPage, setItemsPerPage] = useState<number>(12);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  // Sorting: default | asc | desc
+  //sorting: default | asc | desc
   const [sortOption, setSortOption] = useState<'default' | 'asc' | 'desc'>('default');
 
   const products = response?.data || [];
@@ -92,17 +103,17 @@ const Products = () => {
       const matchesPrice = product.price >= value[0] && product.price <= value[1];
       return matchesSearch && matchesCategory && matchesPrice;
     });
-  }, [products, searchText, selectedCategories, value]);
+  }, [products, searchText, selectedCategories, value[0], value[1]]);
 
-  // Sort products
+  //sort products
   if (sortOption === 'asc') {
     filteredProducts = [...filteredProducts].sort((a, b) => a.price - b.price);
   } else if (sortOption === 'desc') {
     filteredProducts = [...filteredProducts].sort((a, b) => b.price - a.price);
   }
-  // else "default" keeps original API order
+  //else "default" keeps original API order
 
-  // Pagination
+  //pagination
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
@@ -111,10 +122,10 @@ const Products = () => {
   if (error) return <p className="text-center mt-10 text-red-500">Error loading products</p>;
 
   return (
-    <div className="py-10 px-6 max-w-7xl mx-auto">
+    <div className="p-4 max-w-7xl mx-auto">
       {/* Row 1: Title + Search */}
-      <div className="md:flex justify-between items-center mb-5">
-        <h1 className="text-3xl font-bold text-[#0D9488]">Our Products</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl md:text-3xl font-bold text-[#0D9488]">Our Products</h1>
         <input
           type="text"
           placeholder="Search products..."
@@ -127,7 +138,7 @@ const Products = () => {
       {/* Row 2: Sidebar + Products */}
       <div className="md:flex gap-6">
         {/* Left Sidebar */}
-        <div className="w-full md:w-1/5">
+        <div className="hidden md:block w-full md:w-1/5">
           {/* Price Slider */}
           <div className="bg-white p-4 rounded shadow mb-6">
             <span className="font-semibold text-gray-700">Price Range:</span>
@@ -179,8 +190,8 @@ const Products = () => {
         {/* Right Products Grid */}
         <div className="w-full md:w-4/5">
           {/* Controls: Items per page + Sorting */}
-          <div className="flex flex-col md:flex-row md:justify-between mb-4 mt-4 md:mt-0 gap-2 md:gap-0">
-            <div className="flex items-center gap-2">
+          <div className="flex justify-between mb-4">
+            <div className="hidden md:flex items-center gap-2">
               <label className="text-sm font-semibold">Show:</label>
               <select
                 className="border rounded px-2 py-1"
@@ -210,10 +221,79 @@ const Products = () => {
                 <option value="desc">Price (High → Low)</option>
               </select>
             </div>
+
+            <div className="md:hidden">
+              <div className="flex flex-wrap gap-2">
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button variant="outline" className="capitalize">
+                      <ListFilter />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent className="w-[80vw]" side={'left'}>
+                    <SheetHeader>
+                      <SheetTitle>Filter Products</SheetTitle>
+                    </SheetHeader>
+                    <div className="no-scrollbar overflow-y-auto h-[calc(100vh-120px)] px-4">
+                      {/* Price Slider */}
+                      <div className="bg-white p-4 rounded shadow mb-6">
+                        <span className="font-semibold text-gray-700">Price Range:</span>
+                        <Box sx={{ width: '91%', ml: 1.3 }}>
+                          <Slider
+                            getAriaLabel={() => 'Price range'}
+                            value={value}
+                            min={0}
+                            max={maxPrice}
+                            onChange={handleChange}
+                            valueLabelDisplay="auto"
+                            getAriaValueText={(val: number) => `৳${val}`}
+                          />
+                          <div className="text-sm mt-1">
+                            Min: ৳{value[0]} | Max: ৳{value[1]}
+                          </div>
+                        </Box>
+                      </div>
+
+                      {/* Category Filters */}
+                      <div className="bg-white p-4 rounded shadow mb-6">
+                        <span className="font-semibold text-gray-700">Categories:</span>
+                        <div className="flex flex-col gap-2 mt-2">
+                          {categories.map((category: { category: string; image?: string }) => (
+                            <label
+                              key={category.category}
+                              className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded cursor-pointer hover:bg-gray-200"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={selectedCategories.includes(category.category)}
+                                onChange={() => toggleCategory(category.category)}
+                              />
+                              <span>{category.category}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Clear Filters Button */}
+                      <div className="sticky bottom-0 bg-white p-4 border-t">
+                        <SheetClose asChild>
+                          <button
+                            onClick={clearFilters}
+                            className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded"
+                          >
+                            Clear Filters
+                          </button>
+                        </SheetClose>
+                      </div>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
+            </div>
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {paginatedProducts.length === 0 && (
               <p className="text-center col-span-4 text-gray-500">No products found.</p>
             )}
