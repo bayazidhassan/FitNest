@@ -1,22 +1,18 @@
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
 import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import {
-  useGetAllCategoriesQuery,
-  useGetAllProductsQuery,
-} from '../../redux/api/products/productsApi';
+import { useGetAllProductsQuery } from '../../redux/api/products/productsApi';
 import { addToCart } from '../../redux/features/cart/addToCartSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import type { TProduct } from '../../types/TProduct';
 
 import { ListFilter } from 'lucide-react';
+import FilterSidebar from '../../components/product/FilterSidebar';
+import PaginationSetup from '../../components/product/PaginationSetup';
 import { Button } from '../../components/ui/button';
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -26,44 +22,45 @@ import {
 const Products = () => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart);
+  const { data: response, isLoading, error } = useGetAllProductsQuery();
+  const products = response?.data || [];
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const categoryFromQuery = queryParams.get('category');
 
-  const { data: response } = useGetAllProductsQuery();
-  const { data: categoryResponse, isLoading, error } = useGetAllCategoriesQuery();
-
   const [searchText, setSearchText] = useState('');
-
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [sliderRange, setSliderRange] = useState<number[]>([0, 0]);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(12);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [sortOption, setSortOption] = useState<'default' | 'asc' | 'desc'>('default');
+
+  //useMemo() -> React reuses the previously memoized value until one of the dependencies changes.
+  const categories = useMemo(() => [...new Set(products.map((p) => p.category))], [products]);
+  const priceRange = useMemo(() => {
+    if (!products.length) return null;
+    const prices = products.map((p: TProduct) => p.price);
+    return {
+      min: Math.min(...prices),
+      max: Math.max(...prices),
+    };
+  }, [products]);
+
   useEffect(() => {
     if (categoryFromQuery) {
       setSelectedCategories([categoryFromQuery]);
     }
   }, [categoryFromQuery]);
 
-  const [value, setValue] = useState<number[]>([0, 100000]);
-  const [maxPrice, setMaxPrice] = useState<number>(100000);
-
-  const [itemsPerPage, setItemsPerPage] = useState<number>(12);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
-  //sorting: default | asc | desc
-  const [sortOption, setSortOption] = useState<'default' | 'asc' | 'desc'>('default');
-
-  const products = response?.data || [];
-  const categories = categoryResponse?.data || [];
-
   useEffect(() => {
-    if (products.length) {
-      const highestPrice = Math.max(...products.map((p: TProduct) => p.price));
-      setMaxPrice(highestPrice);
-      setValue([0, highestPrice]);
+    if (priceRange) {
+      setSliderRange([priceRange.min, priceRange.max]);
     }
-  }, [products]);
+  }, [priceRange]);
 
-  const handleChange = (_event: Event, newValue: number | number[]) => {
-    if (Array.isArray(newValue)) setValue(newValue);
+  const handleChange = (_event: Event, newValue: number[]) => {
+    setSliderRange(newValue);
   };
 
   const toggleCategory = (category: string) => {
@@ -75,51 +72,34 @@ const Products = () => {
   const clearFilters = () => {
     setSearchText('');
     setSelectedCategories([]);
-    setValue([0, maxPrice]);
+    if (priceRange) setSliderRange([priceRange.min, priceRange.max]);
     setItemsPerPage(12);
     setCurrentPage(1);
     setSortOption('default');
+    navigate(location.pathname, { replace: true }); //reset query params
   };
 
-  // Filter products
-  /*
-  let filteredProducts = products.filter((product: TProduct) => {
-    const matchesSearch = product.name
-      .toLowerCase()
-      .includes(searchText.toLowerCase());
-    const matchesCategory =
-      selectedCategories.length === 0 ||
-      selectedCategories.includes(product.category);
-    const matchesPrice = product.price >= value[0] && product.price <= value[1];
-    return matchesSearch && matchesCategory && matchesPrice;
-  });
-  */
-  //useMemo() -> React reuses the previously memoized value until one of the dependencies changes.
-  let filteredProducts = useMemo(() => {
-    return products.filter((product) => {
+  const filteredProducts = useMemo(() => {
+    let result = products.filter((product) => {
       const matchesSearch = product.name.toLowerCase().includes(searchText.toLowerCase());
       const matchesCategory =
         selectedCategories.length === 0 || selectedCategories.includes(product.category);
-      const matchesPrice = product.price >= value[0] && product.price <= value[1];
+      const matchesPrice = product.price >= sliderRange[0] && product.price <= sliderRange[1];
       return matchesSearch && matchesCategory && matchesPrice;
     });
-  }, [products, searchText, selectedCategories, value[0], value[1]]);
 
-  //sort products
-  if (sortOption === 'asc') {
-    filteredProducts = [...filteredProducts].sort((a, b) => a.price - b.price);
-  } else if (sortOption === 'desc') {
-    filteredProducts = [...filteredProducts].sort((a, b) => b.price - a.price);
-  }
-  //else "default" keeps original API order
+    if (sortOption === 'asc') result.sort((a, b) => a.price - b.price);
+    else if (sortOption === 'desc') result.sort((a, b) => b.price - a.price);
 
-  //pagination
+    return result;
+  }, [products, searchText, selectedCategories, sliderRange, sortOption]);
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
-  if (error) return <p className="text-center mt-10 text-red-500">Error loading products</p>;
+  if (error) return <p className="text-center mt-10 text-red-500">Error loading products.</p>;
 
   return (
     <div className="p-4 max-w-7xl mx-auto">
@@ -139,52 +119,15 @@ const Products = () => {
       <div className="md:flex gap-6">
         {/* Left Sidebar */}
         <div className="hidden md:block w-full md:w-1/5">
-          {/* Price Slider */}
-          <div className="bg-white p-4 rounded shadow mb-6">
-            <span className="font-semibold text-gray-700">Price Range:</span>
-            <Box sx={{ width: '91%', ml: 1.3 }}>
-              <Slider
-                getAriaLabel={() => 'Price range'}
-                value={value}
-                min={0}
-                max={maxPrice}
-                onChange={handleChange}
-                valueLabelDisplay="auto"
-                getAriaValueText={(val: number) => `৳${val}`}
-              />
-              <div className="text-sm mt-1">
-                Min: ৳{value[0]} | Max: ৳{value[1]}
-              </div>
-            </Box>
-          </div>
-
-          {/* Category Filters */}
-          <div className="bg-white p-4 rounded shadow mb-6">
-            <span className="font-semibold text-gray-700">Categories:</span>
-            <div className="flex flex-col gap-2 mt-2">
-              {categories.map((category: { category: string; image?: string }) => (
-                <label
-                  key={category.category}
-                  className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded cursor-pointer hover:bg-gray-200"
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedCategories.includes(category.category)}
-                    onChange={() => toggleCategory(category.category)}
-                  />
-                  <span>{category.category}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Clear Filters Button */}
-          <button
-            onClick={clearFilters}
-            className="cursor-pointer w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded"
-          >
-            Clear Filters
-          </button>
+          <FilterSidebar
+            categories={categories}
+            selectedCategories={selectedCategories}
+            toggleCategory={toggleCategory}
+            sliderRange={sliderRange}
+            handleChange={handleChange}
+            clearFilters={clearFilters}
+            priceRange={priceRange}
+          ></FilterSidebar>
         </div>
 
         {/* Right Products Grid */}
@@ -235,56 +178,15 @@ const Products = () => {
                       <SheetTitle>Filter Products</SheetTitle>
                     </SheetHeader>
                     <div className="no-scrollbar overflow-y-auto h-[calc(100vh-120px)] px-4">
-                      {/* Price Slider */}
-                      <div className="bg-white p-4 rounded shadow mb-6">
-                        <span className="font-semibold text-gray-700">Price Range:</span>
-                        <Box sx={{ width: '91%', ml: 1.3 }}>
-                          <Slider
-                            getAriaLabel={() => 'Price range'}
-                            value={value}
-                            min={0}
-                            max={maxPrice}
-                            onChange={handleChange}
-                            valueLabelDisplay="auto"
-                            getAriaValueText={(val: number) => `৳${val}`}
-                          />
-                          <div className="text-sm mt-1">
-                            Min: ৳{value[0]} | Max: ৳{value[1]}
-                          </div>
-                        </Box>
-                      </div>
-
-                      {/* Category Filters */}
-                      <div className="bg-white p-4 rounded shadow mb-6">
-                        <span className="font-semibold text-gray-700">Categories:</span>
-                        <div className="flex flex-col gap-2 mt-2">
-                          {categories.map((category: { category: string; image?: string }) => (
-                            <label
-                              key={category.category}
-                              className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded cursor-pointer hover:bg-gray-200"
-                            >
-                              <input
-                                type="checkbox"
-                                checked={selectedCategories.includes(category.category)}
-                                onChange={() => toggleCategory(category.category)}
-                              />
-                              <span>{category.category}</span>
-                            </label>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Clear Filters Button */}
-                      <div className="sticky bottom-0 bg-white p-4 border-t">
-                        <SheetClose asChild>
-                          <button
-                            onClick={clearFilters}
-                            className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded"
-                          >
-                            Clear Filters
-                          </button>
-                        </SheetClose>
-                      </div>
+                      <FilterSidebar
+                        categories={categories}
+                        selectedCategories={selectedCategories}
+                        toggleCategory={toggleCategory}
+                        sliderRange={sliderRange}
+                        handleChange={handleChange}
+                        clearFilters={clearFilters}
+                        priceRange={priceRange}
+                      ></FilterSidebar>
                     </div>
                   </SheetContent>
                 </Sheet>
@@ -293,9 +195,11 @@ const Products = () => {
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 min-h-[70vh] gap-4">
             {paginatedProducts.length === 0 && (
-              <p className="text-center col-span-4 text-gray-500">No products found.</p>
+              <p className="col-span-4 flex justify-center items-center text-gray-600 text-lg">
+                No products found.
+              </p>
             )}
 
             {paginatedProducts.map((product: TProduct) => {
@@ -346,22 +250,12 @@ const Products = () => {
             })}
           </div>
 
-          {/* Pagination Buttons */}
-          {totalPages > 1 && (
-            <div className="flex justify-center mt-6 gap-2">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`px-3 py-1 border rounded ${
-                    page === currentPage ? 'bg-[#0D9488] text-white' : 'bg-white'
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
-            </div>
-          )}
+          {/* Pagination */}
+          <PaginationSetup
+            totalPages={totalPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          ></PaginationSetup>
         </div>
       </div>
     </div>
