@@ -1,6 +1,6 @@
 const ImageGallery = () => {
   return (
-    <div className="border border-black max-w-7xl mx-auto px-4 md:px-0">
+    <div className="border border-black max-w-7xl mx-auto px-4 md:px">
       {/* Section Header */}
       <div className="text-center mb-6">
         <h1 className="text-3xl font-bold text-[#0D9488]">
