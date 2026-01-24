@@ -6,13 +6,13 @@ import ImageGallery from "./ImageGallery";
 
 const HomePage = () => {
   return (
-    <>
+    <div className="space-y-20">
       <HeroSection></HeroSection>
       <CategoriesSection></CategoriesSection>
       <FeaturedProducts></FeaturedProducts>
       <BenefitsSection></BenefitsSection>
       <ImageGallery></ImageGallery>
-    </>
+    </div>
   );
 };
 

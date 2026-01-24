@@ -13,7 +13,7 @@ const FeaturedProducts = () => {
     return <p className="text-center mt-10 text-red-500">Error loading featured products</p>;
 
   return (
-    <div className="my-20 max-w-7xl mx-auto px-4">
+    <div className="border border-black max-w-7xl mx-auto px-4 md:px-0">
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-8">
         <h1 className="text-3xl font-bold text-[#0D9488]">Featured Products</h1>

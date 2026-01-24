@@ -101,7 +101,7 @@ const NavBar = () => {
                     />
                     <span className="text-gray-700">{product.name}</span>
                     <span className="hidden md:block text-gray-500 text-sm">
-                      {product.category} | ৳{product.price}
+                      | {product.category} | ৳{product.price}
                     </span>
                   </Link>
                 </li>

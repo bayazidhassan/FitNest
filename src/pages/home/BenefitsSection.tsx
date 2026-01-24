@@ -1,6 +1,6 @@
 const BenefitsSection = () => {
   return (
-    <div className="my-30 max-w-7xl mx-auto px-4">
+    <div className="border border-black max-w-7xl mx-auto px-4 md:px-0">
       {/* Section Header */}
       <div className="text-center mb-4">
         <h1 className="text-3xl font-bold text-[#0D9488]">

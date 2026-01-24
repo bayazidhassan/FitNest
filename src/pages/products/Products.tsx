@@ -223,7 +223,7 @@ const Products = () => {
                   key={product._id}
                   className="border border-gray-300 p-2 md:p-4 rounded shadow flex flex-col"
                 >
-                  <div className="w-full h-20 md:h-40 overflow-hidden rounded">
+                  <div className="w-full h-30 md:h-40 overflow-hidden rounded">
                     <img
                       src={product.images[0]}
                       alt={product.name}
