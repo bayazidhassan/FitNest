@@ -104,12 +104,12 @@ const Products = () => {
   return (
     <div className="p-4 max-w-7xl mx-auto">
       {/* Row 1: Title + Search */}
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#0D9488]">Our Products</h1>
+      <div className="flex justify-between items-center gap-1 mb-8 md:mb-4">
+        <h1 className="text-xl md:text-3xl font-bold text-[#0D9488]">Our Products</h1>
         <input
           type="text"
           placeholder="Search products..."
-          className="border-2 rounded px-2 py-1 mt-4 md:mt-0 md:w-1/4"
+          className="border-2 rounded px-2 py-1 w-4/7 md:w-1/4"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
@@ -124,7 +124,7 @@ const Products = () => {
             selectedCategories={selectedCategories}
             toggleCategory={toggleCategory}
             sliderRange={sliderRange}
-            handleChange={handleChange}
+            handleSliderChange={handleChange}
             clearFilters={clearFilters}
             priceRange={priceRange}
           ></FilterSidebar>
@@ -155,7 +155,7 @@ const Products = () => {
             <div className="flex items-center gap-2">
               <label className="text-sm font-semibold">Sort by:</label>
               <select
-                className="border rounded px-2 py-1"
+                className="border rounded px-1 py-1 text-sm md:text-base"
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value as 'default' | 'asc' | 'desc')}
               >
@@ -183,9 +183,10 @@ const Products = () => {
                         selectedCategories={selectedCategories}
                         toggleCategory={toggleCategory}
                         sliderRange={sliderRange}
-                        handleChange={handleChange}
+                        handleSliderChange={handleChange}
                         clearFilters={clearFilters}
                         priceRange={priceRange}
+                        isMobile={true}
                       ></FilterSidebar>
                     </div>
                   </SheetContent>
@@ -195,7 +196,7 @@ const Products = () => {
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 min-h-[70vh] gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 min-h-[70vh] gap-2 md:gap-4">
             {paginatedProducts.length === 0 && (
               <p className="col-span-4 flex justify-center items-center text-gray-600 text-lg">
                 No products found.
@@ -206,19 +207,20 @@ const Products = () => {
               const itemInCart = cartItems.find((item) => item.product_id === product._id);
               const quantityInCart = itemInCart ? itemInCart.quantity : 0;
               return (
-                <div key={product._id} className="bg-white p-4 rounded shadow flex flex-col">
-                  <div className="w-full aspect-w-1 aspect-h-1 sm:aspect-h-1 md:aspect-h-1 lg:aspect-h-1 overflow-hidden rounded">
+                <div
+                  key={product._id}
+                  className="border border-gray-300 p-2 md:p-4 rounded shadow flex flex-col"
+                >
+                  <div className="w-full h-30 md:h-40 overflow-hidden rounded">
                     <img
                       src={product.images[0]}
                       alt={product.name}
-                      className="w-full h-full object-cover hover:scale-105 duration-300"
+                      className="w-full h-full object-contain hover:scale-105 duration-300"
                     />
                   </div>
-
-                  <h2 className="text-gray-700 mt-3">{product.name}</h2>
-                  <p className="text-sm md:text-base text-gray-500 mt-1">৳ {product.price}</p>
-
-                  <div className="mt-3 flex justify-between gap-2">
+                  <h2 className="text-gray-700 mt-1">{product.name}</h2>
+                  <p className="text-sm md:text-base text-gray-500">৳ {product.price}</p>
+                  <div className="mt-auto pt-3 flex flex-col md:flex-row justify-between gap-2">
                     <Link
                       to={`/products/${product._id}`}
                       className="flex-1 text-center bg-[#0D9488] text-white px-2 py-1 rounded hover:bg-[#0a766f] text-sm"
