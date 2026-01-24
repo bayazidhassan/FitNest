@@ -17,7 +17,7 @@ const Footer = () => {
             Your fitness & e-commerce destination. Quality products to power your journey.
           </p>
         </div>
-        <div className="md:flex justify-center space-y-4">
+        <div className="flex justify-between md:justify-evenly">
           <div className="flex flex-col space-y-0 md:space-y-1">
             <h3 className="text-[#F97316] font-semibold mb-2">Quick Links</h3>
             <Link to="/products" className="inline w-fit hover:text-[#0D9488]">
@@ -33,8 +33,8 @@ const Footer = () => {
               Login
             </Link>
           </div>
-          <div className="border-l border-gray-400 border-dashed mx-6 self-stretch"></div>
-          <div className="flex flex-col space-y-1">
+
+          <div className="flex flex-col space-y-0 md:space-y-1">
             <h3 className="text-[#F97316] font-semibold mb-2">Contact Us</h3>
             <p className="text-gray-300">Email: support@fitnest.com</p>
             <p className="text-gray-300">Phone: +123 456 7890</p>
