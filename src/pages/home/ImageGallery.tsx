@@ -1,17 +1,12 @@
 const ImageGallery = () => {
   return (
-    <div className="border border-black max-w-7xl mx-auto px-4 md:px">
-      {/* Section Header */}
+    <div className="max-w-7xl mx-auto px-4 md:px">
       <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold text-[#0D9488]">
-          Our Happy Customers
-        </h1>
-        <p className="text-gray-600 mt-3 max-w-xl mx-auto">
+        <h1 className="text-2xl md:text-3xl font-bold text-[#0D9488]">Our Happy Customers</h1>
+        <p className="text-gray-500 mt-1 max-w-3/5 mx-auto">
           See how our products have helped individuals lead healthier lives.
         </p>
       </div>
-
-      {/* Gallery Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="col-span-2 row-span-2 overflow-hidden rounded-lg">
           <img
