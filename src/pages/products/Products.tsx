@@ -14,6 +14,7 @@ import { Button } from '../../components/ui/button';
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -176,6 +177,9 @@ const Products = () => {
                   <SheetContent className="w-[80vw]" side={'left'}>
                     <SheetHeader>
                       <SheetTitle>Filter Products</SheetTitle>
+                      <SheetDescription className="sr-only">
+                        Filter products by price, category, and availability
+                      </SheetDescription>
                     </SheetHeader>
                     <div className="no-scrollbar overflow-y-auto h-[calc(100vh-120px)] px-4">
                       <FilterSidebar
