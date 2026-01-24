@@ -3,58 +3,41 @@ import { useGetFeaturedProductsQuery } from '../../redux/api/products/productsAp
 import type { TProduct } from '../../types/TProduct';
 
 const FeaturedProducts = () => {
-  //const { data: response, isLoading, error } = useGetFeaturedProductsQuery();
-  //const products = response?.data || [];
-
   const { data: products, isLoading, error } = useGetFeaturedProductsQuery();
 
-  if (isLoading) return <p className="text-center mt-10">Loading...</p>;
+  if (isLoading) return <p className="text-center mt-10">Loading featured products...</p>;
   if (error)
-    return <p className="text-center mt-10 text-red-500">Error loading featured products</p>;
+    return <p className="text-center mt-10 text-red-500">Error loading featured products.</p>;
 
   return (
-    <div className="border border-black max-w-7xl mx-auto px-4 md:px-0">
-      {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-8">
-        <h1 className="text-3xl font-bold text-[#0D9488]">Featured Products</h1>
+    <div className="max-w-7xl mx-auto px-4 md:px-0">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-2 mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-[#0D9488]">Featured Products</h1>
         <Link
           to="/products"
-          className="mt-4 md:mt-0 inline-block bg-[#F97316] text-white px-5 py-2 rounded-lg font-semibold shadow hover:bg-[#ea5f0d] transition-colors duration-200"
+          className="bg-[#F97316] text-white py-2 px-4 rounded shadow hover:bg-[#ea5f0d]"
         >
           Explore More
         </Link>
       </div>
-
-      {/* Products Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {products?.map((product: TProduct) => (
           <div
             key={product._id}
-            className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300"
+            className="border border-gray-300 bg-[#FFF7ED] rounded shadow flex flex-col justify-center items-center"
           >
-            {/* Product Image */}
-            <div className="w-full h-60 overflow-hidden">
-              <img
-                src={product.images[0]}
-                alt={product.name}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-
-            {/* Product Info */}
-            <div className="p-4 flex flex-col flex-1">
-              <h2 className="text-center text-gray-600 font-medium mb-2 line-clamp-2">
-                {product.name}
-              </h2>
-
-              {/* View Details Button */}
-              <Link
-                to={`/products/${product._id}`}
-                className="mt-auto inline-block text-center bg-[#0D9488] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#0a766f] transition-colors duration-200"
-              >
-                View Details
-              </Link>
-            </div>
+            <img
+              src={product.images?.[0]}
+              alt={product.name}
+              className="w-32 h-32 md:w-40 md:h-40 object-contain hover:scale-105 transform transition"
+            />
+            <h2 className="px-2 text-center text-gray-700 font-medium my-2">{product.name}</h2>
+            <Link
+              to={`/products/${product._id}`}
+              className="mt-auto mb-4 bg-[#0D9488] text-white py-2 px-4 rounded hover:bg-[#0a766f]"
+            >
+              View Details
+            </Link>
           </div>
         ))}
       </div>

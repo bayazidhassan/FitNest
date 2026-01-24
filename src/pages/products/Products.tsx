@@ -99,7 +99,7 @@ const Products = () => {
   const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
-  if (isLoading) return <p className="min-h-[60vh] flex justify-center items-center">Loading...</p>;
+  if (isLoading) return <p className="min-h-[60vh] flex justify-center items-center">Loading products...</p>;
   if (error)
     return (
       <p className="min-h-[60vh] flex justify-center items-center text-red-500">
@@ -108,7 +108,7 @@ const Products = () => {
     );
 
   return (
-    <div className="p-4 max-w-7xl mx-auto">
+    <div className="p-2 md:p-0 max-w-7xl mx-auto">
       {/* Row 1: Title + Search */}
       <div className="flex justify-between items-center gap-1 mb-8 md:mb-4">
         <h1 className="text-xl md:text-3xl font-bold text-[#0D9488]">Our Products</h1>
@@ -223,9 +223,9 @@ const Products = () => {
                   key={product._id}
                   className="border border-gray-300 p-2 md:p-4 rounded shadow flex flex-col"
                 >
-                  <div className="w-full h-30 md:h-40 overflow-hidden rounded">
+                  <div className="w-full h-32 md:h-40 overflow-hidden rounded">
                     <img
-                      src={product.images[0]}
+                      src={product.images?.[0]}
                       alt={product.name}
                       className="w-full h-full object-contain hover:scale-105 duration-300"
                     />
