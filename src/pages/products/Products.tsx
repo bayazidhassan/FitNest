@@ -99,9 +99,13 @@ const Products = () => {
   const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
-  if (isLoading) return <p className="min-h-[60vh] text-center">Loading...</p>;
+  if (isLoading) return <p className="min-h-[60vh] flex justify-center items-center">Loading...</p>;
   if (error)
-    return <p className="min-h-[60vh] text-center text-red-500">Error loading products.</p>;
+    return (
+      <p className="min-h-[60vh] flex justify-center items-center text-red-500">
+        Error loading products.
+      </p>
+    );
 
   return (
     <div className="p-4 max-w-7xl mx-auto">
@@ -178,7 +182,7 @@ const Products = () => {
                       </Button>
                     </SheetTrigger>
                   </div>
-                  <SheetContent className="w-[70vw]" side={'left'}>
+                  <SheetContent className="w-[75vw]" side={'left'}>
                     <SheetHeader>
                       <SheetTitle>Filter Products</SheetTitle>
                       <SheetDescription className="sr-only">
