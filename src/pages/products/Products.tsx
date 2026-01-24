@@ -99,7 +99,8 @@ const Products = () => {
   const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
-  if (isLoading) return <p className="min-h-[60vh] flex justify-center items-center">Loading products...</p>;
+  if (isLoading)
+    return <p className="min-h-[60vh] flex justify-center items-center">Loading products...</p>;
   if (error)
     return (
       <p className="min-h-[60vh] flex justify-center items-center text-red-500">
@@ -108,14 +109,14 @@ const Products = () => {
     );
 
   return (
-    <div className="p-2 md:p-0 max-w-7xl mx-auto">
+    <div className="p-2 md:p-0 md:mt-2 max-w-7xl mx-auto">
       {/* Row 1: Title + Search */}
-      <div className="flex justify-between items-center gap-1 mb-8 md:mb-4">
+      <div className="flex justify-between md:justify-center items-center gap-1 mb-8 md:mb-4">
         <h1 className="text-xl md:text-3xl font-bold text-[#0D9488]">Our Products</h1>
         <input
           type="text"
           placeholder="Search products..."
-          className="border border-gray-300 rounded px-2 py-1 w-4/7 md:w-1/4"
+          className="flex md:hidden border border-gray-300 rounded px-2 py-1 w-4/7 md:w-1/4"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
@@ -157,6 +158,14 @@ const Products = () => {
                 ))}
               </select>
             </div>
+
+            <input
+              type="text"
+              placeholder="Search products..."
+              className="hidden md:block border border-gray-300 rounded px-2 py-1 w-4/7 md:w-1/4"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
 
             <div className="flex items-center gap-2">
               <label className="text-sm font-semibold">Sort by:</label>
@@ -208,7 +217,8 @@ const Products = () => {
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4"> */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 md:max-h-[60vh] md:overflow-y-auto">
             {paginatedProducts.length === 0 && (
               <p className="min-h-[60vh] col-span-2 md:col-span-4 flex justify-center items-center text-gray-600 text-lg">
                 No products found.
