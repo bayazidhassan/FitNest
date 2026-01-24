@@ -1,21 +1,17 @@
-import type {
-  BaseQueryFn,
-  FetchArgs,
-  FetchBaseQueryError,
-} from "@reduxjs/toolkit/query";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { logout, updateToken } from "../features/auth/authSlice";
-import type { RootState } from "../store";
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { logout, updateToken } from '../features/auth/authSlice';
+import type { RootState } from '../store';
 
 //for access token
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:5000/api/v1",
-  //baseUrl: "https://fit-nest-backend.vercel.app/api/v1",
-  credentials: "include", //send cookies
+  baseUrl: 'http://localhost:5000/api/v1',
+  //baseUrl: 'https://fit-nest-backend.vercel.app/api/v1',
+  //credentials: "include", //send cookies
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
     if (token) {
-      headers.set("authorization", `Bearer ${token}`);
+      headers.set('authorization', `Bearer ${token}`);
     }
     return headers;
   },
@@ -34,7 +30,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   if (result.error?.status === 401) {
     //Try refreshing the access token using refresh token
     const refreshResult = await baseQuery(
-      { url: "/auth/refresh_token", method: "POST" },
+      { url: '/auth/refresh_token', method: 'POST' },
       api,
       extraOptions
     );
@@ -57,7 +53,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 };
 
 export const baseApi = createApi({
-  reducerPath: "baseApi",
+  reducerPath: 'baseApi',
   /*
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000/api/v1",
@@ -68,6 +64,6 @@ export const baseApi = createApi({
   //baseQuery: baseQuery, //for access token
   baseQuery: baseQueryWithRefreshToken, //for refresh token
 
-  tagTypes: ["Products", "Orders"],
+  tagTypes: ['Products', 'Orders'],
   endpoints: () => ({}),
 });

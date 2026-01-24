@@ -99,8 +99,9 @@ const Products = () => {
   const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
-  if (isLoading) return <p className="text-center mt-10">Loading...</p>;
-  if (error) return <p className="text-center mt-10 text-red-500">Error loading products.</p>;
+  if (isLoading) return <p className="min-h-[60vh] text-center">Loading...</p>;
+  if (error)
+    return <p className="min-h-[60vh] text-center text-red-500">Error loading products.</p>;
 
   return (
     <div className="p-4 max-w-7xl mx-auto">
