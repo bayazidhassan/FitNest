@@ -40,7 +40,11 @@ const PaginationSetup = ({ totalPages, currentPage, setCurrentPage }: Pagination
                   e.preventDefault();
                   setCurrentPage(1);
                 }}
-                className={currentPage === 1 ? 'bg-[#0D9488] text-white' : 'bg-gray-100 border'}
+                className={
+                  currentPage === 1
+                    ? 'bg-[#0D9488] text-white'
+                    : 'bg-gray-100 border border-gray-300'
+                }
               >
                 1
               </PaginationLink>
@@ -65,7 +69,9 @@ const PaginationSetup = ({ totalPages, currentPage, setCurrentPage }: Pagination
                       setCurrentPage(page);
                     }}
                     className={
-                      page === currentPage ? 'bg-[#0D9488] text-white' : 'bg-gray-100 border'
+                      page === currentPage
+                        ? 'bg-[#0D9488] text-white'
+                        : 'bg-gray-100 border border-gray-300'
                     }
                   >
                     {page}
@@ -89,7 +95,9 @@ const PaginationSetup = ({ totalPages, currentPage, setCurrentPage }: Pagination
                     setCurrentPage(totalPages);
                   }}
                   className={
-                    currentPage === totalPages ? 'bg-[#0D9488] text-white' : 'bg-gray-100 border'
+                    currentPage === totalPages
+                      ? 'bg-[#0D9488] text-white'
+                      : 'bg-gray-100 border border-gray-300'
                   }
                 >
                   {totalPages}

@@ -110,7 +110,7 @@ const Products = () => {
         <input
           type="text"
           placeholder="Search products..."
-          className="border-2 rounded px-2 py-1 w-4/7 md:w-1/4"
+          className="border border-gray-300 rounded px-2 py-1 w-4/7 md:w-1/4"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
@@ -138,7 +138,7 @@ const Products = () => {
             <div className="hidden md:flex items-center gap-2">
               <label className="text-sm font-semibold">Show:</label>
               <select
-                className="border rounded px-2 py-1"
+                className="border border-gray-300 rounded px-1 py-1"
                 value={itemsPerPage}
                 onChange={(e) => {
                   setItemsPerPage(Number(e.target.value));
@@ -156,7 +156,7 @@ const Products = () => {
             <div className="flex items-center gap-2">
               <label className="text-sm font-semibold">Sort by:</label>
               <select
-                className="border rounded px-1 py-1 text-sm md:text-base"
+                className="border border-gray-300 rounded px-1 py-1 text-sm md:text-base"
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value as 'default' | 'asc' | 'desc')}
               >
@@ -169,12 +169,15 @@ const Products = () => {
             <div className="md:hidden">
               <div className="flex flex-wrap gap-2">
                 <Sheet>
-                  <SheetTrigger asChild>
-                    <Button variant="outline" className="capitalize">
-                      <ListFilter />
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent className="w-[80vw]" side={'left'}>
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-sm font-semibold">Filter:</h1>
+                    <SheetTrigger asChild>
+                      <Button variant="outline" className="capitalize border border-gray-300">
+                        <ListFilter />
+                      </Button>
+                    </SheetTrigger>
+                  </div>
+                  <SheetContent className="w-[70vw]" side={'left'}>
                     <SheetHeader>
                       <SheetTitle>Filter Products</SheetTitle>
                       <SheetDescription className="sr-only">
@@ -200,9 +203,9 @@ const Products = () => {
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 min-h-[70vh] gap-2 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
             {paginatedProducts.length === 0 && (
-              <p className="col-span-4 flex justify-center items-center text-gray-600 text-lg">
+              <p className="min-h-[60vh] col-span-2 md:col-span-4 flex justify-center items-center text-gray-600 text-lg">
                 No products found.
               </p>
             )}
@@ -215,7 +218,7 @@ const Products = () => {
                   key={product._id}
                   className="border border-gray-300 p-2 md:p-4 rounded shadow flex flex-col"
                 >
-                  <div className="w-full h-30 md:h-40 overflow-hidden rounded">
+                  <div className="w-full h-20 md:h-40 overflow-hidden rounded">
                     <img
                       src={product.images[0]}
                       alt={product.name}
