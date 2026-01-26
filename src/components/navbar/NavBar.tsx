@@ -4,7 +4,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ShoppingCartIcon } from 'lucide-react';
+import { Search, ShoppingCartIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDebounce } from '../../hooks/useDebounce';
@@ -23,6 +23,11 @@ const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [logoutApi] = useLogoutMutation();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const desktopSearchRef = useRef<HTMLDivElement>(null);
+  const mobileSearchRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = async () => {
     try {
@@ -35,7 +40,6 @@ const NavBar = () => {
     }
   };
 
-  const [searchText, setSearchText] = useState('');
   //const { data } = useGetProductsBySearchQuery(searchText, { skip: !searchText });
   const debouncedSearch = useDebounce(searchText, 300); //300ms delay
   const { data } = useGetProductsBySearchQuery(debouncedSearch, {
@@ -44,25 +48,26 @@ const NavBar = () => {
   const products = data?.data || [];
 
   //dropdown disappears if you click outside or navigate to another page
-  const location = useLocation();
   useEffect(() => {
     setSearchText(''); //clear search whenever route changes
+    setShowMobileSearch(false); //close search bar whenever route changes
   }, [location.pathname]);
-  const searchRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+      if (
+        !desktopSearchRef.current?.contains(event.target as Node) &&
+        !mobileSearchRef.current?.contains(event.target as Node)
+      ) {
         setSearchText(''); //clear search whenever click outside
+        setShowMobileSearch(false); //close search bar whenever click outside
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
-    <nav className="bg-[#0F172A] px-6 py-4 fixed top-0 left-0 w-full z-50">
+    <nav className="bg-[#0F172A] px-6 py-2 fixed top-0 left-0 w-full z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center md:space-x-2 text-white">
@@ -74,48 +79,62 @@ const NavBar = () => {
           <span className="hidden md:block text-[#0D9488] font-bold text-2xl">FitNest</span>
         </Link>
 
-        {/* Search Bar */}
-        <div className="relative w-2/3 md:w-1/3" ref={searchRef}>
-          <input
-            className="w-full px-2 py-1 bg-gray-200 rounded"
-            placeholder="Search products..."
-            type="text"
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
+        {/* Desktop Search */}
+        {location.pathname !== '/products' && (
+          <div ref={desktopSearchRef} className="relative w-1/4 hidden md:block">
+            <input
+              className="w-full px-2 py-1 bg-gray-200 rounded"
+              placeholder="Search products..."
+              type="text"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+            {searchText && (
+              <ul className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded mt-1 max-h-60 overflow-y-auto z-50 shadow-lg">
+                {products.length ? (
+                  products.map((product: TProduct) => (
+                    <li key={product._id} className="px-3 py-2 hover:bg-gray-100 cursor-pointer">
+                      <Link
+                        to={`/products/${product._id}`}
+                        onClick={() => setSearchText('')} //clear search after click
+                        className="flex items-center gap-2 border-b last:border-b-0"
+                      >
+                        <img
+                          src={product.images[0]}
+                          alt={product.name}
+                          className="w-10 h-10 object-cover rounded"
+                        />
+                        <span className="text-gray-700">{product.name}</span>
+                        <span className="text-gray-500 text-sm">
+                          | {product.category} | ৳{product.price}
+                        </span>
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  <li className="px-3 py-2 text-gray-500">No products found</li>
+                )}
+              </ul>
+            )}
+          </div>
+        )}
 
-          {/* Search results dropdown */}
-          {searchText && products.length > 0 && (
-            <ul className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded mt-1 max-h-60 overflow-y-auto z-50 shadow-lg">
-              {products.map((product: TProduct) => (
-                <li key={product._id} className="px-3 py-2 hover:bg-gray-100 cursor-pointer">
-                  <Link
-                    to={`/products/${product._id}`}
-                    onClick={() => setSearchText('')} //clear search after click
-                    className="flex items-center gap-2"
-                  >
-                    <img
-                      src={product.images[0]}
-                      alt={product.name}
-                      className="w-10 h-10 object-cover rounded"
-                    />
-                    <span className="text-gray-700">{product.name}</span>
-                    <span className="hidden md:block text-gray-500 text-sm">
-                      | {product.category} | ৳{product.price}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
+        {/* Search bar for mobile device */}
+        {location.pathname !== '/products' && (
+          <button className="md:hidden" onClick={() => setShowMobileSearch((p) => !p)}>
+            <Search className="w-6 h-6 text-white" />
+          </button>
+        )}
 
-          {/* show no products */}
-          {searchText && products.length === 0 && (
-            <div className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded mt-1 px-3 py-2 text-gray-500">
-              No products found.
-            </div>
+        {/* Cart for mobile device */}
+        <Link to="/cart" className="md:hidden relative inline-block text-white">
+          <ShoppingCartIcon className="w-6 h-6" />
+          {cartItem.length !== 0 && (
+            <span className="absolute -top-2 -right-2 bg-[#F97316] text-white text-xs w-5 h-5 font-semibold flex items-center justify-center rounded-full">
+              {cartItem.length}
+            </span>
           )}
-        </div>
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 items-center">
@@ -239,9 +258,6 @@ const NavBar = () => {
                 <Link to="/products">Products</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild className="text-white">
-                <Link to="/cart">Cart</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild className="text-white">
                 <Link to="/aboutUs">About Us</Link>
               </DropdownMenuItem>
               {user.firstName && (
@@ -267,6 +283,44 @@ const NavBar = () => {
           </DropdownMenu>
         </div>
       </div>
+      {/* Mobile Search Area */}
+      {showMobileSearch && location.pathname !== '/products' && (
+        <div ref={mobileSearchRef} className="md:hidden mt-2 px-4">
+          <input
+            autoFocus
+            className="w-full px-2 py-1 rounded bg-gray-200"
+            placeholder="Search products..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          {searchText && (
+            <ul className="bg-white rounded mt-1 shadow max-h-60 overflow-y-auto">
+              {products.length ? (
+                products.map((product: TProduct) => (
+                  <li key={product._id}>
+                    <Link
+                      to={`/products/${product._id}`}
+                      onClick={() => {
+                        setSearchText('');
+                        setShowMobileSearch(false);
+                      }}
+                      className="flex items-center gap-3 px-2 py-1 border-b last:border-b-0"
+                    >
+                      <img src={product.images[0]} className="w-10 h-10 rounded object-cover" />
+                      <div>
+                        <p className="text-sm text-gray-700">{product.name}</p>
+                        <p className="text-xs text-gray-500">৳{product.price}</p>
+                      </div>
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <li className="px-2 py-1 text-gray-500">No products found</li>
+              )}
+            </ul>
+          )}
+        </div>
+      )}
     </nav>
   );
 };

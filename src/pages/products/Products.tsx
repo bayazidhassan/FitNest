@@ -109,9 +109,9 @@ const Products = () => {
     );
 
   return (
-    <div className="p-2 md:p-0 md:mt-2 max-w-7xl mx-auto">
+    <div className="p-2 md:p-0 md:mt-0 max-w-7xl mx-auto">
       {/* Row 1: Title + Search */}
-      <div className="flex justify-between md:justify-center items-center gap-1 mb-8 md:mb-4">
+      <div className="flex justify-between md:justify-center items-center gap-1 md:gap-0 mb-6">
         <h1 className="text-xl md:text-3xl font-bold text-[#0D9488]">Our Products</h1>
         <input
           type="text"
@@ -218,7 +218,7 @@ const Products = () => {
 
           {/* Products Grid */}
           {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4"> */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 md:max-h-[60vh] md:overflow-y-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 md:max-h-[70vh] md:overflow-y-auto">
             {paginatedProducts.length === 0 && (
               <p className="min-h-[60vh] col-span-2 md:col-span-4 flex justify-center items-center text-gray-600 text-lg">
                 No products found.

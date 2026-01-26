@@ -10,7 +10,7 @@ const MainLayout = () => {
   const shouldHideFooter = hideFooterRoutes.includes(pathname);
 
   return (
-    <div className="min-h-screen flex flex-col pt-24">
+    <div className="min-h-screen flex flex-col pt-22">
       <NavBar></NavBar>
 
       {/* <Outlet></Outlet> */}
