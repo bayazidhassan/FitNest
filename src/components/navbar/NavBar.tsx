@@ -81,9 +81,9 @@ const NavBar = () => {
 
         {/* Desktop Search */}
         {location.pathname !== '/products' && (
-          <div ref={desktopSearchRef} className="relative w-1/4 hidden md:block">
+          <div ref={desktopSearchRef} className="relative w-1/3 hidden md:block">
             <input
-              className="w-full px-2 py-1 bg-gray-200 rounded"
+              className="w-full px-2 py-1 bg-gray-100 rounded"
               placeholder="Search products..."
               type="text"
               value={searchText}
@@ -93,11 +93,14 @@ const NavBar = () => {
               <ul className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded mt-1 max-h-60 overflow-y-auto z-50 shadow-lg">
                 {products.length ? (
                   products.map((product: TProduct) => (
-                    <li key={product._id} className="px-3 py-2 hover:bg-gray-100 cursor-pointer">
+                    <li
+                      key={product._id}
+                      className="px-3 py-2 border-b hover:bg-gray-100 cursor-pointer"
+                    >
                       <Link
                         to={`/products/${product._id}`}
                         onClick={() => setSearchText('')} //clear search after click
-                        className="flex items-center gap-2 border-b last:border-b-0"
+                        className="flex items-center gap-2"
                       >
                         <img
                           src={product.images[0]}
@@ -285,10 +288,10 @@ const NavBar = () => {
       </div>
       {/* Mobile Search Area */}
       {showMobileSearch && location.pathname !== '/products' && (
-        <div ref={mobileSearchRef} className="md:hidden mt-2 px-4">
+        <div ref={mobileSearchRef} className="md:hidden absolute top-full left-0 w-full mt-1 px-8">
           <input
             autoFocus
-            className="w-full px-2 py-1 rounded bg-gray-200"
+            className="w-full px-2 py-1 rounded bg-gray-100"
             placeholder="Search products..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
@@ -297,14 +300,14 @@ const NavBar = () => {
             <ul className="bg-white rounded mt-1 shadow max-h-60 overflow-y-auto">
               {products.length ? (
                 products.map((product: TProduct) => (
-                  <li key={product._id}>
+                  <li className="border-b" key={product._id}>
                     <Link
                       to={`/products/${product._id}`}
                       onClick={() => {
                         setSearchText('');
                         setShowMobileSearch(false);
                       }}
-                      className="flex items-center gap-3 px-2 py-1 border-b last:border-b-0"
+                      className="flex items-center gap-3 px-2 py-1"
                     >
                       <img src={product.images[0]} className="w-10 h-10 rounded object-cover" />
                       <div>
