@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { useGetAllProductsQuery } from '../../redux/api/products/productsApi';
@@ -19,6 +18,17 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../../components/ui/sheet';
+
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '../../components/ui/dialog';
 
 const Products = () => {
   const dispatch = useAppDispatch();
@@ -109,7 +119,7 @@ const Products = () => {
     );
 
   return (
-    <div className="p-2 md:p-0 md:mt-0 max-w-7xl mx-auto">
+    <div className="p-3 md:p-0 max-w-7xl mx-auto">
       {/* Row 1: Title + Search */}
       <div className="flex justify-between md:justify-center items-center gap-1 md:gap-0 mb-6">
         <h1 className="text-xl md:text-3xl font-bold text-[#0D9488]">Our Products</h1>
@@ -249,25 +259,45 @@ const Products = () => {
                     >
                       View Details
                     </Link>
-                    <button
-                      onClick={() => {
-                        toast.success(`${product.name} is added to cart.`);
-
-                        dispatch(
-                          addToCart({
-                            product_id: product._id,
-                            name: product.name,
-                            price: product.price,
-                            image: product.images[0],
-                            stock_quantity: product.stock_quantity,
-                          })
-                        );
-                      }}
-                      disabled={quantityInCart >= product.stock_quantity}
-                      className="cursor-pointer disabled:cursor-default flex-1 text-center bg-[#F97316] text-white px-2 py-1 rounded hover:bg-[#ea5f0d] text-sm disabled:opacity-40"
-                    >
-                      Add to Cart
-                    </button>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <button
+                          disabled={quantityInCart >= product.stock_quantity}
+                          className="cursor-pointer disabled:cursor-default flex-1 text-center bg-[#F97316] text-white px-2 py-1 rounded hover:bg-[#ea5f0d] text-sm disabled:opacity-40"
+                          onClick={() => {
+                            dispatch(
+                              addToCart({
+                                product_id: product._id,
+                                name: product.name,
+                                price: product.price,
+                                image: product.images[0],
+                                stock_quantity: product.stock_quantity,
+                              })
+                            );
+                          }}
+                        >
+                          Add to Cart
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-sm">
+                        <DialogHeader>
+                          <DialogTitle>Added to cart ✅</DialogTitle>
+                          <DialogDescription>
+                            {product.name} has been added to your cart.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <DialogFooter className="flex flex-row justify-center gap-2 sm:flex-row">
+                          <DialogClose asChild>
+                            <Link to="/cart">
+                              <Button variant="outline">View Cart</Button>
+                            </Link>
+                          </DialogClose>
+                          <DialogClose asChild>
+                            <Button>Continue Shopping</Button>
+                          </DialogClose>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </div>
               );
