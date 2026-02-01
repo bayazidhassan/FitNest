@@ -108,13 +108,13 @@ const Checkout = () => {
   }, [isFormDirty]);
 
   return (
-    <div className="px-2 md:px-0 max-w-6xl mx-auto my-6">
+    <div className="px-3 md:px-0 max-w-6xl mx-auto">
       {/* Page Heading */}
-      <h1 className="mb-4 text-3xl font-bold text-[#0D9488]">Checkout</h1>
+      <h1 className="text-center mb-4 text-3xl font-bold text-[#0D9488]">Checkout</h1>
 
       <div className="flex flex-col md:flex-row gap-6">
         {/* LEFT: Form */}
-        <div className="w-full md:w-2/3 bg-white p-6 rounded-lg shadow flex flex-col gap-4">
+        <div className="border w-full md:w-2/3 bg-white p-6 rounded-lg shadow flex flex-col gap-4">
           <h2 className="text-xl font-semibold">Shipping & Billing Information</h2>
 
           <div className="flex gap-4">
@@ -193,12 +193,12 @@ const Checkout = () => {
             placeholder="Add a comment (optional)"
             value={form.comment}
             onChange={handleChange}
-            className="border p-2 rounded w-full h-24"
+            className="border p-2 rounded w-full h-full"
           />
         </div>
 
         {/* RIGHT: Order Summary + Payment */}
-        <div className="w-full md:w-1/3 bg-white p-6 rounded-lg shadow flex flex-col gap-4">
+        <div className="border w-full md:w-1/3 bg-white p-6 rounded-lg shadow flex flex-col gap-4">
           {/* Payment Method at Top */}
           <div>
             <span className="block mb-2 font-semibold">Payment Method:</span>
