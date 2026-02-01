@@ -61,7 +61,7 @@ const SuccessOrder = () => {
         </p>
       ) : (
         <p className="text-base md:text-lg text-gray-700">
-          Thank you! Your payment has been received. We are processing your order.
+          Thank you! Your payment has been received. We are processing your order now.
           <br />
           {isOrderLoading ? (
             <span className="text-gray-500">Fetching order details...</span>
