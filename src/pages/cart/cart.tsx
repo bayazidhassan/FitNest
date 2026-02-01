@@ -122,7 +122,7 @@ const Cart = () => {
                 </div>
 
                 {/* LINE TOTAL */}
-                <p className="font-semibold text-gray-800">
+                <p className="font-semibold text-gray-500 md:text-gray-600">
                   Tk. {(product.price * product.quantity).toLocaleString()}
                 </p>
               </div>
