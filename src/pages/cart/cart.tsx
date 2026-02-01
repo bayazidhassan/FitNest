@@ -5,25 +5,21 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from "@mui/material";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+} from '@mui/material';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   clearCart,
   removeFromCart,
   updateQuantity,
-} from "../../redux/features/cart/addToCartSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
+} from '../../redux/features/cart/addToCartSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
 
 const Cart = () => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart);
 
-  const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   const [open, setOpen] = useState(false);
@@ -48,11 +44,9 @@ const Cart = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="text-center py-10">
+      <div className="text-center py-10 px-2">
         <h1 className="text-3xl font-bold mb-4 text-[#0D9488]">Cart</h1>
-        <h1 className="text-xl font-semibold text-gray-700">
-          Your cart is empty!
-        </h1>
+        <h1 className="text-xl font-semibold text-gray-700">Your cart is empty!</h1>
         <p className="text-gray-500 mt-2">Add some items to get started.</p>
 
         <Link
@@ -66,11 +60,9 @@ const Cart = () => {
   }
 
   return (
-    <div className="px-2 md:px-0 my-6 max-w-6xl mx-auto">
+    <div className="p-3 md:p-0 max-w-6xl mx-auto">
       {/* Page Heading */}
-      <h1 className="text-3xl font-bold mb-4 text-[#0D9488]">
-        Cart
-      </h1>
+      <h1 className="text-3xl text-center font-bold mb-6 text-[#0D9488]">Cart</h1>
 
       <div className="flex flex-col md:flex-row gap-6">
         {/* LEFT SIDE – CART ITEMS */}
@@ -78,10 +70,10 @@ const Cart = () => {
           {cartItems.map((product, index) => (
             <div
               key={product.product_id}
-              className="flex justify-between items-center p-4 border rounded-lg shadow hover:shadow-md transition bg-white"
+              className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border rounded-lg shadow-sm hover:shadow-md transition bg-white"
             >
               {/* Product Info */}
-              <div className="flex items-center gap-4">
+              <div className="flex items-start sm:items-center gap-4 w-full sm:w-2/3">
                 <h1 className="text-gray-500 text-lg">{index + 1}.</h1>
                 <img
                   src={product.image}
@@ -90,16 +82,16 @@ const Cart = () => {
                 />
                 <div>
                   <h1 className="font-semibold text-gray-700">{product.name}</h1>
-                  <p className="text-gray-500">Tk. {product.price}</p>
+                  <p className="text-gray-500">Tk. {product.price.toLocaleString()}</p>
                 </div>
               </div>
 
               {/* Actions */}
-              <div className="flex flex-col items-end gap-2">
+              <div className="flex md:flex-col justify-between items-center sm:items-end gap-3 mt-3 sm:mt-0 w-full sm:w-auto">
                 {/* DELETE */}
                 <button
                   onClick={() => handleOpen(product.product_id)}
-                  className="cursor-pointer px-2 py-1 bg-[#F97316] text-white rounded hover:bg-[#ea5f0d] transition text-sm"
+                  className="text-sm text-red-500 hover:underline transition"
                 >
                   Delete
                 </button>
@@ -108,29 +100,22 @@ const Cart = () => {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() =>
-                      dispatch(
-                        updateQuantity({ id: product.product_id, type: "dec" })
-                      )
+                      dispatch(updateQuantity({ id: product.product_id, type: 'dec' }))
                     }
-                  
                     disabled={product.quantity === 1}
-                    className="cursor-pointer disabled:cursor-default px-2 py-1 bg-[#0D9488] rounded disabled:opacity-40"
+                    className="w-8 h-8 flex items-center justify-center bg-[#0D9488] text-white rounded-full hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition"
                   >
                     -
                   </button>
 
-                  <span className="px-3 py-1 border rounded text-gray-700">
-                    {product.quantity}
-                  </span>
+                  <span className="px-3 py-1 border rounded text-gray-700">{product.quantity}</span>
 
                   <button
                     onClick={() =>
-                      dispatch(
-                        updateQuantity({ id: product.product_id, type: "inc" })
-                      )
+                      dispatch(updateQuantity({ id: product.product_id, type: 'inc' }))
                     }
                     disabled={product.quantity === product.stock_quantity}
-                    className="cursor-pointer disabled:cursor-default px-2 py-1 bg-[#0D9488] rounded disabled:opacity-40"
+                    className="w-8 h-8 flex items-center justify-center bg-[#0D9488] text-white rounded-full hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition"
                   >
                     +
                   </button>
@@ -138,7 +123,7 @@ const Cart = () => {
 
                 {/* LINE TOTAL */}
                 <p className="font-semibold text-gray-800">
-                  Tk. {product.price * product.quantity}
+                  Tk. {(product.price * product.quantity).toLocaleString()}
                 </p>
               </div>
             </div>
@@ -146,19 +131,19 @@ const Cart = () => {
         </div>
 
         {/* RIGHT SIDE – SUMMARY */}
-        <div className="w-full md:w-1/3 p-6 border rounded-lg shadow bg-white h-fit">
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">
-            Cart Summary
-          </h2>
+        <div className="w-full md:w-1/3 p-6 border rounded-lg shadow bg-white h-fit md:sticky md:top-24">
+          <h2 className="text-xl font-semibold text-gray-700 mb-4">Cart Summary</h2>
 
           <div className="flex justify-between text-gray-600 mb-2">
             <span>Total Items:</span>
             <span>{totalItems}</span>
           </div>
 
+          <div className="border-t my-2"></div>
+
           <div className="flex justify-between font-semibold text-gray-800 text-lg mb-4">
             <span>Total Price:</span>
-            <span>Tk. {totalPrice}</span>
+            <span>Tk. {totalPrice.toLocaleString()}</span>
           </div>
 
           <button
@@ -176,6 +161,7 @@ const Cart = () => {
           </Link>
         </div>
 
+        {/* DELETE CONFIRM DIALOG */}
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Delete Item</DialogTitle>
 
@@ -190,12 +176,12 @@ const Cart = () => {
               onClick={handleClose}
               variant="outlined"
               sx={{
-                color: "#4B5563",
-                borderColor: "#D1D5DB",
-                borderRadius: "8px",
-                "&:hover": {
-                  backgroundColor: "#F3F4F6",
-                  borderColor: "#D1D5DB",
+                color: '#4B5563',
+                borderColor: '#D1D5DB',
+                borderRadius: '8px',
+                '&:hover': {
+                  backgroundColor: '#F3F4F6',
+                  borderColor: '#D1D5DB',
                 },
               }}
             >
@@ -206,10 +192,10 @@ const Cart = () => {
               onClick={handleConfirmDelete}
               variant="contained"
               sx={{
-                backgroundColor: "#F97316",
-                color: "#fff",
-                "&:hover": {
-                  backgroundColor: "#ea5f0d",
+                backgroundColor: '#F97316',
+                color: '#fff',
+                '&:hover': {
+                  backgroundColor: '#ea5f0d',
                 },
               }}
             >
