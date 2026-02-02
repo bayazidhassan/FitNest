@@ -51,7 +51,7 @@ const SuccessOrder = () => {
   }, [isError]);
 
   return (
-    <div className="px-8 py-16 md:py-24 text-center">
+    <div className="px-4 min-h-[60vh] flex flex-col justify-center items-center text-center">
       <h1 className="text-2xl md:text-3xl font-bold mb-3 text-[#0D9488]">Order Placed!</h1>
       {state?.type === 'cod' ? (
         <p className="text-base md:text-lg text-gray-700">

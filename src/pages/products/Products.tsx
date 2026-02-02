@@ -123,13 +123,16 @@ const Products = () => {
       {/* Row 1: Title + Search */}
       <div className="flex flex-col justify-between items-center gap-4 md:gap-0 mb-2 md:mb-6">
         <h1 className="text-2xl md:text-3xl font-bold text-[#0D9488]">Our Products</h1>
-        <input
-          type="text"
-          placeholder="Search products..."
-          className="flex md:hidden border border-gray-300 rounded-lg px-2 py-1 w-4/5 md:w-1/4"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
+        <div className="flex justify-between items-center gap-2">
+          <h1 className="md:hidden text-sm font-semibold">Search:</h1>
+          <input
+            type="text"
+            placeholder="Search products..."
+            className="flex md:hidden border border-gray-300 rounded-lg px-2 py-1 md:w-1/4"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+        </div>
       </div>
 
       {/* Row 2: Sidebar + Products */}
@@ -172,7 +175,7 @@ const Products = () => {
             <input
               type="text"
               placeholder="Search products..."
-              className="hidden md:block border border-gray-300 rounded-lg px-2 py-1 w-4/7 md:w-1/4"
+              className="hidden md:block border border-gray-300 rounded-lg px-2 py-1 w-1/4"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />
@@ -196,7 +199,7 @@ const Products = () => {
                   <div className="flex items-center gap-2">
                     <h1 className="text-sm font-semibold">Filter:</h1>
                     <SheetTrigger asChild>
-                      <Button variant="outline" className="h-8 border border-gray-300">
+                      <Button variant="outline" className="w-10 h-7 border border-gray-300">
                         <ListFilter />
                       </Button>
                     </SheetTrigger>

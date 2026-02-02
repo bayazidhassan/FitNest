@@ -66,8 +66,15 @@ const NavBar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const isActive = (path: string) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path);
+  };
+
   return (
-    <nav className="bg-[#0F172A] px-6 py-2 fixed top-0 left-0 w-full z-50">
+    <nav className="bg-[#1E293B] px-6 py-2 fixed top-0 left-0 w-full z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center md:space-x-2 text-white">
@@ -83,7 +90,7 @@ const NavBar = () => {
         {location.pathname !== '/products' && (
           <div ref={desktopSearchRef} className="relative w-1/3 hidden md:block">
             <input
-              className="w-full px-2 py-1 bg-gray-100 rounded"
+              className="w-full px-2 py-1 bg-gray-100 rounded-lg"
               placeholder="Search products..."
               type="text"
               value={searchText}
@@ -199,15 +206,22 @@ const NavBar = () => {
                   className="w-8 h-8 rounded-full cursor-pointer"
                 />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-40">
-                <DropdownMenuItem className="font-semibold border-b-2">
+              <DropdownMenuContent className="bg-[#334155] space-y-2 p-4 rounded-lg">
+                <h1 className="flex justify-center items-center text-white font-semibold border-b border-white pb-2 mb-2">
                   {user.firstName + ' ' + user.lastName}
+                </h1>
+                <DropdownMenuItem asChild>
+                  <Link
+                    to={`/dashboard/${user.role}`}
+                    className="cursor-pointer border border-white text-white"
+                  >
+                    Dashboard
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
-                  <Link to={`/dashboard/${user.role}`}>Dashboard</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-red-500">
-                  Logout
+                <DropdownMenuItem asChild onClick={handleLogout}>
+                  <button className="w-full inline bg-red-500 cursor-pointer text-white">
+                    Logout
+                  </button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -241,9 +255,9 @@ const NavBar = () => {
               </button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="flex flex-col space-y-2 bg-[#0F172A] p-4 rounded mt-2 mr-6">
+            <DropdownMenuContent className="flex flex-col space-y-2 bg-[#334155] p-4 rounded-lg mt-4 mr-5">
               {user.firstName && (
-                <div className="flex items-center space-x-2 border-b border-gray-700 pb-2">
+                <div className="flex items-center space-x-2 border-b border-white pb-2">
                   <img
                     src={user.image as string}
                     alt={user.firstName + ' ' + user.lastName}
@@ -254,32 +268,54 @@ const NavBar = () => {
                   </span>
                 </div>
               )}
-              <DropdownMenuItem asChild className="text-white">
-                <Link to="/">Home</Link>
+              <DropdownMenuItem asChild>
+                <Link
+                  to="/"
+                  className={`border border-white ${isActive('/') ? 'bg-slate-800 text-orange-500 font-bold' : 'text-white'}`}
+                >
+                  Home
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild className="text-white">
-                <Link to="/products">Products</Link>
+              <DropdownMenuItem asChild>
+                <Link
+                  to="/products"
+                  className={`border border-white ${isActive('/products') ? 'bg-slate-800 text-orange-500 font-bold' : 'text-white'}`}
+                >
+                  Products
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild className="text-white">
-                <Link to="/aboutUs">About Us</Link>
+              <DropdownMenuItem asChild>
+                <Link
+                  to="/aboutUs"
+                  className={`border border-white ${isActive('/aboutUs') ? 'bg-slate-800 text-orange-500 font-bold' : 'text-white'}`}
+                >
+                  About Us
+                </Link>
               </DropdownMenuItem>
               {user.firstName && (
-                <DropdownMenuItem className="text-white">
-                  <Link to={`/dashboard/${user.role}`}>Dashboard</Link>
+                <DropdownMenuItem asChild>
+                  <Link
+                    to={`/dashboard/${user.role}`}
+                    className={`border border-white ${isActive(`/dashboard/${user.role}`) ? 'bg-slate-800 text-orange-500 font-bold' : 'text-white'}`}
+                  >
+                    Dashboard
+                  </Link>
                 </DropdownMenuItem>
               )}
               {!user.firstName ? (
-                <DropdownMenuItem asChild className="text-white">
-                  <Link to="/login">Login</Link>
+                <DropdownMenuItem asChild>
+                  <Link
+                    to="/login"
+                    className={`border border-white ${isActive('/login') ? 'bg-slate-800 text-orange-500 font-bold' : 'text-white'}`}
+                  >
+                    Login
+                  </Link>
                 </DropdownMenuItem>
               ) : (
-                <DropdownMenuItem
-                  onClick={() => {
-                    handleLogout();
-                  }}
-                  className="text-red-500"
-                >
-                  Logout
+                <DropdownMenuItem asChild onClick={handleLogout}>
+                  <button className="inline py-2 bg-red-500 text-white font-semibold">
+                    Logout
+                  </button>
                 </DropdownMenuItem>
               )}
             </DropdownMenuContent>
