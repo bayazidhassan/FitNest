@@ -44,14 +44,14 @@ const Cart = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="text-center py-10 px-2">
-        <h1 className="text-3xl font-bold mb-4 text-[#0D9488]">Cart</h1>
-        <h1 className="text-xl font-semibold text-gray-700">Your cart is empty!</h1>
-        <p className="text-gray-500 mt-2">Add some items to get started.</p>
+      <div className="min-h-[60vh] flex flex-col justify-center items-center">
+        <h1 className="text-3xl font-bold text-[#0D9488]">Cart</h1>
+        <h1 className="text-xl font-semibold mt-6 text-gray-700">Your cart is empty!</h1>
+        <p className="text-gray-500">Add some items to get started.</p>
 
         <Link
           to="/products"
-          className="inline-block mt-4 px-4 py-2 bg-[#F97316] text-white rounded-md hover:bg-[#ea5f0d] transition"
+          className="mt-4 px-4 py-2 border border-gray-300 shadow bg-[#F97316] text-white rounded-lg hover:bg-[#ea5f0d] transition"
         >
           Browse Products
         </Link>
@@ -91,7 +91,7 @@ const Cart = () => {
                 {/* DELETE */}
                 <button
                   onClick={() => handleOpen(product.product_id)}
-                  className="text-sm text-red-500 hover:underline transition"
+                  className="cursor-pointer text-sm text-red-500 hover:underline transition"
                 >
                   Delete
                 </button>
@@ -103,7 +103,7 @@ const Cart = () => {
                       dispatch(updateQuantity({ id: product.product_id, type: 'dec' }))
                     }
                     disabled={product.quantity === 1}
-                    className="w-8 h-8 flex items-center justify-center bg-[#0D9488] text-white rounded-full hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                    className="cursor-pointer w-8 h-8 flex items-center justify-center bg-[#0D9488] text-white rounded-full hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition"
                   >
                     -
                   </button>
@@ -115,7 +115,7 @@ const Cart = () => {
                       dispatch(updateQuantity({ id: product.product_id, type: 'inc' }))
                     }
                     disabled={product.quantity === product.stock_quantity}
-                    className="w-8 h-8 flex items-center justify-center bg-[#0D9488] text-white rounded-full hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                    className="cursor-pointer w-8 h-8 flex items-center justify-center bg-[#0D9488] text-white rounded-full hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition"
                   >
                     +
                   </button>
@@ -148,14 +148,14 @@ const Cart = () => {
 
           <button
             onClick={() => dispatch(clearCart())}
-            className="cursor-pointer w-full border border-gray-300 shadow px-4 py-2 mb-2 bg-[#F97316] text-white rounded hover:bg-[#ea5f0d] transition"
+            className="cursor-pointer w-full border border-gray-300 shadow px-4 py-2 mb-2 bg-[#F97316] text-white rounded-lg hover:bg-[#ea5f0d] transition"
           >
             Clear Cart
           </button>
 
           <Link
             to="/checkout"
-            className="block text-center w-full border border-gray-300 shadow px-4 py-2 bg-[#0D9488] text-white rounded hover:bg-[#0a766f] transition"
+            className="block text-center w-full border border-gray-300 shadow px-4 py-2 bg-[#0D9488] text-white rounded-lg hover:bg-[#0a766f] transition"
           >
             Checkout
           </Link>

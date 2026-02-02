@@ -53,11 +53,11 @@ const ProductDetails = () => {
         <span className="mx-2">/</span>
         <span className="text-gray-700 font-medium">{product.name}</span>
       </div>
-      <div className="rounded-xl shadow p-4">
+      <div className="rounded-xl border shadow p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Images */}
           <div>
-            <div className="aspect-square max-w-sm md:max-w-md mx-auto rounded-lg overflow-hidden border">
+            <div className="aspect-square max-w-sm md:max-w-md mx-auto shadow-lg rounded-lg overflow-hidden border">
               <img
                 src={mainImage!}
                 alt={product.name}
@@ -72,7 +72,7 @@ const ProductDetails = () => {
                     key={index}
                     onClick={() => setMainImage(img)}
                     className={`shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-md border overflow-hidden transition
-                      ${mainImage === img ? 'border-[#0D9488] border-2' : 'hover:border-2 hover:border-gray-200'}`}
+                      ${mainImage === img ? 'border-[#0D9488] border-2' : 'cursor-pointer border-2 border-gray-300 hover:border-2 hover:border-gray-400'}`}
                   >
                     <img
                       src={img}
@@ -114,7 +114,7 @@ const ProductDetails = () => {
             <button
               disabled={quantityInCart >= product.stock_quantity}
               onClick={handleAddToCart}
-              className="cursor-pointer border border-gray-300 shadow mt-6 w-full md:w-fit bg-[#F97316] text-white px-8 py-3 rounded font-medium
+              className="cursor-pointer border border-gray-300 shadow mt-6 w-full md:w-fit bg-[#F97316] text-white px-8 py-3 rounded-lg font-medium
                 hover:bg-[#ea5f0d] transition disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Add to Cart

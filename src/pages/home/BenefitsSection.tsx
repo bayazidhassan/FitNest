@@ -9,7 +9,7 @@ const BenefitsSection = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="border border-gray-300 flex flex-col items-center justify-center text-center p-6 bg-gray-50 rounded shadow hover:shadow-xl transition-shadow duration-300">
+        <div className="border border-gray-300 flex flex-col items-center justify-center text-center p-6 bg-gray-50 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
           <img
             src="https://i.ibb.co.com/SwfBWRcv/high-quality.jpg"
             alt="High Quality"
@@ -21,7 +21,7 @@ const BenefitsSection = () => {
             performance.
           </p>
         </div>
-        <div className="border border-gray-300 flex flex-col items-center justify-center text-center p-6 bg-gray-50 rounded shadow hover:shadow-xl transition-shadow duration-300">
+        <div className="border border-gray-300 flex flex-col items-center justify-center text-center p-6 bg-gray-50 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
           <img
             src="https://i.ibb.co.com/j9zfgxkG/fast-delivery.jpg"
             alt="Fast Delivery"
@@ -32,7 +32,7 @@ const BenefitsSection = () => {
             Get your products quickly with our reliable shipping services.
           </p>
         </div>
-        <div className="border border-gray-300 flex flex-col items-center justify-center text-center p-6 bg-gray-50 rounded shadow hover:shadow-xl transition-shadow duration-300">
+        <div className="border border-gray-300 flex flex-col items-center justify-center text-center p-6 bg-gray-50 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
           <img
             src="https://i.ibb.co.com/tpW12Zy4/24-7-service.jpg"
             alt="24/7 Support"
