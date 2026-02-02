@@ -31,12 +31,12 @@ const NavBar = () => {
 
   const handleLogout = async () => {
     try {
+      navigate('/login', { replace: true }); //prevent back navigation
+      dispatch(clearCart()); //clear cart state
       await logoutApi().unwrap(); //refresh token removed from DB + cookie cleared
     } finally {
       dispatch(logout()); //clear auth state
-      dispatch(clearCart()); //clear cart state
       persistor.purge(); //remove persisted Redux data
-      navigate('/login', { replace: true }); //prevent back navigation
     }
   };
 

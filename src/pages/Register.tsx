@@ -59,8 +59,8 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-[90vh] flex items-center justify-center bg-gray-100 -mt-2 p-4 md:p-0">
-      <div className="bg-white shadow-xl rounded-lg p-8 w-full max-w-4xl">
+    <div className="min-h-[88vh] flex items-center justify-center p-4 md:p-0">
+      <div className="bg-white border shadow-xl rounded-lg p-8 w-full max-w-4xl">
         <div className="flex justify-between">
           <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">Register</h2>
           <Link to="/">
