@@ -6,6 +6,7 @@ import bgImage1 from '../../assets/images/pic-1.jpg';
 import bgImage2 from '../../assets/images/pic-2.jpg';
 import bgImage3 from '../../assets/images/pic-3.jpg';
 import bgImage4 from '../../assets/images/pic-4.jpg';
+import bgImage5 from '../../assets/images/pic-5.jpg';
 
 const HeroSection = () => {
   /*
@@ -17,7 +18,7 @@ const HeroSection = () => {
     'https://i.ibb.co.com/KchW53js/pic-5.jpg',
   ];
   */
-  const heroImages = [bgImage1, bgImage2, bgImage3, bgImage4];
+  const heroImages = [bgImage1, bgImage2, bgImage3, bgImage4, bgImage5];
 
   return (
     <div className="-mt-4 w-full h-96 md:h-[700px]">

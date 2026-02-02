@@ -180,7 +180,7 @@ const Products = () => {
             <div className="flex items-center gap-2">
               <label className="text-sm font-semibold">Sort by:</label>
               <select
-                className="border border-gray-300 rounded px-1 py-1 text-sm md:text-base"
+                className="border border-gray-300 rounded p-1 text-sm md:text-base"
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value as 'default' | 'asc' | 'desc')}
               >
@@ -243,7 +243,7 @@ const Products = () => {
                   key={product._id}
                   className="border border-gray-300 p-2 md:p-4 rounded shadow flex flex-col"
                 >
-                  <div className="w-full h-32 md:h-40 overflow-hidden rounded">
+                  <div className="w-full h-28 md:h-40 overflow-hidden rounded">
                     <img
                       src={product.images?.[0]}
                       alt={product.name}
@@ -252,10 +252,10 @@ const Products = () => {
                   </div>
                   <h2 className="text-gray-700 mt-1">{product.name}</h2>
                   <p className="text-sm md:text-base text-gray-500">৳ {product.price}</p>
-                  <div className="mt-auto pt-3 flex flex-col md:flex-row justify-between gap-2">
+                  <div className="mt-auto pt-3 flex flex-col md:flex-row justify-between gap-1 md:gap-2">
                     <Link
                       to={`/products/${product._id}`}
-                      className="flex-1 text-center bg-[#0D9488] text-white px-2 py-1 rounded hover:bg-[#0a766f] text-sm"
+                      className="flex-1 text-center bg-[#0D9488] text-white p-2 rounded border border-gray-300 shadow-lg hover:bg-[#0a766f] text-sm"
                     >
                       View Details
                     </Link>
@@ -263,7 +263,7 @@ const Products = () => {
                       <DialogTrigger asChild>
                         <button
                           disabled={quantityInCart >= product.stock_quantity}
-                          className="cursor-pointer disabled:cursor-default flex-1 text-center bg-[#F97316] text-white px-2 py-1 rounded hover:bg-[#ea5f0d] text-sm disabled:opacity-40"
+                          className="cursor-pointer disabled:cursor-default flex-1 text-center bg-[#F97316] text-white p-2 rounded border border-gray-300 shadow-lg hover:bg-[#ea5f0d] text-sm disabled:opacity-40"
                           onClick={() => {
                             dispatch(
                               addToCart({
