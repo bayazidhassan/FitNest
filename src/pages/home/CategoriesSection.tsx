@@ -17,7 +17,7 @@ const CategoriesSection = () => {
           <Link
             key={category.category}
             to={`/products?category=${encodeURIComponent(category.category)}`}
-            className="bg-[#F0FDFA] border border-gray-300 rounded-lg shadow flex flex-col items-center justify-center gap-2 p-2 md:p-4 hover:scale-105 transform transition"
+            className="bg-[#F0FDFA] border border-gray-300 rounded-lg shadow-lg flex flex-col items-center justify-center gap-2 p-2 md:p-4 hover:scale-105 transform transition"
           >
             <img
               src={category?.image}

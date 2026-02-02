@@ -24,7 +24,7 @@ const FeaturedProducts = () => {
         {products?.map((product: TProduct) => (
           <div
             key={product._id}
-            className="border border-gray-300 bg-[#FFF7ED] rounded-lg shadow flex flex-col justify-center items-center"
+            className="border border-gray-300 bg-[#FFF7ED] rounded-lg shadow-lg flex flex-col justify-center items-center"
           >
             <img
               src={product.images?.[0]}

@@ -114,7 +114,7 @@ const Checkout = () => {
 
       <div className="flex flex-col md:flex-row gap-6">
         {/* LEFT: Form */}
-        <div className="border w-full md:w-2/3 bg-white p-6 rounded-lg shadow flex flex-col gap-4">
+        <div className="border w-full md:w-2/3 bg-white p-6 rounded-lg shadow-lg flex flex-col gap-4">
           <h2 className="text-xl font-semibold">Shipping & Billing Information</h2>
 
           <div className="flex gap-4">
@@ -198,7 +198,7 @@ const Checkout = () => {
         </div>
 
         {/* RIGHT: Order Summary + Payment */}
-        <div className="border w-full md:w-1/3 bg-white p-6 rounded-lg shadow flex flex-col gap-4">
+        <div className="border w-full md:w-1/3 bg-white p-6 rounded-lg shadow-lg flex flex-col gap-4">
           {/* Payment Method at Top */}
           <div>
             <span className="block mb-2 font-semibold">Payment Method:</span>

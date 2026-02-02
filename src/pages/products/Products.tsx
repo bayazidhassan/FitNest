@@ -119,14 +119,14 @@ const Products = () => {
     );
 
   return (
-    <div className="p-3 md:p-0 max-w-7xl mx-auto">
+    <div className="px-3 md:px-0 max-w-7xl mx-auto">
       {/* Row 1: Title + Search */}
-      <div className="flex justify-between md:justify-center items-center gap-1 md:gap-0 mb-6">
-        <h1 className="text-xl md:text-3xl font-bold text-[#0D9488]">Our Products</h1>
+      <div className="flex flex-col justify-between items-center gap-4 md:gap-0 mb-2 md:mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-[#0D9488]">Our Products</h1>
         <input
           type="text"
           placeholder="Search products..."
-          className="flex md:hidden border border-gray-300 rounded px-2 py-1 w-4/7 md:w-1/4"
+          className="flex md:hidden border border-gray-300 rounded-lg px-2 py-1 w-4/5 md:w-1/4"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
@@ -154,7 +154,7 @@ const Products = () => {
             <div className="hidden md:flex items-center gap-2">
               <label className="text-sm font-semibold">Show:</label>
               <select
-                className="border border-gray-300 rounded px-1 py-1"
+                className="border border-gray-300 rounded-lg px-1 py-1"
                 value={itemsPerPage}
                 onChange={(e) => {
                   setItemsPerPage(Number(e.target.value));
@@ -172,7 +172,7 @@ const Products = () => {
             <input
               type="text"
               placeholder="Search products..."
-              className="hidden md:block border border-gray-300 rounded px-2 py-1 w-4/7 md:w-1/4"
+              className="hidden md:block border border-gray-300 rounded-lg px-2 py-1 w-4/7 md:w-1/4"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />
@@ -180,7 +180,7 @@ const Products = () => {
             <div className="flex items-center gap-2">
               <label className="text-sm font-semibold">Sort by:</label>
               <select
-                className="border border-gray-300 rounded p-1 text-sm md:text-base"
+                className="border border-gray-300 rounded-lg p-1 text-sm md:text-base"
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value as 'default' | 'asc' | 'desc')}
               >
@@ -196,7 +196,7 @@ const Products = () => {
                   <div className="flex items-center gap-2">
                     <h1 className="text-sm font-semibold">Filter:</h1>
                     <SheetTrigger asChild>
-                      <Button variant="outline" className="capitalize border border-gray-300">
+                      <Button variant="outline" className="h-8 border border-gray-300">
                         <ListFilter />
                       </Button>
                     </SheetTrigger>
@@ -241,7 +241,7 @@ const Products = () => {
               return (
                 <div
                   key={product._id}
-                  className="border border-gray-300 p-2 md:p-4 rounded-lg shadow flex flex-col"
+                  className="border border-gray-300 p-2 md:p-4 rounded-lg shadow-lg flex flex-col"
                 >
                   <div className="w-full h-28 md:h-40 overflow-hidden rounded">
                     <img

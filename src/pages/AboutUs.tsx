@@ -10,21 +10,21 @@ const AboutUs = () => {
           continuously innovate to provide products that inspire positive lifestyle changes.
         </p>
         <div className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-          <div className="bg-[#F0FDFA] border p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-[#F0FDFA] border p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
             <h3 className="text-xl font-semibold text-[#0D9488] mb-2">Our History</h3>
             <p className="text-justify md:text-center text-gray-600">
               Starting as a small wellness-focused startup, FitNest has grown into a trusted brand
               with thousands of satisfied customers across the world.
             </p>
           </div>
-          <div className="border bg-[#F0FDFA] p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+          <div className="border bg-[#F0FDFA] p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
             <h3 className="text-xl font-semibold text-[#0D9488] mb-2">Our Mission</h3>
             <p className="text-justify md:text-center text-gray-600">
               To empower individuals to live healthier lives through accessible, high-quality
               fitness and wellness products.
             </p>
           </div>
-          <div className="border bg-[#F0FDFA] p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+          <div className="border bg-[#F0FDFA] p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
             <h3 className="text-xl font-semibold text-[#0D9488] mb-2">Our Vision</h3>
             <p className="text-justify md:text-center text-gray-600">
               To become a globally recognized leader in wellness, inspiring a healthier world for
@@ -39,7 +39,7 @@ const AboutUs = () => {
         <h2 className="text-3xl font-bold text-[#0D9488] text-center mb-6">Meet Our Team</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
           {/* Member 1 */}
-          <div className="border bg-[#FFF7ED] p-6 rounded-lg shadow text-center hover:shadow-xl transition-shadow duration-300">
+          <div className="border bg-[#FFF7ED] p-6 rounded-lg shadow-lg text-center hover:shadow-2xl transition-shadow duration-300">
             <img
               src="https://i.ibb.co.com/jVxbGmt/profile-pic.jpg"
               alt="Team Member 1"
@@ -54,7 +54,7 @@ const AboutUs = () => {
           </div>
 
           {/* Member 2 */}
-          <div className="border bg-[#FFF7ED] p-6 rounded-lg shadow text-center hover:shadow-xl transition-shadow duration-300">
+          <div className="border bg-[#FFF7ED] p-6 rounded-lg shadow-lg text-center hover:shadow-2xl transition-shadow duration-300">
             <img
               src="https://i.ibb.co.com/jVxbGmt/profile-pic.jpg"
               alt="Team Member 2"
@@ -69,7 +69,7 @@ const AboutUs = () => {
           </div>
 
           {/* Member 3 */}
-          <div className="border bg-[#FFF7ED] p-6 rounded-lg shadow text-center hover:shadow-xl transition-shadow duration-300">
+          <div className="border bg-[#FFF7ED] p-6 rounded-lg shadow-lg text-center hover:shadow-2xl transition-shadow duration-300">
             <img
               src="https://i.ibb.co.com/jVxbGmt/profile-pic.jpg"
               alt="Team Member 3"
@@ -91,7 +91,7 @@ const AboutUs = () => {
           What Our Customers Say
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
-          <div className="border bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+          <div className="border bg-gray-50 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
             <p className="text-gray-700 italic">
               “FitNest products have helped me stay consistent with my fitness routine. Amazing
               quality!”
@@ -99,14 +99,14 @@ const AboutUs = () => {
             <h4 className="mt-4 font-semibold text-[#0D9488]">— Ayesha R.</h4>
           </div>
 
-          <div className="border bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+          <div className="border bg-gray-50 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
             <p className="text-gray-700 italic">
               “Excellent customer service and fast delivery. Highly recommended!”
             </p>
             <h4 className="mt-4 font-semibold text-[#0D9488]">— Michael T.</h4>
           </div>
 
-          <div className="border bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+          <div className="border bg-gray-50 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
             <p className="text-gray-700 italic">
               “Great quality products that genuinely helped me stay healthier.”
             </p>
@@ -116,7 +116,7 @@ const AboutUs = () => {
       </section>
 
       {/* Contact Information */}
-      <section className="bg-[#0D9488] text-white p-10 rounded-lg">
+      <section className="bg-[#0D9488] text-white p-10 rounded-lg border shadow-lg">
         <h2 className="text-3xl font-bold mb-4">Contact Us</h2>
         <p className="mb-6">Have questions or feedback? We’d love to hear from you.</p>
 
