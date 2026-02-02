@@ -119,10 +119,10 @@ const Products = () => {
     );
 
   return (
-    <div className="px-3 md:px-0 max-w-7xl mx-auto">
+    <div className="p-3 md:p-0 max-w-7xl mx-auto">
       {/* Row 1: Title + Search */}
       <div className="flex flex-col justify-between items-center gap-4 md:gap-0 mb-2 md:mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#0D9488]">Our Products</h1>
+        <h1 className="text-3xl font-bold text-[#0D9488]">Our Products</h1>
         <div className="flex justify-between items-center gap-2">
           <h1 className="md:hidden text-sm font-semibold">Search:</h1>
           <input

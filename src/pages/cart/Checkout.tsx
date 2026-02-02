@@ -108,7 +108,7 @@ const Checkout = () => {
   }, [isFormDirty]);
 
   return (
-    <div className="px-3 md:px-0 max-w-6xl mx-auto">
+    <div className="p-3 md:p-0 max-w-6xl mx-auto">
       {/* Page Heading */}
       <h1 className="text-center mb-4 text-3xl font-bold text-[#0D9488]">Checkout</h1>
 
