@@ -59,7 +59,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div className="min-h-[90vh] flex items-center justify-center bg-gray-100 -mt-2 p-4 md:p-0">
       <div className="bg-white shadow-xl rounded-lg p-8 w-full max-w-4xl">
         <div className="flex justify-between">
           <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">Register</h2>
@@ -187,7 +187,10 @@ const Register = () => {
 
         <p className="text-center text-sm text-gray-600 mt-4">
           Already have an account?{' '}
-          <Link to="/login" className="text-[#0D9488] cursor-pointer hover:underline">
+          <Link
+            to="/login"
+            className="text-[#F97316] font-semibold cursor-pointer underline md:no-underline md:hover:underline"
+          >
             Login
           </Link>
         </p>

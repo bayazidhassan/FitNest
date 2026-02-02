@@ -194,9 +194,16 @@ const NavBar = () => {
             About Us
           </NavLink>
           {!user.firstName ? (
-            <Link to="/login" className="text-white hover:text-[#F97316]">
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                `transition-colors duration-200 hover:text-[#F97316] ${
+                  isActive ? 'text-[#F97316] font-semibold' : 'text-white'
+                }`
+              }
+            >
               Login
-            </Link>
+            </NavLink>
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -271,7 +278,7 @@ const NavBar = () => {
               <DropdownMenuItem asChild>
                 <Link
                   to="/"
-                  className={`border border-white ${isActive('/') ? 'bg-slate-800 text-orange-500 font-bold' : 'text-white'}`}
+                  className={`border border-white ${isActive('/') ? 'bg-slate-800 text-white font-bold' : 'text-white'}`}
                 >
                   Home
                 </Link>
@@ -279,7 +286,7 @@ const NavBar = () => {
               <DropdownMenuItem asChild>
                 <Link
                   to="/products"
-                  className={`border border-white ${isActive('/products') ? 'bg-slate-800 text-orange-500 font-bold' : 'text-white'}`}
+                  className={`border border-white ${isActive('/products') ? 'bg-slate-800 text-white font-bold' : 'text-white'}`}
                 >
                   Products
                 </Link>
@@ -287,7 +294,7 @@ const NavBar = () => {
               <DropdownMenuItem asChild>
                 <Link
                   to="/aboutUs"
-                  className={`border border-white ${isActive('/aboutUs') ? 'bg-slate-800 text-orange-500 font-bold' : 'text-white'}`}
+                  className={`border border-white ${isActive('/aboutUs') ? 'bg-slate-800 text-white font-bold' : 'text-white'}`}
                 >
                   About Us
                 </Link>
@@ -296,7 +303,7 @@ const NavBar = () => {
                 <DropdownMenuItem asChild>
                   <Link
                     to={`/dashboard/${user.role}`}
-                    className={`border border-white ${isActive(`/dashboard/${user.role}`) ? 'bg-slate-800 text-orange-500 font-bold' : 'text-white'}`}
+                    className={`border border-white ${isActive(`/dashboard/${user.role}`) ? 'bg-slate-800 text-white font-bold' : 'text-white'}`}
                   >
                     Dashboard
                   </Link>
@@ -306,7 +313,7 @@ const NavBar = () => {
                 <DropdownMenuItem asChild>
                   <Link
                     to="/login"
-                    className={`border border-white ${isActive('/login') ? 'bg-slate-800 text-orange-500 font-bold' : 'text-white'}`}
+                    className={`border border-white ${isActive('/login') ? 'bg-slate-800 text-white font-bold' : 'text-white'}`}
                   >
                     Login
                   </Link>

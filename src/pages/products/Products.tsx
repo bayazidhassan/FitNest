@@ -199,7 +199,7 @@ const Products = () => {
                   <div className="flex items-center gap-2">
                     <h1 className="text-sm font-semibold">Filter:</h1>
                     <SheetTrigger asChild>
-                      <Button variant="outline" className="w-10 h-7 border border-gray-300">
+                      <Button variant="outline" className="w-10 h-8 border border-gray-300">
                         <ListFilter />
                       </Button>
                     </SheetTrigger>

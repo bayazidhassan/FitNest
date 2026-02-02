@@ -1,5 +1,5 @@
-import 'swiper/css'; //check global.d.ts file
-import 'swiper/css/pagination'; //check global.d.ts file
+import 'swiper/css';
+import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import bgImage1 from '../../assets/images/pic-1.jpg';
@@ -21,7 +21,8 @@ const HeroSection = () => {
   const heroImages = [bgImage1, bgImage2, bgImage3, bgImage4, bgImage5];
 
   return (
-    <div className="-mt-4 w-full h-96 md:h-[700px]">
+    <div className="-mt-2 w-full h-96 md:h-[700px] relative">
+      {/* Swiper Carousel */}
       <Swiper
         modules={[Autoplay, Pagination]}
         autoplay={{ delay: 3000 }}
@@ -36,13 +37,14 @@ const HeroSection = () => {
               <div
                 className="absolute inset-0 bg-cover bg-center opacity-90"
                 style={{ backgroundImage: `url(${img})` }}
-              ></div>
+              />
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      {/* Fixed Overlay Text */}
-      <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-center items-center text-center">
+
+      {/* Overlay Text */}
+      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center pointer-events-none px-4">
         <h1 className="text-white text-4xl md:text-6xl font-bold drop-shadow-lg">
           <span className="text-[#0D9488]">FitNest</span> — Your Fitness Partner
         </h1>

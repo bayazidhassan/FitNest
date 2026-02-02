@@ -1,16 +1,16 @@
-import { Outlet, useLocation } from "react-router-dom";
-import Footer from "../components/footer/Footer";
-import NavBar from "../components/navbar/NavBar";
+import { Outlet, useLocation } from 'react-router-dom';
+import Footer from '../components/footer/Footer';
+import NavBar from '../components/navbar/NavBar';
 
 const MainLayout = () => {
   const { pathname } = useLocation();
   // Route where footer should NOT appear
-  const hideFooterRoutes = ["/aboutUs"];
+  const hideFooterRoutes = ['/aboutUs', '/login', '/register'];
 
   const shouldHideFooter = hideFooterRoutes.includes(pathname);
 
   return (
-    <div className="min-h-screen flex flex-col pt-22">
+    <div className="min-h-screen flex flex-col pt-20">
       <NavBar></NavBar>
 
       {/* <Outlet></Outlet> */}
