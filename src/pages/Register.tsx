@@ -1,7 +1,7 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
-import { useRegisterMutation } from "../redux/api/user/userApi";
+import { useState, type ChangeEvent, type FormEvent } from 'react';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRegisterMutation } from '../redux/api/user/userApi';
 
 const Register = () => {
   const [register, { isLoading }] = useRegisterMutation();
@@ -9,12 +9,12 @@ const Register = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
 
   const [image, setImage] = useState<File | null>(null);
@@ -46,15 +46,15 @@ const Register = () => {
     Object.entries(formData).forEach(([key, value]) => {
       form.append(key, value);
     });
-    if (image) form.append("image", image);
+    if (image) form.append('image', image);
 
     try {
       await register(form).unwrap();
-      toast.success("Registration successful!");
+      toast.success('Registration successful!');
 
-      navigate("/login");
+      navigate('/login');
     } catch (err: any) {
-      toast.error(err?.data?.message || "Registration failed!");
+      toast.error(err?.data?.message || 'Registration failed!');
     }
   };
 
@@ -62,29 +62,22 @@ const Register = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-4xl">
         <div className="flex justify-between">
-          <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">
-            Register
-          </h2>
+          <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">Register</h2>
           <Link to="/">
             <img
-              src={"https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"}
+              src={'https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png'}
               alt="Logo"
               className="w-10 h-10 rounded-full"
             />
           </Link>
         </div>
 
-        <form
-          onSubmit={handleRegister}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
+        <form onSubmit={handleRegister} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* LEFT COLUMN */}
           <div className="space-y-4 col-span-2 md:col-span-1">
             {/* First Name */}
             <div>
-              <label className="block mb-1 text-gray-700 font-medium">
-                First Name
-              </label>
+              <label className="block mb-1 text-gray-700 font-medium">First Name</label>
               <input
                 type="text"
                 name="firstName"
@@ -98,9 +91,7 @@ const Register = () => {
 
             {/* Last Name */}
             <div>
-              <label className="block mb-1 text-gray-700 font-medium">
-                Last Name
-              </label>
+              <label className="block mb-1 text-gray-700 font-medium">Last Name</label>
               <input
                 type="text"
                 name="lastName"
@@ -114,9 +105,7 @@ const Register = () => {
 
             {/* Phone */}
             <div>
-              <label className="block mb-1 text-gray-700 font-medium">
-                Phone
-              </label>
+              <label className="block mb-1 text-gray-700 font-medium">Phone</label>
               <input
                 type="text"
                 name="phone"
@@ -133,9 +122,7 @@ const Register = () => {
           <div className="space-y-4 col-span-2 md:col-span-1">
             {/* Email */}
             <div>
-              <label className="block mb-1 text-gray-700 font-medium">
-                Email
-              </label>
+              <label className="block mb-1 text-gray-700 font-medium">Email</label>
               <input
                 type="email"
                 name="email"
@@ -149,9 +136,7 @@ const Register = () => {
 
             {/* Password */}
             <div>
-              <label className="block mb-1 text-gray-700 font-medium">
-                Password
-              </label>
+              <label className="block mb-1 text-gray-700 font-medium">Password</label>
               <input
                 type="password"
                 name="password"
@@ -165,9 +150,7 @@ const Register = () => {
 
             {/* Confirm Password */}
             <div>
-              <label className="block mb-1 text-gray-700 font-medium">
-                Confirm Password
-              </label>
+              <label className="block mb-1 text-gray-700 font-medium">Confirm Password</label>
               <input
                 type="password"
                 name="confirmPassword"
@@ -181,9 +164,7 @@ const Register = () => {
           </div>
           {/* Image Upload */}
           <div className="col-span-2">
-            <label className="block mb-1 text-gray-700 font-medium">
-              Upload Image
-            </label>
+            <label className="block mb-1 text-gray-700 font-medium">Upload Image</label>
             <input
               type="file"
               accept="image/*"
@@ -197,19 +178,16 @@ const Register = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="cursor-pointer w-full bg-[#0D9488] text-white py-3 rounded hover:bg-[#0a766f] transition disabled:cursor-not-allowed disabled:opacity-50"
+              className="cursor-pointer w-full border border-gray-300 shadow bg-[#0D9488] text-white py-3 rounded hover:bg-[#0a766f] transition disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isLoading ? "Registering..." : "Register"}
+              {isLoading ? 'Registering...' : 'Register'}
             </button>
           </div>
         </form>
 
         <p className="text-center text-sm text-gray-600 mt-4">
-          Already have an account?{" "}
-          <Link
-            to="/login"
-            className="text-[#0D9488] cursor-pointer hover:underline"
-          >
+          Already have an account?{' '}
+          <Link to="/login" className="text-[#0D9488] cursor-pointer hover:underline">
             Login
           </Link>
         </p>

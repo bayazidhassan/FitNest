@@ -148,14 +148,14 @@ const Cart = () => {
 
           <button
             onClick={() => dispatch(clearCart())}
-            className="cursor-pointer w-full px-4 py-2 mb-3 bg-[#F97316] text-white rounded hover:bg-[#ea5f0d] transition"
+            className="cursor-pointer w-full border border-gray-300 shadow px-4 py-2 mb-2 bg-[#F97316] text-white rounded hover:bg-[#ea5f0d] transition"
           >
             Clear Cart
           </button>
 
           <Link
             to="/checkout"
-            className="block text-center w-full px-4 py-2 bg-[#0D9488] text-white rounded hover:bg-[#0a766f] transition"
+            className="block text-center w-full border border-gray-300 shadow px-4 py-2 bg-[#0D9488] text-white rounded hover:bg-[#0a766f] transition"
           >
             Checkout
           </Link>

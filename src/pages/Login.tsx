@@ -1,9 +1,9 @@
-import { useState, type FormEvent } from "react";
-import toast from "react-hot-toast";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useLoginUserMutation } from "../redux/api/auth/authApi";
-import { setUser } from "../redux/features/auth/authSlice";
-import { useAppDispatch } from "../redux/hook";
+import { useState, type FormEvent } from 'react';
+import toast from 'react-hot-toast';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLoginUserMutation } from '../redux/api/auth/authApi';
+import { setUser } from '../redux/features/auth/authSlice';
+import { useAppDispatch } from '../redux/hook';
 
 const Login = () => {
   const [login, { isLoading }] = useLoginUserMutation();
@@ -11,8 +11,8 @@ const Login = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
@@ -35,13 +35,13 @@ const Login = () => {
         token: data.data.token, //for jwt token
       };
       dispatch(setUser(userInfo));
-      toast.success("Login successful!");
+      toast.success('Login successful!');
 
-      const redirectPath = location.state?.from || "/";
+      const redirectPath = location.state?.from || '/';
 
       navigate(redirectPath, { replace: true });
     } catch (err: any) {
-      toast.error(err?.data?.message || "Login failed!");
+      toast.error(err?.data?.message || 'Login failed!');
     }
   };
 
@@ -49,12 +49,10 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-sm">
         <div className="flex justify-between">
-          <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">
-            Login
-          </h2>
+          <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">Login</h2>
           <Link to="/">
             <img
-              src={"https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"}
+              src={'https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png'}
               alt="Logo"
               className="w-10 h-10 rounded-full"
             />
@@ -64,9 +62,7 @@ const Login = () => {
         <form onSubmit={handleLogin} className="space-y-4">
           {/* Email */}
           <div>
-            <label className="block mb-1 text-gray-700 font-medium">
-              Email
-            </label>
+            <label className="block mb-1 text-gray-700 font-medium">Email</label>
             <input
               type="email"
               placeholder="Enter your email"
@@ -79,9 +75,7 @@ const Login = () => {
 
           {/* Password */}
           <div>
-            <label className="block mb-1 text-gray-700 font-medium">
-              Password
-            </label>
+            <label className="block mb-1 text-gray-700 font-medium">Password</label>
             <input
               type="password"
               placeholder="Enter your password"
@@ -96,19 +90,16 @@ const Login = () => {
           <button
             disabled={isLoading}
             type="submit"
-            className="cursor-pointer w-full bg-[#0D9488] text-white py-2 rounded hover:bg-[#0a766f] transition disabled:cursor-not-allowed disabled:opacity-50"
+            className="cursor-pointer w-full border border-gray-300 shadow bg-[#0D9488] text-white py-2 rounded hover:bg-[#0a766f] transition disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {isLoading ? "Logging..." : "Login"}
+            {isLoading ? 'Logging...' : 'Login'}
           </button>
         </form>
 
         {/* Extra link */}
         <p className="text-center text-sm text-gray-600 mt-4">
-          Don’t have an account?{" "}
-          <Link
-            to="/register"
-            className="text-[#0D9488] cursor-pointer hover:underline"
-          >
+          Don’t have an account?{' '}
+          <Link to="/register" className="text-[#0D9488] cursor-pointer hover:underline">
             Register
           </Link>
         </p>

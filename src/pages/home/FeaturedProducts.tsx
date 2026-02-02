@@ -15,7 +15,7 @@ const FeaturedProducts = () => {
         <h1 className="text-2xl md:text-3xl font-bold text-[#0D9488]">Featured Products</h1>
         <Link
           to="/products"
-          className="bg-[#F97316] text-white py-2 px-4 rounded shadow hover:bg-[#ea5f0d]"
+          className="bg-[#F97316] text-white py-2 px-4 rounded border border-gray-300 shadow hover:bg-[#ea5f0d]"
         >
           Explore More
         </Link>
@@ -34,7 +34,7 @@ const FeaturedProducts = () => {
             <h2 className="px-2 text-center text-gray-700 font-medium my-2">{product.name}</h2>
             <Link
               to={`/products/${product._id}`}
-              className="mt-auto mb-4 bg-[#0D9488] text-white py-2 px-4 rounded hover:bg-[#0a766f]"
+              className="mt-auto mb-4 bg-[#0D9488] text-white py-2 px-4 rounded border border-gray-300 shadow hover:bg-[#0a766f]"
             >
               View Details
             </Link>
