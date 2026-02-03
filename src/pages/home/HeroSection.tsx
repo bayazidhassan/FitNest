@@ -21,7 +21,7 @@ const HeroSection = () => {
   const heroImages = [bgImage1, bgImage2, bgImage3, bgImage4, bgImage5];
 
   return (
-    <div className="-mt-2 w-full h-96 md:h-[700px] relative">
+    <div className="-mt-4 w-full h-96 md:h-[700px] relative">
       {/* Swiper Carousel */}
       <Swiper
         modules={[Autoplay, Pagination]}

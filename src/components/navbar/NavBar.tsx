@@ -79,7 +79,7 @@ const NavBar = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center md:space-x-2 text-white">
-          <img src={logo} alt="Logo" className="w-14 h-14 rounded-full" />
+          <img src={logo} alt="Logo" className="w-12 h-12 rounded-full" />
           <span className="hidden md:block text-[#0D9488] font-bold text-2xl">FitNest</span>
         </Link>
 
@@ -331,7 +331,7 @@ const NavBar = () => {
         <div ref={mobileSearchRef} className="md:hidden absolute top-full left-0 w-full mt-1 px-10">
           <input
             autoFocus
-            className="w-full p-2 rounded-lg bg-gray-100"
+            className="w-full px-2 py-1 rounded-lg bg-gray-100"
             placeholder="Search products..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
