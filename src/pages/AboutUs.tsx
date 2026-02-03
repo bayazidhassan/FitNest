@@ -1,10 +1,10 @@
 const AboutUs = () => {
   return (
-    <div className="p-3 md:p-0 max-w-7xl mx-auto space-y-16 md:mb-6">
+    <div className="p-3 md:p-0 max-w-7xl mx-auto space-y-16 mb-6">
       {/* Company Overview */}
       <section className="text-center">
         <h1 className="text-3xl font-bold text-[#0D9488] mb-6">About Us</h1>
-        <p className="text-justify md:text-center text-gray-700 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-justify md:text-center text-gray-700 max-w-5/6 md:max-w-3/5 mx-auto leading-relaxed">
           At FitNest, we are committed to helping individuals achieve healthier, happier lives
           through high-quality fitness products. Founded with a mission to promote well-being, we
           continuously innovate to provide products that inspire positive lifestyle changes.

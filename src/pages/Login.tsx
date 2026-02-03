@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import logo from '../assets/images/FitNest_Logo.png';
 import { useLoginUserMutation } from '../redux/api/auth/authApi';
 import { setUser } from '../redux/features/auth/authSlice';
 import { useAppDispatch } from '../redux/hook';
@@ -51,11 +52,7 @@ const Login = () => {
         <div className="flex justify-between">
           <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">Login</h2>
           <Link to="/">
-            <img
-              src={'https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png'}
-              alt="Logo"
-              className="w-10 h-10 rounded-full"
-            />
+            <img src={logo} alt="Logo" className="w-10 h-10 rounded-full" />
           </Link>
         </div>
 

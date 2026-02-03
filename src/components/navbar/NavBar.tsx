@@ -94,7 +94,7 @@ const NavBar = () => {
               onChange={(e) => setSearchText(e.target.value)}
             />
             {searchText && (
-              <ul className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded mt-1 max-h-60 overflow-y-auto z-50 shadow-lg">
+              <ul className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-lg mt-1 max-h-60 overflow-y-auto z-50 shadow-lg">
                 {products.length ? (
                   products.map((product: TProduct) => (
                     <li
@@ -328,16 +328,16 @@ const NavBar = () => {
       </div>
       {/* Mobile Search Area */}
       {showMobileSearch && location.pathname !== '/products' && (
-        <div ref={mobileSearchRef} className="md:hidden absolute top-full left-0 w-full mt-1 px-8">
+        <div ref={mobileSearchRef} className="md:hidden absolute top-full left-0 w-full mt-1 px-10">
           <input
             autoFocus
-            className="w-full px-2 py-1 rounded bg-gray-100"
+            className="w-full p-2 rounded-lg bg-gray-100"
             placeholder="Search products..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
           {searchText && (
-            <ul className="bg-white rounded mt-1 shadow max-h-60 overflow-y-auto">
+            <ul className="bg-white border border-gray-300 rounded-lg mt-1 shadow max-h-60 overflow-y-auto">
               {products.length ? (
                 products.map((product: TProduct) => (
                   <li className="border-b" key={product._id}>
