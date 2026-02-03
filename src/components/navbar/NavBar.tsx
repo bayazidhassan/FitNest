@@ -7,6 +7,7 @@ import {
 import { Search, ShoppingCartIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import logo from '../../assets/images/FitNest_Logo.png';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useLogoutMutation } from '../../redux/api/auth/authApi';
 import { useGetProductsBySearchQuery } from '../../redux/api/products/productsApi';
@@ -78,11 +79,7 @@ const NavBar = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center md:space-x-2 text-white">
-          <img
-            src="https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"
-            alt="Logo"
-            className="w-14 h-14 rounded-full"
-          />
+          <img src={logo} alt="Logo" className="w-14 h-14 rounded-full" />
           <span className="hidden md:block text-[#0D9488] font-bold text-2xl">FitNest</span>
         </Link>
 

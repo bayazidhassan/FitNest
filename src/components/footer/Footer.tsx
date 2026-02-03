@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import logo from '../../assets/images/FitNest_Logo.png';
 
 const Footer = () => {
   return (
@@ -6,11 +7,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="flex flex-col justify-center space-y-1 md:space-y-2">
           <div className="flex items-center space-x-2">
-            <img
-              src={'https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png'}
-              alt="Logo"
-              className="w-14 h-14 rounded-full"
-            />
+            <img src={logo} alt="Logo" className="w-14 h-14 rounded-full" />
             <span className="text-[#0D9488] font-bold text-2xl">FitNest</span>
           </div>
           <p className="text-gray-300 text-justify">
