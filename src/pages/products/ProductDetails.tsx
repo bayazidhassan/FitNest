@@ -114,7 +114,7 @@ const ProductDetails = () => {
             <button
               disabled={quantityInCart >= product.stock_quantity}
               onClick={handleAddToCart}
-              className="cursor-pointer border border-gray-300 shadow mt-6 w-full md:w-fit bg-[#F97316] text-white px-8 py-3 rounded-lg font-medium
+              className="cursor-pointer border border-gray-300 shadow mt-6 w-full md:w-fit bg-[#F97316] text-white px-8 py-3 rounded-lg font-semibold
                 hover:bg-[#ea5f0d] transition disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Add to Cart

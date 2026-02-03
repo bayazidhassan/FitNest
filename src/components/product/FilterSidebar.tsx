@@ -26,7 +26,7 @@ export default function FilterSidebar({
   const ClearButton = (
     <button
       onClick={clearFilters}
-      className="cursor-pointer w-full border border-gray-300 shadow bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg"
+      className="cursor-pointer font-semibold w-full border border-gray-300 shadow bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg"
     >
       Clear Filters
     </button>

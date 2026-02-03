@@ -1,24 +1,24 @@
-import { Home, Menu, Package, ShoppingCart } from "lucide-react";
-import { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Home, Menu, Package, ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
+import { NavLink, Outlet } from 'react-router-dom';
+import logo from '../assets//images/FitNest_Logo.png';
 
 const AdminDashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const linkBase =
-    "flex items-center gap-3 px-3 py-2 rounded-md transition-colors";
+  const linkBase = 'flex items-center gap-3 px-3 py-2 rounded-md transition-colors';
 
   const links = [
-    { to: "/dashboard/admin/home", icon: <Home size={18} />, label: "Home" },
+    { to: '/dashboard/admin/home', icon: <Home size={18} />, label: 'Home' },
     {
-      to: "/dashboard/admin/productManagement",
+      to: '/dashboard/admin/productManagement',
       icon: <Package size={18} />,
-      label: "Product Management",
+      label: 'Product Management',
     },
     {
-      to: "/dashboard/admin/orderManagement",
+      to: '/dashboard/admin/orderManagement',
       icon: <ShoppingCart size={18} />,
-      label: "Order Management",
+      label: 'Order Management',
     },
   ];
 
@@ -40,17 +40,13 @@ const AdminDashboardLayout = () => {
         className={`
           fixed md:static top-0 left-0 h-screen w-64 bg-white border-r p-4
           transform transition-transform duration-300 ease-in-out
-          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
           md:translate-x-0 z-40 overflow-y-auto
         `}
       >
         {/* Logo */}
         <NavLink to="/" className="flex items-center gap-2 mb-6">
-          <img
-            src="https://i.ibb.co/qMK6nT44/Fit-Nest-Logo.png"
-            alt="Logo"
-            className="w-10 h-10 rounded-full"
-          />
+          <img src={logo} alt="Logo" className="w-10 h-10 rounded-full" />
           <span className="text-[#0D9488] font-bold text-xl">FitNest</span>
         </NavLink>
 
@@ -63,8 +59,8 @@ const AdminDashboardLayout = () => {
               className={({ isActive }) =>
                 `${linkBase} ${
                   isActive
-                    ? "bg-[#0D9488] hover:bg-[#0a766f] text-white"
-                    : "border shadow hover:bg-gray-200 text-gray-700"
+                    ? 'bg-[#0D9488] hover:bg-[#0a766f] text-white'
+                    : 'border shadow hover:bg-gray-200 text-gray-700'
                 }`
               }
               onClick={() => setSidebarOpen(false)} // close on mobile
