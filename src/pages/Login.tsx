@@ -1,13 +1,15 @@
+import { GoogleLogin } from '@react-oauth/google';
 import { useState, type FormEvent } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/FitNest_Logo.png';
-import { useLoginUserMutation } from '../redux/api/auth/authApi';
+import { useGoogleLoginMutation, useLoginUserMutation } from '../redux/api/auth/authApi';
 import { setUser } from '../redux/features/auth/authSlice';
 import { useAppDispatch } from '../redux/hook';
 
 const Login = () => {
   const [login, { isLoading }] = useLoginUserMutation();
+  const [googleLogin] = useGoogleLoginMutation();
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
@@ -91,6 +93,34 @@ const Login = () => {
           >
             {isLoading ? 'Logging...' : 'Login'}
           </button>
+          <GoogleLogin
+            onSuccess={async (res) => {
+              const token = res.credential as string;
+              try {
+                const data = await googleLogin(token).unwrap();
+                const { user, token: accessToken } = data.data;
+
+                const userInfo = {
+                  firstName: user.name?.firstName || user.name,
+                  lastName: user.name?.lastName || '',
+                  email: user.email,
+                  phone: user.phone || '',
+                  role: user.role,
+                  image: user.image || '',
+                  token: accessToken,
+                };
+                dispatch(setUser(userInfo));
+
+                toast.success('Login successful!');
+
+                const redirectPath = location.state?.from || '/';
+                navigate(redirectPath, { replace: true });
+              } catch (err: any) {
+                toast.error(err?.data?.message || 'Google login failed!');
+              }
+            }}
+            onError={() => toast.error('Google login failed')}
+          />
         </form>
 
         {/* Extra link */}

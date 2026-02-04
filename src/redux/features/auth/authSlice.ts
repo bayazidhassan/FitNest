@@ -1,6 +1,6 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-export type TRole = "admin" | "user" | "guest";
+export type TRole = 'admin' | 'user' | 'guest';
 
 type TAuthState = {
   firstName: string | null;
@@ -17,13 +17,13 @@ const initialState: TAuthState = {
   lastName: null,
   email: null,
   phone: null,
-  role: "guest",
+  role: 'guest',
   image: null,
   token: null,
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     setUser: (
@@ -54,12 +54,12 @@ const authSlice = createSlice({
       state.lastName = null;
       state.email = null;
       state.phone = null;
-      state.role = "guest";
+      state.role = 'guest';
       state.image = null;
       state.token = null;
     },
   },
 });
 
-export const { setUser,updateToken, logout } = authSlice.actions;
+export const { setUser, updateToken, logout } = authSlice.actions;
 export default authSlice.reducer;
