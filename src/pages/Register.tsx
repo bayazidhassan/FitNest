@@ -2,10 +2,13 @@ import { useState, type ChangeEvent, type FormEvent } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/FitNest_Logo.png';
+import usePageTitle from '../hooks/usePageTitle';
 import { useRegisterMutation } from '../redux/api/user/userApi';
 
 const Register = () => {
   const [register, { isLoading }] = useRegisterMutation();
+
+  usePageTitle('Registration | FitNest');
 
   const navigate = useNavigate();
 
@@ -63,7 +66,7 @@ const Register = () => {
     <div className="min-h-[88vh] flex items-center justify-center p-4 md:p-0">
       <div className="bg-white border shadow-xl rounded-lg p-8 w-full max-w-4xl">
         <div className="flex justify-between">
-          <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">Register</h2>
+          <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">Registration</h2>
           <Link to="/">
             <img src={logo} alt="Logo" className="w-10 h-10 rounded-full" />
           </Link>

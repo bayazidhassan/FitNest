@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
+import usePageTitle from '../../hooks/usePageTitle';
 import { useGetOrderIdByStripeSessionQuery } from '../../redux/api/payment/paymentApi';
 import { clearCart } from '../../redux/features/cart/addToCartSlice';
 import { resetSuccessOrder } from '../../redux/features/order/successOrderSlice';
@@ -24,6 +25,8 @@ const SuccessOrder = () => {
   } = useGetOrderIdByStripeSessionQuery(sessionId!, {
     skip: !sessionId || state?.type === 'cod',
   });
+
+  usePageTitle('Success Order | FitNest');
 
   useEffect(() => {
     if (hasRun.current) return;

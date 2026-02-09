@@ -29,6 +29,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../../components/ui/dialog';
+import usePageTitle from '../../hooks/usePageTitle';
 
 const Products = () => {
   const dispatch = useAppDispatch();
@@ -39,6 +40,8 @@ const Products = () => {
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const categoryFromQuery = queryParams.get('category');
+
+  usePageTitle('Products | FitNest');
 
   const [searchText, setSearchText] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);

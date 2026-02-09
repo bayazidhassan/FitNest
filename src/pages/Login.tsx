@@ -3,6 +3,7 @@ import { useState, type FormEvent } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/FitNest_Logo.png';
+import usePageTitle from '../hooks/usePageTitle';
 import { useGoogleLoginMutation, useLoginUserMutation } from '../redux/api/auth/authApi';
 import { setUser } from '../redux/features/auth/authSlice';
 import { useAppDispatch } from '../redux/hook';
@@ -13,6 +14,8 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
+
+  usePageTitle('Login | FitNest');
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -127,7 +130,7 @@ const Login = () => {
         <p className="text-center text-sm text-gray-600 mt-4">
           Don’t have an account?{' '}
           <Link
-            to="/register"
+            to="/registration"
             className="text-[#F97316] font-semibold cursor-pointer underline md:no-underline md:hover:underline"
           >
             Register

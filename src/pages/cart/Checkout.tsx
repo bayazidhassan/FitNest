@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import usePageTitle from '../../hooks/usePageTitle';
 import { usePlaceOrderMutation } from '../../redux/api/orders/ordersApi';
 import { useCreateCheckoutSessionMutation } from '../../redux/api/payment/paymentApi';
 import { allowSuccessOrder } from '../../redux/features/order/successOrderSlice';
@@ -15,6 +16,8 @@ const Checkout = () => {
   const user = useAppSelector((state) => state.auth);
   const [placeOrder] = usePlaceOrderMutation();
   const [createCheckoutSession] = useCreateCheckoutSessionMutation();
+
+  usePageTitle('Checkout | FitNest');
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 

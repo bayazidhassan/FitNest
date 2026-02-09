@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import usePageTitle from '../../hooks/usePageTitle';
 import {
   clearCart,
   removeFromCart,
@@ -18,6 +19,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/hook';
 const Cart = () => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart);
+
+  usePageTitle('Cart | FitNest');
 
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);

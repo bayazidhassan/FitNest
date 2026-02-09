@@ -1,4 +1,8 @@
+import usePageTitle from '../hooks/usePageTitle';
+
 const AboutUs = () => {
+  usePageTitle('AboutUs | FitNest');
+
   return (
     <div className="p-3 md:p-0 max-w-7xl mx-auto space-y-16 mb-6">
       {/* Company Overview */}

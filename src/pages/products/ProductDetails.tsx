@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useParams } from 'react-router-dom';
+import usePageTitle from '../../hooks/usePageTitle';
 import { useGetAProductQuery } from '../../redux/api/products/productsApi';
 import { addToCart } from '../../redux/features/cart/addToCartSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
@@ -13,6 +14,8 @@ const ProductDetails = () => {
 
   const product = response?.data;
   const [mainImage, setMainImage] = useState<string | null>(null);
+
+  usePageTitle(`${product?.name} | FitNest`);
 
   useEffect(() => {
     if (product?.images?.length) {
