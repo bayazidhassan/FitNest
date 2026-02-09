@@ -4,7 +4,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Search, ShoppingCartIcon } from 'lucide-react';
+import { CircleUserRound, Search, ShoppingCartIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/FitNest_Logo.png';
@@ -204,11 +204,15 @@ const NavBar = () => {
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <img
-                  src={user.image as string}
-                  alt={user.firstName + ' ' + user.lastName}
-                  className="w-8 h-8 rounded-full cursor-pointer"
-                />
+                {user?.image ? (
+                  <img
+                    src={user.image}
+                    alt={`${user.firstName} ${user.lastName}`}
+                    className="w-8 h-8 rounded-full cursor-pointer object-cover"
+                  />
+                ) : (
+                  <CircleUserRound className="w-8 h-8 cursor-pointer text-gray-500" />
+                )}
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-[#334155] space-y-2 p-4 rounded-lg">
                 <h1 className="flex justify-center items-center text-white font-semibold border-b border-white pb-2 mb-2">
@@ -262,11 +266,15 @@ const NavBar = () => {
             <DropdownMenuContent className="flex flex-col space-y-2 bg-[#334155] p-4 rounded-lg mt-4 mr-5">
               {user.firstName && (
                 <div className="flex items-center space-x-2 border-b border-white pb-2">
-                  <img
-                    src={user.image as string}
-                    alt={user.firstName + ' ' + user.lastName}
-                    className="w-8 h-8 rounded-full"
-                  />
+                  {user?.image ? (
+                    <img
+                      src={user.image}
+                      alt={`${user.firstName} ${user.lastName}`}
+                      className="w-8 h-8 rounded-full cursor-pointer object-cover"
+                    />
+                  ) : (
+                    <CircleUserRound className="w-8 h-8 cursor-pointer text-gray-500" />
+                  )}
                   <span className="text-white font-semibold">
                     {user.firstName + ' ' + user.lastName}
                   </span>
