@@ -54,7 +54,7 @@ const Register = () => {
 
     try {
       await register(form).unwrap();
-      toast.success('Registration successful!');
+      toast.success('Registration successful! Check your email to verify.');
 
       navigate('/login');
     } catch (err: any) {
