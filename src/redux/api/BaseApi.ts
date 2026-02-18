@@ -7,7 +7,7 @@ import type { RootState } from '../store';
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:5000/api/v1',
   //baseUrl: 'https://fit-nest-backend.vercel.app/api/v1',
-  //credentials: "include", //send cookies
+  credentials: 'include', //Required for cookies
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
     if (token) {
@@ -23,12 +23,12 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args: any, api: any, extraOptions: any) => {
-  //Try the original request first
+  //try the original request first
   let result = await baseQuery(args, api, extraOptions);
 
-  //If 401 → access token expired or invalid
+  //if 401 → access token expired or invalid
   if (result.error?.status === 401) {
-    //Try refreshing the access token using refresh token
+    //try refreshing the access token using refresh token
     const refreshResult = await baseQuery(
       { url: '/auth/refresh_token', method: 'POST' },
       api,
@@ -44,7 +44,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
       //retry original request with new access token
       result = await baseQuery(args, api, extraOptions);
     } else {
-      //Refresh failed → logout user
+      //refresh failed → logout user
       api.dispatch(logout());
     }
   }
@@ -58,7 +58,7 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000/api/v1",
     //baseUrl: "https://fit-nest-backend.vercel.app/api/v1",
-    credentials: "include" //send cookies
+    credentials: "include" //Required for cookies
   }),
   */
   //baseQuery: baseQuery, //for access token

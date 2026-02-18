@@ -7,13 +7,14 @@ const authApi = baseApi.injectEndpoints({
         url: '/auth/login',
         method: 'POST',
         body: loginInformation,
+        //credentials: 'include', //Required for cookies -> I set it globally in BaseApi
       }),
     }),
     logout: builder.mutation<void, void>({
       query: () => ({
         url: '/auth/logout',
         method: 'POST',
-        credentials: 'include', //Required for cookies
+        //credentials: 'include', //Required for cookies -> I set it globally in BaseApi
       }),
     }),
     googleLogin: builder.mutation({
