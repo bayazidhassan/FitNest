@@ -15,7 +15,7 @@ const OrdersHeader = ({ title, total, searchText, onSearch }: Props) => {
       <input
         value={searchText}
         onChange={(e) => onSearch(e.target.value)}
-        className="p-2 rounded border border-gray-400 md:w-64"
+        className="px-2 py-1 rounded-md border border-gray-400 md:w-64"
         placeholder="Search orders..."
         type="text"
       />
