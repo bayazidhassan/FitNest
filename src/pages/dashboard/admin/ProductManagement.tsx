@@ -56,21 +56,16 @@ const ProductManagement = () => {
           <input
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="p-2 rounded-md border border-gray-400 md:w-72"
+            className="px-2 py-2 md:py-1 rounded-md border border-gray-400 md:w-72"
             placeholder="Search products..."
             type="text"
           />
-          <Button
-            variant="contained"
+          <button
             onClick={handleAddProductOpen}
-            sx={{
-              backgroundColor: '#0D9488',
-              '&:hover': { backgroundColor: '#0a766f' },
-              color: '#fff',
-            }}
+            className="bg-[#0D9488] hover:bg-[#0a766f] text-white text-sm border border-gray-300 shadow-lg font-semibold px-4 py-2 rounded cursor-pointer"
           >
-            + Add Product
-          </Button>
+            + ADD PRODUCT
+          </button>
         </div>
       </div>
 
