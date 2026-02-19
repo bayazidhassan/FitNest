@@ -50,13 +50,13 @@ const ProductManagement = () => {
   return (
     <div className="max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col md:flex-row mb-6 gap-6">
-        <h1 className="w-1/2 text-xl md:text-2xl font-bold">Product Management</h1>
+      <div className="flex flex-col md:flex-row mb-6 gap-8">
+        <h1 className="md:w-1/2 text-2xl font-bold">Product Management</h1>
         <div className="md:w-1/2 flex justify-between items-center">
           <input
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="px-2 py-1 rounded-md border border-gray-400 md:w-72"
+            className="p-2 rounded-md border border-gray-400 md:w-72"
             placeholder="Search products..."
             type="text"
           />
@@ -92,10 +92,10 @@ const ProductManagement = () => {
           <p className="text-gray-500 text-lg font-medium">No products match "{searchText}"</p>
         </div>
       ) : (
-        <div className="bg-white shadow rounded overflow-x-auto">
-          <div className="max-h-screen md:max-h-[85vh] overflow-y-auto">
+        <div className="bg-white shadow rounded-lg overflow-x-auto">
+          <div className="max-h-screen md:max-h-[84vh] overflow-y-auto">
             <table className="min-w-full border text-center">
-              <thead className="bg-gray-100">
+              <thead className="bg-gray-200 sticky top-0 z-10">
                 <tr>
                   <th className="px-2 md:px-4 py-2 border">#</th>
                   <th className="px-2 md:px-4 py-2 border">Name</th>

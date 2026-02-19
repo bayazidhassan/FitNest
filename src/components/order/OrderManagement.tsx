@@ -210,10 +210,10 @@ const OrderManagement = ({ status }: OrderManagementProps) => {
 
       {/* DESKTOP: TABLE VIEW */}
       {orders.length > 0 && (
-        <div className="hidden md:block bg-white shadow border-gray-300 rounded overflow-x-auto">
+        <div className="hidden md:block bg-white shadow border-gray-300 rounded-lg overflow-x-auto">
           <div className="max-h-[70vh] overflow-y-auto">
             <table className="min-w-full border">
-              <thead className="bg-gray-100 sticky top-0 z-10">
+              <thead className="bg-gray-200 sticky top-0 z-10">
                 <tr>
                   <th className="p-2 border-r">Customer</th>
                   <th className="p-2 border-r">Items</th>
@@ -286,7 +286,7 @@ const OrderManagement = ({ status }: OrderManagementProps) => {
                           <button
                             disabled={isUpdating && activeOrderId === order._id}
                             onClick={() => handleUpdate(order._id, order.status, action1)}
-                            className="bg-[#0D9488] hover:bg-[#0a766f] text-white cursor-pointer px-3 py-1 rounded-sm disabled:cursor-not-allowed disabled:opacity-50"
+                            className="bg-[#0D9488] hover:bg-[#0a766f] border border-gray-300 shadow-lg font-semibold text-white cursor-pointer px-4 py-2 rounded-lg disabled:cursor-not-allowed disabled:opacity-50"
                           >
                             {isUpdating &&
                             activeOrderId === order._id &&
@@ -315,7 +315,7 @@ const OrderManagement = ({ status }: OrderManagementProps) => {
                             order.isAlreadyPaid
                               ? 'cursor-not-allowed'
                               : 'hover:bg-red-600 cursor-pointer'
-                          }  text-white px-3 py-1 rounded-sm disabled:cursor-not-allowed disabled:opacity-50`}
+                          }  text-white border border-gray-300 shadow-lg font-semibold px-4 py-2 rounded-lg disabled:cursor-not-allowed disabled:opacity-50`}
                         >
                           {isUpdating &&
                           activeOrderId === order._id &&

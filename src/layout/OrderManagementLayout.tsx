@@ -1,19 +1,19 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from 'react-router-dom';
 
 const OrderManagementLayout = () => {
   const orderTabs = [
-    { label: "Pending Orders", path: "pendingOrders" },
-    { label: "Confirmed Orders", path: "confirmedOrders" },
-    { label: "Processing Orders", path: "processingOrders" },
-    { label: "Shipped Orders", path: "shippedOrders" },
-    { label: "Delivered Orders", path: "deliveredOrders" },
-    { label: "Cancelled Orders", path: "cancelledOrders" },
+    { label: 'Pending Orders', path: 'pendingOrders' },
+    { label: 'Confirmed Orders', path: 'confirmedOrders' },
+    { label: 'Processing Orders', path: 'processingOrders' },
+    { label: 'Shipped Orders', path: 'shippedOrders' },
+    { label: 'Delivered Orders', path: 'deliveredOrders' },
+    { label: 'Cancelled Orders', path: 'cancelledOrders' },
   ];
 
   return (
     <div className="max-w-7xl mx-auto">
-      <h1 className="text-2xl font-bold border-b border-gray-300 pb-4 md:pb-2">Order Management</h1>
-      <div className="mt-4 grid grid-cols-2 md:grid-cols-6 gap-4">
+      <h1 className="text-2xl font-bold border-b border-gray-300 pb-6 md:pb-2">Order Management</h1>
+      <div className="mt-4 grid grid-cols-2 md:grid-cols-6 gap-2 md:gap-4">
         {orderTabs.map((tab) => (
           <NavLink
             key={tab.path}
@@ -21,8 +21,8 @@ const OrderManagementLayout = () => {
             className={({ isActive }) =>
               `text-center py-2 shadow border border-gray-300 rounded-md text-sm font-medium transition-colors ${
                 isActive
-                  ? "bg-[#0D9488] hover:bg-[#0a766f] text-white"
-                  : "bg-white hover:bg-gray-200 text-gray-700"
+                  ? 'bg-[#0D9488] hover:bg-[#0a766f] text-white'
+                  : 'bg-white hover:bg-gray-200 text-gray-700'
               }`
             }
           >

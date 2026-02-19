@@ -35,7 +35,7 @@ const AdminHome = () => {
 
       <div className="overflow-x-auto bg-white rounded-lg shadow">
         <table className="min-w-full border border-gray-200">
-          <thead className="bg-gray-100">
+          <thead className="bg-gray-200">
             <tr>
               <th className="text-left px-4 py-3 border-b font-semibold text-gray-700">Overview</th>
               <th className="text-left px-4 py-3 border-b font-semibold text-gray-700">Count</th>
