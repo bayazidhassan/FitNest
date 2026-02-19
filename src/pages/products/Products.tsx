@@ -261,7 +261,7 @@ const Products = () => {
                   <div className="mt-auto pt-3 flex flex-col md:flex-row justify-between gap-1 md:gap-2">
                     <Link
                       to={`/products/${product._id}`}
-                      className="flex-1 text-center bg-[#0D9488] font-semibold text-white p-2 rounded-lg border border-gray-300 shadow-lg hover:bg-[#0a766f] text-sm"
+                      className="flex-1 text-center bg-[#0D9488] font-semibold text-white p-2 rounded-md border border-gray-300 shadow-lg hover:bg-[#0a766f] text-sm"
                     >
                       View Details
                     </Link>
@@ -269,7 +269,7 @@ const Products = () => {
                       <DialogTrigger asChild>
                         <button
                           disabled={quantityInCart >= product.stock_quantity}
-                          className="cursor-pointer font-semibold disabled:cursor-default flex-1 text-center bg-[#F97316] text-white p-2 rounded-lg border border-gray-300 shadow-lg hover:bg-[#ea5f0d] text-sm disabled:opacity-40"
+                          className="cursor-pointer font-semibold disabled:cursor-default flex-1 text-center bg-[#F97316] text-white p-2 rounded-md border border-gray-300 shadow-lg hover:bg-[#ea5f0d] text-sm disabled:opacity-40"
                           onClick={() => {
                             dispatch(
                               addToCart({

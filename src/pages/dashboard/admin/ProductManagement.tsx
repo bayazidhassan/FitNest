@@ -62,7 +62,7 @@ const ProductManagement = () => {
           />
           <button
             onClick={handleAddProductOpen}
-            className="bg-[#0D9488] hover:bg-[#0a766f] text-white text-sm border border-gray-300 shadow-lg font-semibold px-4 py-2 rounded cursor-pointer"
+            className="bg-[#0D9488] hover:bg-[#0a766f] text-white text-sm border border-gray-300 shadow-lg font-semibold px-4 py-2 rounded-md cursor-pointer"
           >
             + ADD PRODUCT
           </button>
