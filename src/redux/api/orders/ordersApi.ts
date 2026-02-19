@@ -28,8 +28,31 @@ const ordersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Orders'],
     }),
+    getOrderStats: builder.query<
+      {
+        data: {
+          totalOrders: number;
+          pendingOrders: number;
+          confirmedOrders: number;
+          processingOrders: number;
+          shippedOrders: number;
+          deliveredOrders: number;
+          cancelledOrders: number;
+        };
+      },
+      void
+    >({
+      query: () => ({
+        url: '/order/orderStats',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { usePlaceOrderMutation, useGetOrdersByStatusQuery, useUpdateOrderStatusMutation } =
-  ordersApi;
+export const {
+  usePlaceOrderMutation,
+  useGetOrdersByStatusQuery,
+  useUpdateOrderStatusMutation,
+  useGetOrderStatsQuery,
+} = ordersApi;

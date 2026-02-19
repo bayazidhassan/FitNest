@@ -73,6 +73,12 @@ const productsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Products'],
     }),
+    countTotalProducts: builder.query<{ data: number }, void>({
+      query: () => ({
+        url: '/products/totalProducts',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -82,7 +88,8 @@ export const {
   useGetAProductQuery,
   useGetProductsBySearchQuery,
   useGetFeaturedProductsQuery,
-   useGetAllCategoriesQuery,
+  useGetAllCategoriesQuery,
   useUpdateAProductMutation,
   useDeleteAProductMutation,
+  useCountTotalProductsQuery,
 } = productsApi;
