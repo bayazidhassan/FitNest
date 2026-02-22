@@ -26,7 +26,7 @@ export default function FilterSidebar({
   const ClearButton = (
     <button
       onClick={clearFilters}
-      className="cursor-pointer font-semibold w-full border border-gray-300 shadow bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg"
+      className="cursor-pointer font-semibold w-full border border-red-800 shadow-md bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg"
     >
       Clear Filters
     </button>
@@ -35,7 +35,7 @@ export default function FilterSidebar({
   return (
     <div>
       {/* Price Slider */}
-      <div className="border border-gray-300 bg-white p-4 rounded-lg shadow-lg mb-6">
+      <div className="border border-gray-300 bg-gray-50 p-4 rounded-lg shadow-lg mb-6">
         <span className="font-semibold text-gray-700">Price Range:</span>
         <Box sx={{ width: '91%', ml: 1.3 }}>
           <Slider
@@ -54,13 +54,13 @@ export default function FilterSidebar({
         </Box>
       </div>
       {/* Category Filters */}
-      <div className="border border-gray-300 bg-white p-4 rounded-lg shadow-lg mb-6">
+      <div className="border border-gray-300 bg-gray-50 p-4 rounded-lg shadow-lg mb-6">
         <span className="font-semibold text-gray-700">Categories:</span>
         <div className="flex flex-col gap-2 mt-2">
           {categories.map((category: string) => (
             <label
               key={category}
-              className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-lg cursor-pointer hover:bg-gray-200"
+              className="flex items-center gap-2 bg-gray-200 px-3 py-1 rounded-md cursor-pointer hover:bg-gray-300"
             >
               <input
                 type="checkbox"

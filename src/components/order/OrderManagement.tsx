@@ -286,7 +286,7 @@ const OrderManagement = ({ status }: OrderManagementProps) => {
                           <button
                             disabled={isUpdating && activeOrderId === order._id}
                             onClick={() => handleUpdate(order._id, order.status, action1)}
-                            className="bg-[#0D9488] hover:bg-[#0a766f] border border-gray-300 shadow-lg font-semibold text-white cursor-pointer px-4 py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50"
+                            className="bg-[#0D9488] hover:bg-[#0a766f] border border-[#115E59] shadow-md font-semibold text-white cursor-pointer px-4 py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50"
                           >
                             {isUpdating &&
                             activeOrderId === order._id &&
@@ -315,7 +315,7 @@ const OrderManagement = ({ status }: OrderManagementProps) => {
                             order.isAlreadyPaid
                               ? 'cursor-not-allowed'
                               : 'hover:bg-red-600 cursor-pointer'
-                          }  text-white border border-gray-300 shadow-lg font-semibold px-4 py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50`}
+                          }  text-white border border-red-800 shadow-md font-semibold px-4 py-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50`}
                         >
                           {isUpdating &&
                           activeOrderId === order._id &&

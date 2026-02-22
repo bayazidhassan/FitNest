@@ -117,7 +117,7 @@ const Checkout = () => {
 
       <div className="flex flex-col md:flex-row gap-6">
         {/* LEFT: Form */}
-        <div className="border w-full md:w-2/3 bg-white p-6 rounded-lg shadow-lg flex flex-col gap-4">
+        <div className="border border-gray-300 w-full md:w-2/3 bg-gray-50 p-6 rounded-lg shadow-lg flex flex-col gap-4">
           <h2 className="text-xl font-semibold">Shipping & Billing Information</h2>
 
           <div className="flex gap-4">
@@ -201,7 +201,7 @@ const Checkout = () => {
         </div>
 
         {/* RIGHT: Order Summary + Payment */}
-        <div className="border w-full md:w-1/3 bg-white p-6 rounded-lg shadow-lg flex flex-col gap-4">
+        <div className="border border-gray-300 w-full md:w-1/3 bg-gray-50 p-6 rounded-lg shadow-lg flex flex-col gap-4">
           {/* Payment Method at Top */}
           <div>
             <span className="block mb-2 font-semibold">Payment Method:</span>
@@ -267,7 +267,7 @@ const Checkout = () => {
           {/* Place Order Button below Order Summary */}
           <button
             onClick={handlePlaceOrder}
-            className="cursor-pointer font-semibold mt-4 px-4 py-2 border border-gray-300 shadow bg-[#0D9488] hover:bg-[#0a766f] text-white rounded-lg"
+            className="cursor-pointer font-semibold mt-4 px-4 py-2 border border-[#115E59] shadow-md bg-[#0D9488] hover:bg-[#0a766f] text-white rounded-md"
           >
             Place Order
           </button>

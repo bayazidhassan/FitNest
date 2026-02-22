@@ -24,8 +24,8 @@ const ProductDetails = () => {
   }, [product]);
 
   if (isLoading) return <p className="text-center py-20 text-lg">Loading product...</p>;
-
-  if (error || !product) return <p className="text-center py-20 text-red-500">Product not found</p>;
+  if (error) return <p className="text-center py-20 text-red-500">Error loading product.</p>;
+  if (!product) return <p className="text-center py-20">Product not found.</p>;
 
   const itemInCart = cartItems.find((item) => item.product_id === product._id);
   const quantityInCart = itemInCart ? itemInCart.quantity : 0;
@@ -56,11 +56,11 @@ const ProductDetails = () => {
         <span className="mx-2">/</span>
         <span className="text-gray-700 font-medium">{product.name}</span>
       </div>
-      <div className="rounded-xl border shadow-lg p-4">
+      <div className="rounded-xl border border-gray-300 bg-gray-50 shadow-lg p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Images */}
           <div>
-            <div className="aspect-square max-w-sm md:max-w-md mx-auto shadow-md rounded-lg overflow-hidden border">
+            <div className="aspect-square max-w-sm md:max-w-md mx-auto shadow-md rounded-lg overflow-hidden bg-white border border-gray-300">
               <img
                 src={mainImage!}
                 alt={product.name}
@@ -117,7 +117,7 @@ const ProductDetails = () => {
             <button
               disabled={quantityInCart >= product.stock_quantity}
               onClick={handleAddToCart}
-              className="cursor-pointer border border-gray-300 shadow mt-6 w-full md:w-fit bg-[#F97316] text-white px-8 py-3 rounded-lg font-semibold
+              className="cursor-pointer border border-[#C2410C] shadow-md mt-6 w-full md:w-fit bg-[#F97316] text-white px-8 py-3 rounded-md font-semibold
                 hover:bg-[#ea5f0d] transition disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Add to Cart

@@ -247,7 +247,7 @@ const Products = () => {
               return (
                 <div
                   key={product._id}
-                  className="border border-gray-300 p-2 md:p-4 rounded-lg shadow-lg flex flex-col"
+                  className="border border-gray-300 bg-gray-50 p-2 md:p-4 rounded-lg shadow-lg flex flex-col"
                 >
                   <div className="w-full h-28 md:h-40 overflow-hidden rounded">
                     <img
@@ -261,7 +261,7 @@ const Products = () => {
                   <div className="mt-auto pt-3 flex flex-col md:flex-row justify-between gap-1 md:gap-2">
                     <Link
                       to={`/products/${product._id}`}
-                      className="flex-1 text-center bg-[#0D9488] font-semibold text-white p-2 rounded-md border border-gray-300 shadow-lg hover:bg-[#0a766f] text-sm"
+                      className="flex-1 text-center bg-[#0D9488] font-semibold text-white p-2 rounded-md border border-[#115E59] shadow-md hover:bg-[#0a766f] text-sm"
                     >
                       View Details
                     </Link>
@@ -269,7 +269,7 @@ const Products = () => {
                       <DialogTrigger asChild>
                         <button
                           disabled={quantityInCart >= product.stock_quantity}
-                          className="cursor-pointer font-semibold disabled:cursor-default flex-1 text-center bg-[#F97316] text-white p-2 rounded-md border border-gray-300 shadow-lg hover:bg-[#ea5f0d] text-sm disabled:opacity-40"
+                          className="cursor-pointer font-semibold disabled:cursor-default flex-1 text-center bg-[#F97316] text-white p-2 rounded-md border border-[#C2410C] shadow-md hover:bg-[#ea5f0d] text-sm disabled:opacity-40"
                           onClick={() => {
                             dispatch(
                               addToCart({
@@ -295,11 +295,15 @@ const Products = () => {
                         <DialogFooter className="flex flex-row justify-center gap-2 sm:flex-row">
                           <DialogClose asChild>
                             <Link to="/cart">
-                              <Button variant="outline">View Cart</Button>
+                              <Button className="cursor-pointer border border-[#C2410C] bg-[#F97316] hover:bg-[#ea5f0d]">
+                                View Cart
+                              </Button>
                             </Link>
                           </DialogClose>
                           <DialogClose asChild>
-                            <Button>Continue Shopping</Button>
+                            <Button className="cursor-pointer border border-[#115E59] bg-[#0D9488] hover:bg-[#0a766f]">
+                              Continue Shopping
+                            </Button>
                           </DialogClose>
                         </DialogFooter>
                       </DialogContent>

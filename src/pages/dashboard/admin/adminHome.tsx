@@ -33,7 +33,7 @@ const AdminHome = () => {
     <div>
       <h1 className="text-2xl font-bold mb-6 text-gray-800">Dashboard</h1>
 
-      <div className="overflow-x-auto bg-white rounded-lg shadow">
+      <div className="overflow-x-auto bg-white border border-gray-300 rounded-lg shadow-md">
         <table className="min-w-full border border-gray-200">
           <thead className="bg-gray-200">
             <tr>
@@ -44,7 +44,7 @@ const AdminHome = () => {
 
           <tbody>
             {stats.map((item, index) => (
-              <tr key={index} className="hover:bg-gray-50 transition">
+              <tr key={index} className="hover:bg-gray-100 transition">
                 <td className="px-4 py-3 border-b text-gray-600">{item.label}</td>
                 <td className="px-4 py-3 border-b font-semibold text-gray-800">{item.value}</td>
               </tr>

@@ -49,7 +49,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="border-t border-gray-700 mt-4 md:mt-8 pt-4 text-center text-gray-400 text-sm">
+      <div className="border-t border-gray-700 mt-4 pt-4 text-center text-gray-400 text-sm">
         &copy; {new Date().getFullYear()} FitNest. All rights reserved.
       </div>
     </footer>

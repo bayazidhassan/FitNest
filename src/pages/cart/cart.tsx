@@ -54,7 +54,7 @@ const Cart = () => {
 
         <Link
           to="/products"
-          className="mt-4 px-4 py-2 font-semibold border border-gray-300 shadow bg-[#F97316] text-white rounded-lg hover:bg-[#ea5f0d] transition"
+          className="mt-4 px-4 py-2 font-semibold border border-[#C2410C] shadow-md bg-[#F97316] text-white rounded-lg hover:bg-[#ea5f0d] transition"
         >
           Browse Products
         </Link>
@@ -73,7 +73,7 @@ const Cart = () => {
           {cartItems.map((product, index) => (
             <div
               key={product.product_id}
-              className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border rounded-lg shadow-lg hover:shadow-md transition bg-white"
+              className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border border-gray-300 rounded-lg shadow-lg hover:shadow-md hover:bg-gray-100 transition"
             >
               {/* Product Info */}
               <div className="flex items-start sm:items-center gap-4 w-full sm:w-2/3">
@@ -94,7 +94,7 @@ const Cart = () => {
                 {/* DELETE */}
                 <button
                   onClick={() => handleOpen(product.product_id)}
-                  className="cursor-pointer text-sm text-red-500 hover:underline transition"
+                  className="cursor-pointer text-sm text-red-500 hover:font-medium hover:underline transition"
                 >
                   Delete
                 </button>
@@ -106,19 +106,21 @@ const Cart = () => {
                       dispatch(updateQuantity({ id: product.product_id, type: 'dec' }))
                     }
                     disabled={product.quantity === 1}
-                    className="cursor-pointer w-8 h-8 flex items-center justify-center bg-[#0D9488] text-white rounded-full hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                    className="cursor-pointer w-8 h-8 flex items-center justify-center bg-[#F97316] text-white rounded-full hover:bg-[#ea5f0d] disabled:opacity-40 disabled:cursor-not-allowed transition"
                   >
                     -
                   </button>
 
-                  <span className="px-3 py-1 border rounded text-gray-700">{product.quantity}</span>
+                  <span className="px-3 py-1 bg-gray-100 border border-gray-300 rounded text-gray-700">
+                    {product.quantity}
+                  </span>
 
                   <button
                     onClick={() =>
                       dispatch(updateQuantity({ id: product.product_id, type: 'inc' }))
                     }
                     disabled={product.quantity === product.stock_quantity}
-                    className="cursor-pointer w-8 h-8 flex items-center justify-center bg-[#0D9488] text-white rounded-full hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                    className="cursor-pointer w-8 h-8 flex items-center justify-center shadow-md bg-[#0D9488] text-white rounded-full hover:bg-[#0a766f] disabled:opacity-40 disabled:cursor-not-allowed transition"
                   >
                     +
                   </button>
@@ -134,7 +136,7 @@ const Cart = () => {
         </div>
 
         {/* RIGHT SIDE – SUMMARY */}
-        <div className="w-full md:w-1/3 p-6 border rounded-lg shadow-lg bg-white h-fit md:sticky md:top-24">
+        <div className="w-full md:w-1/3 p-6 border border-gray-300 rounded-lg shadow-lg bg-gray-50 h-fit md:sticky md:top-24">
           <h2 className="text-xl font-semibold text-gray-700 mb-4">Cart Summary</h2>
 
           <div className="flex justify-between text-gray-600 mb-2">
@@ -151,14 +153,14 @@ const Cart = () => {
 
           <button
             onClick={() => dispatch(clearCart())}
-            className="cursor-pointer w-full border font-semibold border-gray-300 shadow px-4 py-2 mb-2 bg-[#F97316] text-white rounded-lg hover:bg-[#ea5f0d] transition"
+            className="cursor-pointer w-full border font-semibold border-[#C2410C] shadow-md px-4 py-2 mb-2 bg-[#F97316] text-white rounded-md hover:bg-[#ea5f0d] transition"
           >
             Clear Cart
           </button>
 
           <Link
             to="/checkout"
-            className="block text-center w-full border font-semibold border-gray-300 shadow px-4 py-2 bg-[#0D9488] text-white rounded-lg hover:bg-[#0a766f] transition"
+            className="block text-center w-full border font-semibold border-[#115E59] shadow-md px-4 py-2 bg-[#0D9488] text-white rounded-md hover:bg-[#0a766f] transition"
           >
             Checkout
           </Link>
