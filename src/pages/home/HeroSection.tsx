@@ -2,11 +2,11 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import bgImage1 from '../../assets/images/pic-1.jpg';
-import bgImage2 from '../../assets/images/pic-2.jpg';
-import bgImage3 from '../../assets/images/pic-3.jpg';
-import bgImage4 from '../../assets/images/pic-4.jpg';
-import bgImage5 from '../../assets/images/pic-5.jpg';
+import bgImage1 from '../../assets/images/pic-1.webp';
+import bgImage2 from '../../assets/images/pic-2.webp';
+import bgImage3 from '../../assets/images/pic-3.webp';
+import bgImage4 from '../../assets/images/pic-4.webp';
+import bgImage5 from '../../assets/images/pic-5.webp';
 
 const HeroSection = () => {
   /*
