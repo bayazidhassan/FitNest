@@ -19,7 +19,7 @@ const OrderManagementLayout = () => {
             key={tab.path}
             to={tab.path}
             className={({ isActive }) =>
-              `text-center py-2 shadow-md rounded-md text-sm font-medium transition-colors ${
+              `text-center py-2 shadow-md rounded-md transition-colors ${
                 isActive
                   ? 'bg-[#0D9488] hover:bg-[#0a766f] border border-[#115E59] text-white'
                   : 'bg-white border border-gray-300 hover:bg-gray-200 text-gray-700'

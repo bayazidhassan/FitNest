@@ -56,11 +56,11 @@ const ProductDetails = () => {
         <span className="mx-2">/</span>
         <span className="text-gray-700 font-medium">{product.name}</span>
       </div>
-      <div className="rounded-xl border border-gray-300 bg-gray-50 shadow-lg p-4">
+      <div className="rounded-xl border border-gray-300 bg-gray-50 shadow-md p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Images */}
           <div>
-            <div className="aspect-square max-w-sm md:max-w-md mx-auto shadow-md rounded-lg overflow-hidden bg-white border border-gray-300">
+            <div className="aspect-square max-w-sm md:max-w-md mx-auto shadow rounded-lg overflow-hidden bg-white border border-gray-300">
               <img
                 src={mainImage!}
                 alt={product.name}

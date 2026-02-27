@@ -35,7 +35,7 @@ export default function FilterSidebar({
   return (
     <div>
       {/* Price Slider */}
-      <div className="border border-gray-300 bg-gray-50 p-4 rounded-lg shadow-lg mb-6">
+      <div className="border border-gray-300 bg-gray-50 p-4 rounded-lg shadow-md mb-6">
         <span className="font-semibold text-gray-700">Price Range:</span>
         <Box sx={{ width: '91%', ml: 1.3 }}>
           <Slider
@@ -54,7 +54,7 @@ export default function FilterSidebar({
         </Box>
       </div>
       {/* Category Filters */}
-      <div className="border border-gray-300 bg-gray-50 p-4 rounded-lg shadow-lg mb-6">
+      <div className="border border-gray-300 bg-gray-50 p-4 rounded-lg shadow-md mb-6">
         <span className="font-semibold text-gray-700">Categories:</span>
         <div className="flex flex-col gap-2 mt-2">
           {categories.map((category: string) => (

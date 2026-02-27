@@ -247,7 +247,7 @@ const Products = () => {
               return (
                 <div
                   key={product._id}
-                  className="border border-gray-300 bg-gray-50 p-2 md:p-4 rounded-lg shadow-lg flex flex-col"
+                  className="border border-gray-300 bg-gray-50 p-2 md:p-4 rounded-lg shadow-md flex flex-col"
                 >
                   <div className="w-full h-28 md:h-40 overflow-hidden rounded">
                     <img
