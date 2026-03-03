@@ -16,8 +16,8 @@ createRoot(document.getElementById('root')!).render(
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           {/* TooltipProvider */}
-          <TooltipProvider delayDuration={200}>
-            {/* globally declare Toast container */}
+          <TooltipProvider>
+            {/* Toast Container */}
             <Toaster position="top-center" />
             <RouterProvider router={router} />
           </TooltipProvider>
