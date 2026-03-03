@@ -16,6 +16,7 @@ import { clearCart } from '../../redux/features/cart/addToCartSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { persistor } from '../../redux/store';
 import type { TProduct } from '../../types/TProduct';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip.tsx';
 
 const NavBar = () => {
   const user = useAppSelector((state) => state.auth);
@@ -202,37 +203,47 @@ const NavBar = () => {
               Login
             </NavLink>
           ) : (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                {user?.image ? (
-                  <img
-                    src={user.image}
-                    alt={`${user.firstName} ${user.lastName}`}
-                    className="w-8 h-8 rounded-full cursor-pointer object-cover"
-                  />
-                ) : (
-                  <CircleUserRound className="w-8 h-8 cursor-pointer text-gray-500" />
-                )}
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-[#334155] space-y-2 p-4 rounded-lg">
-                <h1 className="flex justify-center items-center text-white font-semibold border-b border-white pb-2 mb-2">
-                  {user.firstName + ' ' + user.lastName}
-                </h1>
-                <DropdownMenuItem asChild>
-                  <Link
-                    to={`/dashboard/${user.role}`}
-                    className="cursor-pointer border border-white text-white"
-                  >
-                    Dashboard
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild onClick={handleLogout}>
-                  <button className="w-full inline bg-red-500 cursor-pointer text-white">
-                    Logout
-                  </button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <TooltipProvider>
+              <DropdownMenu>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <DropdownMenuTrigger asChild>
+                      {user?.image ? (
+                        <img
+                          src={user.image}
+                          alt={`${user.firstName} ${user.lastName}`}
+                          className="w-8 h-8 rounded-full cursor-pointer object-cover"
+                        />
+                      ) : (
+                        <CircleUserRound className="w-8 h-8 cursor-pointer text-gray-500" />
+                      )}
+                    </DropdownMenuTrigger>
+                  </TooltipTrigger>
+
+                  <TooltipContent>
+                    <p>Profile</p>
+                  </TooltipContent>
+                </Tooltip>
+                <DropdownMenuContent className="bg-[#334155] space-y-2 p-4 rounded-lg">
+                  <h1 className="flex justify-center items-center text-white font-semibold border-b border-white pb-2 mb-2">
+                    {user.firstName + ' ' + user.lastName}
+                  </h1>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      to={`/dashboard/${user.role}`}
+                      className="cursor-pointer border border-white text-white"
+                    >
+                      Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild onClick={handleLogout}>
+                    <button className="w-full inline bg-red-500 cursor-pointer text-white">
+                      Logout
+                    </button>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </TooltipProvider>
           )}
         </div>
 
