@@ -212,7 +212,7 @@ const NavBar = () => {
                         <img
                           src={user.image}
                           alt={`${user.firstName} ${user.lastName}`}
-                          className="w-8 h-8 rounded-full cursor-pointer object-cover"
+                          className="w-8 h-8 border border-[#F97316] rounded-full cursor-pointer object-cover"
                         />
                       ) : (
                         <CircleUserRound className="w-8 h-8 cursor-pointer text-gray-500" />
