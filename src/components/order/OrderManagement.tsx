@@ -210,9 +210,9 @@ const OrderManagement = ({ status }: OrderManagementProps) => {
 
       {/* DESKTOP: TABLE VIEW */}
       {orders.length > 0 && (
-        <div className="hidden md:block bg-white shadow border-gray-300 rounded-lg overflow-x-auto">
+        <div className="hidden md:block bg-white shadow border border-gray-400 rounded-lg overflow-x-auto">
           <div className="max-h-[70vh] overflow-y-auto">
-            <table className="min-w-full border border-gray-400">
+            <table className="min-w-full">
               <thead className="bg-gray-200 sticky top-0 z-10">
                 <tr>
                   <th className="p-2 border-r">Customer</th>
