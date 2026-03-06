@@ -160,7 +160,7 @@ const Products = () => {
             <div className="hidden md:flex items-center gap-2">
               <label className="text-sm font-semibold">Show:</label>
               <select
-                className="border border-gray-300 rounded-lg px-1 py-1"
+                className="border border-gray-400 rounded-lg px-1 py-1"
                 value={itemsPerPage}
                 onChange={(e) => {
                   setItemsPerPage(Number(e.target.value));
@@ -178,7 +178,7 @@ const Products = () => {
             <input
               type="text"
               placeholder="Search products..."
-              className="hidden md:block border border-gray-300 rounded-lg px-2 py-1 w-2/5"
+              className="hidden md:block border border-gray-400 rounded-lg px-2 py-1 w-2/5"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />
@@ -186,7 +186,7 @@ const Products = () => {
             <div className="flex items-center gap-2">
               <label className="text-sm font-semibold">Sort by:</label>
               <select
-                className="border border-gray-300 rounded-lg p-1 text-sm md:text-base"
+                className="border border-gray-400 rounded-lg p-1 text-sm md:text-base"
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value as 'default' | 'asc' | 'desc')}
               >
@@ -247,7 +247,7 @@ const Products = () => {
               return (
                 <div
                   key={product._id}
-                  className="border border-gray-300 bg-gray-50 p-2 md:p-4 rounded-lg shadow-md flex flex-col"
+                  className="border border-gray-400 bg-gray-50 p-2 md:p-4 rounded-lg shadow-md flex flex-col"
                 >
                   <div className="w-full h-28 md:h-40 overflow-hidden rounded">
                     <img
