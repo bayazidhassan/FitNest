@@ -212,7 +212,7 @@ const OrderManagement = ({ status }: OrderManagementProps) => {
       {orders.length > 0 && (
         <div className="hidden md:block bg-white shadow border-gray-300 rounded-lg overflow-x-auto">
           <div className="max-h-[70vh] overflow-y-auto">
-            <table className="min-w-full border">
+            <table className="min-w-full border border-gray-400">
               <thead className="bg-gray-200 sticky top-0 z-10">
                 <tr>
                   <th className="p-2 border-r">Customer</th>

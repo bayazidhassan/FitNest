@@ -33,7 +33,7 @@ const AdminHome = () => {
     <div>
       <h1 className="text-2xl font-bold mb-6 text-gray-800">Dashboard</h1>
 
-      <div className="overflow-x-auto bg-white border border-gray-300 rounded-lg shadow-md">
+      <div className="overflow-x-auto bg-white border border-gray-400 rounded-lg shadow-md">
         <table className="min-w-full border border-gray-200">
           <thead className="bg-gray-200">
             <tr>

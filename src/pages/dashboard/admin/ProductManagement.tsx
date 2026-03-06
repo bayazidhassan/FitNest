@@ -87,7 +87,7 @@ const ProductManagement = () => {
           <p className="text-gray-500 text-lg font-medium">No products match "{searchText}"</p>
         </div>
       ) : (
-        <div className="bg-white shadow rounded-lg overflow-x-auto">
+        <div className="bg-white shadow border border-gray-400 rounded-lg overflow-x-auto">
           <div className="max-h-screen md:max-h-[84vh] overflow-y-auto">
             <table className="min-w-full border text-center">
               <thead className="bg-gray-200 sticky top-0 z-10">
