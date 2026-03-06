@@ -73,7 +73,7 @@ const Cart = () => {
           {cartItems.map((product, index) => (
             <div
               key={product.product_id}
-              className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border border-gray-300 bg-gray-50 rounded-lg shadow-md hover:shadow hover:bg-gray-100 transition"
+              className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border border-gray-400 bg-gray-50 rounded-lg shadow-md hover:shadow-none hover:bg-gray-100 transition"
             >
               {/* Product Info */}
               <div className="flex items-start sm:items-center gap-4 w-full sm:w-2/3">
@@ -136,7 +136,7 @@ const Cart = () => {
         </div>
 
         {/* RIGHT SIDE – SUMMARY */}
-        <div className="w-full md:w-1/3 p-6 border border-gray-300 rounded-lg shadow-md bg-gray-50 h-fit">
+        <div className="w-full md:w-1/3 p-6 border border-gray-400 rounded-lg shadow-md bg-gray-50 h-fit">
           <h2 className="text-xl font-semibold text-gray-700 mb-4">Cart Summary</h2>
 
           <div className="flex justify-between text-gray-600 mb-2">
