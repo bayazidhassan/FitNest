@@ -53,7 +53,7 @@ const Login = () => {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 md:px-0">
-      <div className="bg-white border shadow-xl rounded-lg p-6 w-full max-w-sm">
+      <div className="bg-white border border-gray-400 shadow-lg rounded-lg p-6 w-full max-w-sm">
         <div className="flex justify-between">
           <h2 className="text-3xl font-bold text-center text-[#0D9488] mb-6">Login</h2>
           <Link to="/">

@@ -5,7 +5,7 @@ import NavBar from '../components/navbar/NavBar';
 const MainLayout = () => {
   const { pathname } = useLocation();
   // Route where footer should NOT appear
-  const hideFooterRoutes = ['/aboutUs', '/login', '/register'];
+  const hideFooterRoutes = ['/aboutUs', '/login', '/registration'];
 
   const shouldHideFooter = hideFooterRoutes.includes(pathname);
 
