@@ -122,16 +122,16 @@ const Products = () => {
     );
 
   return (
-    <div className="p-3 md:p-0 max-w-7xl mx-auto">
+    <div className="-mt-3 md:mt-0 p-3 md:p-0 max-w-7xl mx-auto">
       {/* Row 1: Title + Search */}
       <div className="flex flex-col justify-between items-center gap-4 md:gap-0 mb-2 md:mb-6">
         <h1 className="text-3xl font-bold text-[#0D9488]">Our Products</h1>
-        <div className="flex justify-between items-center gap-2">
+        <div className="w-full flex justify-between items-center gap-2">
           <h1 className="md:hidden text-sm font-semibold">Search:</h1>
           <input
             type="text"
             placeholder="Search products..."
-            className="flex md:hidden border border-gray-300 rounded-lg px-2 py-1"
+            className="w-full flex md:hidden border border-gray-400 rounded-lg px-2 py-1"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
@@ -202,7 +202,7 @@ const Products = () => {
                   <div className="flex items-center gap-2">
                     <h1 className="text-sm font-semibold">Filter:</h1>
                     <SheetTrigger asChild>
-                      <Button variant="outline" className="w-10 h-8 border border-gray-300">
+                      <Button variant="outline" className="w-10 h-8 border border-gray-400">
                         <ListFilter />
                       </Button>
                     </SheetTrigger>
