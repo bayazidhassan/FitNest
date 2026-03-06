@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { FaCcStripe } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import usePageTitle from '../../hooks/usePageTitle';
 import { usePlaceOrderMutation } from '../../redux/api/orders/ordersApi';
@@ -117,7 +118,7 @@ const Checkout = () => {
 
       <div className="flex flex-col md:flex-row gap-6">
         {/* LEFT: Form */}
-        <div className="border border-gray-300 w-full md:w-2/3 bg-gray-50 p-6 rounded-lg shadow-lg flex flex-col gap-4">
+        <div className="border border-gray-400 w-full md:w-2/3 bg-gray-50 p-6 rounded-lg shadow-md flex flex-col gap-4">
           <h2 className="text-xl font-semibold">Shipping & Billing Information</h2>
 
           <div className="flex gap-4">
@@ -201,13 +202,13 @@ const Checkout = () => {
         </div>
 
         {/* RIGHT: Order Summary + Payment */}
-        <div className="border border-gray-300 w-full md:w-1/3 bg-gray-50 p-6 rounded-lg shadow-lg flex flex-col gap-4">
+        <div className="border border-gray-400 w-full md:w-1/3 bg-gray-50 p-6 rounded-lg shadow-md flex flex-col gap-4">
           {/* Payment Method at Top */}
           <div>
             <span className="block mb-2 font-semibold">Payment Method:</span>
             <div className="flex flex-col gap-2">
               <label
-                className={`flex items-center gap-3 p-2 border rounded cursor-pointer hover:bg-gray-50 ${
+                className={`flex items-center gap-3 p-2 border rounded cursor-pointer hover:bg-gray-100 ${
                   form.paymentMethod === 'cod' ? 'border-[#F97316]' : 'border-gray-300'
                 }`}
               >
@@ -223,19 +224,24 @@ const Checkout = () => {
               </label>
 
               <label
-                className={`flex items-center gap-3 p-2 border rounded cursor-pointer hover:bg-gray-50 ${
+                className={`border rounded cursor-pointer hover:bg-gray-100 ${
                   form.paymentMethod === 'online' ? 'border-[#F97316]' : 'border-gray-300'
                 }`}
               >
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="online"
-                  checked={form.paymentMethod === 'online'}
-                  onChange={handleChange}
-                  className="accent-[#F97316]"
-                />
-                <span>Online Payment</span>
+                <div className="flex items-center justify-between p-2">
+                  <div className="flex gap-3">
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="online"
+                      checked={form.paymentMethod === 'online'}
+                      onChange={handleChange}
+                      className="accent-[#F97316]"
+                    />
+                    <span>Online Payment</span>
+                  </div>
+                  <FaCcStripe color="#635BFF" size={30} />
+                </div>
               </label>
             </div>
           </div>
