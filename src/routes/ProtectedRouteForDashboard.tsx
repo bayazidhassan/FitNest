@@ -1,14 +1,23 @@
-import { Navigate, Outlet, useLoaderData } from "react-router-dom";
-import { useAppSelector } from "../redux/hook";
+import { Navigate, Outlet, useLoaderData } from 'react-router-dom';
+import { logout } from '../redux/features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hook';
+import { verifyToken } from '../utils/verifyToken';
 
 const ProtectedRouteForDashboard = () => {
-  const { role, token } = useAppSelector((state) => state.auth);
-  const data = useLoaderData() as { role: "user" | "admin" };
+  const { token } = useAppSelector((state) => state.auth);
+  const data = useLoaderData() as { role: 'user' | 'admin' };
+  const dispatch = useAppDispatch();
 
-  if (!token) {
+  let user;
+  if (token) {
+    user = verifyToken(token);
+  }
+
+  if (user?.role !== data.role) {
+    dispatch(logout());
     return <Navigate to="/login" replace></Navigate>;
   }
-  if (role !== data.role) {
+  if (!token) {
     return <Navigate to="/login" replace></Navigate>;
   }
 
